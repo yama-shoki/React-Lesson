@@ -45,9 +45,17 @@ export const DemoCard = ({
   showRenderCount?: boolean;
   children: React.ReactNode;
 }) => {
-  const { pinned, selectSnippet } = useCodePane();
+  const { active, pinned, selectSnippet } = useCodePane();
   const label = toneLabel[tone];
-  const isPinned = sourcePath !== undefined && pinned === sourcePath;
+
+  /**
+   * 読み進めてこのデモの話題に入ったときと、コードボタンを押したときの両方で光らせる。
+   * 「いま解説している画面はここ」「そのコードはこれ」を線で結ぶことで、
+   * 文章とコードと画面の三つが同じものを指していると分かる。
+   */
+  const isPinned =
+    sourcePath !== undefined &&
+    (pinned === sourcePath || active?.snippetId === sourcePath);
 
   return (
     <div

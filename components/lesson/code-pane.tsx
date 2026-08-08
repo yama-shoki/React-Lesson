@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { Snippet } from "@/lib/code";
 import { Maximize2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useCodePane } from "./code-pane-context";
 
 /**
@@ -153,33 +154,41 @@ export const CodePane = () => {
         <CodeBlock snippet={current} lines={lines} scrollToHighlight />
       </div>
 
-      {expanded && (
-        <div className="fixed inset-0 z-50 flex flex-col gap-2 bg-background/97 p-4 backdrop-blur md:p-8">
-          <div className="flex items-start gap-2">
-            <FileTabs
-              snippets={snippets}
-              currentId={current.id}
-              onSelect={selectSnippet}
-            />
-            <button
-              type="button"
-              onClick={() => setExpanded(false)}
-              aria-label="閉じる"
-              className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              <X className="size-4" />
-            </button>
-          </div>
+      {/*
+        拡大パネルは body の直下に出す。
+        この場所のまま fixed にすると、サイドバーやヘッダーの下に潜り込んでしまう
+        （祖先の配置やぼかしが fixed の基準を作ってしまうため）。
+      */}
+      {expanded &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="fixed inset-0 z-[100] flex flex-col gap-2 bg-background p-4 md:p-8">
+            <div className="flex items-start gap-2">
+              <FileTabs
+                snippets={snippets}
+                currentId={current.id}
+                onSelect={selectSnippet}
+              />
+              <button
+                type="button"
+                onClick={() => setExpanded(false)}
+                aria-label="閉じる"
+                className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
 
-          <div className="min-h-0 flex-1">
-            <CodeBlock snippet={current} lines={lines} expanded />
-          </div>
+            <div className="min-h-0 flex-1">
+              <CodeBlock snippet={current} lines={lines} expanded />
+            </div>
 
-          <p className="text-center text-xs text-muted-foreground">
-            Esc で閉じる
-          </p>
-        </div>
-      )}
+            <p className="text-center text-xs text-muted-foreground">
+              Esc で閉じる
+            </p>
+          </div>,
+          document.body
+        )}
     </>
   );
 };
