@@ -55,6 +55,7 @@ export const curriculum: Part[] = [
         slug: "destructuring",
         title: "分割代入とスプレッド構文",
         summary: "props の正体を読み解くための前提知識",
+        ready: true,
       },
       {
         slug: "truthy-falsy",
