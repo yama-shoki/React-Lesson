@@ -100,7 +100,7 @@ export const loadSnippets = async (
  * @param from この文字列を含む最初の行が開始行になる
  * @param to  省略すると 1 行だけ。指定すると、開始行以降でこの文字列を含む行までが範囲になる
  */
-export const findRange = (
+const findRange = (
   snippet: Snippet,
   from: string,
   to?: string

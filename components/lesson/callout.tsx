@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Info, Lightbulb, TriangleAlert } from "lucide-react";
 
-type Variant = "note" | "warn" | "key";
+// "key" にすると React の key と紛らわしいので "point"
+type Variant = "note" | "warn" | "point";
 
 const variants: Record<
   Variant,
@@ -20,7 +21,7 @@ const variants: Record<
     iconClassName: "text-amber-600 dark:text-amber-500",
   },
   // 鍵のアイコンは React の key と紛らわしいので使わない
-  key: {
+  point: {
     icon: Lightbulb,
     label: "ここが要点",
     className: "border-foreground/25 bg-foreground/[0.04]",

@@ -48,8 +48,7 @@ export const Quiz = ({
                 onClick={() => setSelected(index)}
                 aria-pressed={isSelected}
                 className={cn(
-                  "flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition-colors",
-                  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                  "focus-ring flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition-colors",
                   !answered && "hover:border-foreground/30 hover:bg-muted/60",
                   answered &&
                     option.correct &&

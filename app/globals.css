@@ -140,7 +140,6 @@
      「この画面はこの行から出ている」と一目で分かるようにする */
   --connection: oklch(0.55 0.21 258);
   --code-line-active: oklch(0.93 0.055 258);
-  --code-line-marker: var(--connection);
 }
 
 /* いまはライト固定で運用しているが、shadcn のテーマ定義に合わせて対の値を置いてある */
@@ -148,7 +147,6 @@
   --code-bg: oklch(0.17 0 0);
   --connection: oklch(0.7 0.17 258);
   --code-line-active: oklch(0.32 0.07 258);
-  --code-line-marker: var(--connection);
 }
 
 /* ---------- 読み物 ---------- */
@@ -284,7 +282,15 @@
    全体を読みたいときに読めないコードは、教材としてそもそも機能しない */
 .shiki .line[data-active="true"] {
   background-color: var(--code-line-active);
-  border-left-color: var(--code-line-marker);
+  border-left-color: var(--connection);
+}
+
+/* ---------- 共通のふるまい ---------- */
+
+/* キーボードで操作している人に、いまどこにいるかを示す */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* shiki のデュアルテーマ。ダークモードは CSS 側で切り替える */

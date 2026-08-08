@@ -1,87 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import type { Snippet } from "@/lib/code";
+import { cn } from "@/lib/utils";
 import { Maximize2, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { CodeBlock } from "./code-block";
 import { useCodePane } from "./code-pane-context";
-
-/**
- * shiki が作った HTML を描画し、指定された行に色を乗せる。
- *
- * shiki の出力には各行に data-line が入っているので（lib/code.ts の transformer）、
- * それを目印にして DOM 側で属性を付け替えている。
- * 行が変わるたびにサーバーへ問い合わせに行く必要がない。
- */
-const CodeBlock = ({
-  snippet,
-  lines,
-  scrollToHighlight,
-  className,
-}: {
-  snippet: Snippet;
-  lines?: readonly [number, number];
-  /** 右ペインでは注目行まで自動で送る。インライン表示では動かさない */
-  scrollToHighlight?: boolean;
-  /** 高さの決め方は置かれる場所によって違うので、外から渡す */
-  className?: string;
-}) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const start = lines?.[0];
-  const end = lines?.[1];
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let firstActive: HTMLElement | null = null;
-
-    for (const line of container.querySelectorAll<HTMLElement>("[data-line]")) {
-      const lineNumber = Number(line.dataset.line);
-      const isActive =
-        start !== undefined && end !== undefined
-          ? lineNumber >= start && lineNumber <= end
-          : false;
-
-      line.dataset.active = String(isActive);
-      if (isActive && !firstActive) firstActive = line;
-    }
-
-    if (!scrollToHighlight) return;
-
-    // 注目行がないとき（ファイル全体を見せるとき）は先頭から読ませる。
-    // 前に見ていた位置が残っていると、いきなり途中から始まって戸惑う
-    if (!firstActive) {
-      container.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
-    // scrollIntoView は祖先のスクロール位置まで動かしてしまい、
-    // 読んでいる本文が飛ぶことがある。このコンテナだけを動かす
-    const target = firstActive.offsetTop - container.clientHeight / 2;
-    container.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
-  }, [snippet.id, start, end, scrollToHighlight]);
-
-  return (
-    <div
-      ref={scrollRef}
-      // 右ペインだけが線の行き先になる（本文中や拡大表示は対象外）
-      data-code-pane={scrollToHighlight ? "" : undefined}
-      className={cn(
-        "code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]",
-        className
-      )}
-    >
-      {/*
-        ここに入るのは、このリポジトリのソースファイルを shiki がハイライトした HTML だけ。
-        shiki はコード中の記号をエスケープしたうえで <span> を組み立てるので、
-        外部からの入力が混ざる経路はない。
-      */}
-      <div dangerouslySetInnerHTML={{ __html: snippet.html }} />
-    </div>
-  );
-};
 
 /** ファイル名のタブ */
 const FileTabs = ({
@@ -100,8 +25,7 @@ const FileTabs = ({
         type="button"
         onClick={() => onSelect(snippet.id)}
         className={cn(
-          "rounded-md px-2.5 py-1 font-mono text-xs transition-colors",
-          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+          "focus-ring rounded-md px-2.5 py-1 font-mono text-xs transition-colors",
           snippet.id === currentId
             ? "bg-foreground text-background"
             : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -111,6 +35,27 @@ const FileTabs = ({
       </button>
     ))}
   </div>
+);
+
+/** 拡大・閉じるなど、コードペインの隅に置く小さなボタン */
+const IconButton = ({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    aria-label={label}
+    title={label}
+    className="focus-ring shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+  >
+    {children}
+  </button>
 );
 
 /** 右ペイン本体。解説のスクロールに合わせて中身が入れ替わる */
@@ -137,29 +82,27 @@ export const CodePane = () => {
 
   const lines = active?.snippetId === current.id ? active.lines : undefined;
 
+  const tabs = (
+    <FileTabs
+      snippets={snippets}
+      currentId={current.id}
+      onSelect={selectSnippet}
+    />
+  );
+
   return (
     <>
       <div className="flex h-full flex-col gap-2">
         <div className="flex items-start gap-2">
-          <FileTabs
-            snippets={snippets}
-            currentId={current.id}
-            onSelect={selectSnippet}
-          />
-          <button
-            type="button"
-            onClick={() => setExpanded(true)}
-            aria-label="コードを拡大する"
-            title="コードを拡大する"
-            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
+          {tabs}
+          <IconButton label="コードを拡大する" onClick={() => setExpanded(true)}>
             <Maximize2 className="size-4" />
-          </button>
+          </IconButton>
         </div>
 
         {/*
           コードの枠は画面の高さいっぱいに広げる。
-          中身の高さに合わせて縮めてしまうと、デモカードから伸びるピンクの線が
+          中身の高さに合わせて縮めてしまうと、デモカードから伸びる線が
           枠の外を通ってしまい、どこにつながっているのか分からなくなる。
         */}
         <CodeBlock
@@ -182,19 +125,10 @@ export const CodePane = () => {
             {/* 画面幅いっぱいに広げるとコードが左端に貼り付いて読みにくいので、中央に収める */}
             <div className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-2">
               <div className="flex items-start gap-2">
-                <FileTabs
-                  snippets={snippets}
-                  currentId={current.id}
-                  onSelect={selectSnippet}
-                />
-                <button
-                  type="button"
-                  onClick={() => setExpanded(false)}
-                  aria-label="閉じる"
-                  className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                >
+                {tabs}
+                <IconButton label="閉じる" onClick={() => setExpanded(false)}>
                   <X className="size-4" />
-                </button>
+                </IconButton>
               </div>
 
               <CodeBlock
@@ -215,7 +149,7 @@ export const CodePane = () => {
 };
 
 /**
- * 画面が狭いときに、解説の直後へ差し込むコード。
+ * 画面が狭くて右ペインを置けないときに、解説の直後へ差し込むコード。
  * 右ペインと同じデータを使うので、内容がズレることはない。
  */
 export const InlineCode = ({

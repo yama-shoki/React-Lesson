@@ -135,7 +135,7 @@ export default async function Page() {
           そして React には、これを自力で判断する材料がありません。
         </p>
 
-        <Callout variant="key" title="key とは何か">
+        <Callout variant="point" title="key とは何か">
           <p>
             key は、<strong>「この行はこのデータのものだ」という名札</strong>です。
             React は前回と今回で同じ key を持つものを見つけると、
@@ -290,7 +290,7 @@ export default async function Page() {
           key を間違えると、これが全部ズレます。
         </p>
 
-        <Callout variant="key" title="key はコンポーネントの同一性そのもの">
+        <Callout variant="point" title="key はコンポーネントの同一性そのもの">
           <p>
             逆から言うと、<strong>key が変わると React はそれを別のコンポーネントとみなし、state ごと作り直します</strong>。
             これは知っておくと便利な性質で、

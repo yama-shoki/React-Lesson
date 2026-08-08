@@ -23,7 +23,7 @@ const toneLabel: Record<Tone, { text: string; className: string } | null> = {
  * 実際に動くデモを載せる箱。
  *
  * sourcePath を渡すと右上にコードボタンが出て、押すと右のコードペインが
- * そのファイルに切り替わる。このときカードとコードがピンクの線でつながるので、
+ * そのファイルに切り替わる。このときカードとコードの該当行が線でつながるので、
  * 「画面のどの部分が、どのコードなのか」が一目で分かる。
  *
  * showRenderCount を付けると、そのデモが何回描き直されたかが数字で出て、
@@ -97,8 +97,7 @@ export const DemoCard = ({
               aria-label="このデモのコードを見る"
               title="このデモのコードを見る"
               className={cn(
-                "ml-auto shrink-0 rounded-md border p-1 transition-colors",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                "focus-ring ml-auto shrink-0 rounded-md border p-1 transition-colors",
                 isPinned
                   ? "border-[var(--connection)] text-[var(--connection)]"
                   : "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
