@@ -61,6 +61,7 @@ export default async function Page() {
           title="push してから setItems する"
           tone="bad"
           sourcePath={MUTATE}
+          showRenderCount
           description="何度押しても表示は変わらない"
         >
           <MutateArray />
@@ -70,6 +71,17 @@ export default async function Page() {
           変わりません。ただし
           <strong>配列の中身は実際に増えています</strong>（コンソールに出ています）。
         </p>
+
+        <Callout variant="point" title="カードが光らない">
+          <p>
+            押しても<strong>カードは光らず、render の数字も増えません</strong>。
+            <code>setItems</code> を呼んでいるのに、です。
+          </p>
+          <p>
+            つまり React は、<strong>変化があったとすら思っていません</strong>。
+            なぜそうなるのかを、次の節で見ます。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="why" {...at(MUTATE, "setItems(items)")}>
@@ -130,6 +142,7 @@ setItems([...items, "みかん"]);`}
           title="新しい配列を渡す"
           tone="good"
           sourcePath={NEW}
+          showRenderCount
           description="追加も削除も反映される"
         >
           <NewArray />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -11,6 +12,9 @@ function Counter({
   count: number;
   onIncrease: () => void;
 }) {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   return (
     <div className="flex items-center gap-3">
       <span className="font-mono text-lg font-semibold tabular-nums">

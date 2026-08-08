@@ -57,6 +57,7 @@ export default async function Page() {
           title="3 回呼んだつもり"
           tone="bad"
           sourcePath={SNAPSHOT}
+          showRenderCount
           description="1 ずつしか増えない"
         >
           <Snapshot />
@@ -79,6 +80,19 @@ setCount(count + 1); // setCount(0 + 1) → やっぱり 1 にして`}
           3 回とも「1 にしてください」と頼んでいます。
           結果が 1 になるのは当然です。
         </p>
+
+        <Callout variant="point" title="光った回数を数えてみてください">
+          <p>
+            <code>setCount</code> を 3 回呼んでいるのに、
+            カードが光るのは<strong>1 回だけ</strong>です。
+            render の数字も 1 しか増えません。
+          </p>
+          <p>
+            React は 3 回ぶんの依頼をまとめて処理し、
+            <strong>描き直しは 1 回で済ませています</strong>。
+            呼んだ回数と描き直された回数は、一致しません。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="why" {...at(SNAPSHOT, "const addThree")}>
@@ -137,6 +151,7 @@ setCount(count + 1); // setCount(0 + 1) → やっぱり 1 にして`}
           title="関数を渡す形"
           tone="good"
           sourcePath={UPDATER}
+          showRenderCount
           description="今度はちゃんと 3 増える"
         >
           <Updater />

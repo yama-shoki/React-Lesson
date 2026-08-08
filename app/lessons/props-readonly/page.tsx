@@ -60,6 +60,7 @@ export default async function Page() {
           title="props を書き換えようとする"
           tone="bad"
           sourcePath={BROKEN}
+          showRenderCount
           description="何度押しても 0 のまま"
         >
           <BrokenProps />
@@ -74,6 +75,19 @@ export default async function Page() {
         <p>
           つまり計算は成功していて、<strong>画面への反映だけが起きていない</strong>のです。
         </p>
+
+        <Callout variant="point" title="カードが光らない">
+          <p>
+            カードの右上の render という数字は、
+            <strong>そのデモが何回描き直されたか</strong>を表しています。
+            描き直されると、カード全体が青くふわりと光ります。
+          </p>
+          <p>
+            何度押しても<strong>数字は増えず、光りもしません</strong>。
+            値が変わっても、
+            <strong>React はそれを知る手立てを持っていない</strong>ということです。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="why" {...at(BROKEN, "const increase")}>
@@ -155,6 +169,7 @@ export default async function Page() {
           title="親が値を持ち、子は伝えるだけ"
           tone="good"
           sourcePath={FIXED}
+          showRenderCount
           description="今度はちゃんと増える"
         >
           <FixedProps />

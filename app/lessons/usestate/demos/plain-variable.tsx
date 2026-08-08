@@ -6,9 +6,14 @@
 */
 /* eslint-disable react-hooks/immutability */
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 
 export function PlainVariable() {
+  // このカードが描き直された回数を数えるための 1 行。
+  // 教材の仕掛けであって、React の機能ではない
+  useTrackDemoRender();
+
   // ふつうの変数で数を持ってみる
   let count = 0;
 

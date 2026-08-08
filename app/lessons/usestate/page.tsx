@@ -60,6 +60,7 @@ export default async function Page() {
           title="ふつうの変数で作ったカウンター"
           tone="bad"
           sourcePath={PLAIN}
+          showRenderCount
           description="押しても 0 のまま"
         >
           <PlainVariable />
@@ -70,6 +71,20 @@ export default async function Page() {
           <strong>変数の中身は実際に増えています</strong>（コンソールに出ています）。
           画面に反映されないだけです。
         </p>
+
+        <Callout variant="point" title="カードの右上を見てください">
+          <p>
+            この章から、デモの右上に <strong>render という数字</strong>が出ます。
+            そのデモが<strong>何回描き直されたか</strong>の回数です。
+            描き直された瞬間は、カード全体が青くふわりと光ります。
+          </p>
+          <p>
+            上のデモは、何度押しても<strong>数字が増えず、光りもしません</strong>。
+            値は増えているのに、
+            <strong>React はまったく描き直していない</strong>のです。
+            目に見えないはずの再レンダリングが、ここで見えるようになります。
+          </p>
+        </Callout>
 
         <h3>理由は 2 つある</h3>
 
@@ -136,6 +151,7 @@ export default async function Page() {
           title="useState で作ったカウンター"
           tone="good"
           sourcePath={STATE}
+          showRenderCount
           description="今度はちゃんと増える"
         >
           <WithState />
@@ -145,6 +161,11 @@ export default async function Page() {
           値は React が保管しているので、関数が何度実行されても消えません。
           そして <code>setCount</code>{" "}
           を呼ぶと、React は「値が変わった」と知ることができます。
+        </p>
+
+        <p>
+          今度は押すたびに<strong>カードが光り、render の数字が増えます</strong>。
+          さきほどのデモとの違いは、そこにも出ています。
         </p>
       </LessonSection>
 

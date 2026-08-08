@@ -1,8 +1,12 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 
 function Counter({ count }: { count: number }) {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const increase = () => {
     // 受け取った値をここで書き換えている。
     // 変数の中身は増えるが、React は何も知らないので画面は変わらない。

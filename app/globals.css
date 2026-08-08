@@ -5,128 +5,128 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-sans);
+	--font-mono: var(--font-geist-mono);
+	--font-heading: var(--font-sans);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.145 0 0);
+	--card: oklch(1 0 0);
+	--card-foreground: oklch(0.145 0 0);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.145 0 0);
+	--primary: oklch(0.205 0 0);
+	--primary-foreground: oklch(0.985 0 0);
+	--secondary: oklch(0.97 0 0);
+	--secondary-foreground: oklch(0.205 0 0);
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.556 0 0);
+	--accent: oklch(0.97 0 0);
+	--accent-foreground: oklch(0.205 0 0);
+	--destructive: oklch(0.577 0.245 27.325);
+	--border: oklch(0.922 0 0);
+	--input: oklch(0.922 0 0);
+	--ring: oklch(0.708 0 0);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--radius: 0.625rem;
+	--sidebar: oklch(0.985 0 0);
+	--sidebar-foreground: oklch(0.145 0 0);
+	--sidebar-primary: oklch(0.205 0 0);
+	--sidebar-primary-foreground: oklch(0.985 0 0);
+	--sidebar-accent: oklch(0.97 0 0);
+	--sidebar-accent-foreground: oklch(0.205 0 0);
+	--sidebar-border: oklch(0.922 0 0);
+	--sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+	--background: oklch(0.145 0 0);
+	--foreground: oklch(0.985 0 0);
+	--card: oklch(0.205 0 0);
+	--card-foreground: oklch(0.985 0 0);
+	--popover: oklch(0.205 0 0);
+	--popover-foreground: oklch(0.985 0 0);
+	--primary: oklch(0.922 0 0);
+	--primary-foreground: oklch(0.205 0 0);
+	--secondary: oklch(0.269 0 0);
+	--secondary-foreground: oklch(0.985 0 0);
+	--muted: oklch(0.269 0 0);
+	--muted-foreground: oklch(0.708 0 0);
+	--accent: oklch(0.269 0 0);
+	--accent-foreground: oklch(0.985 0 0);
+	--destructive: oklch(0.704 0.191 22.216);
+	--border: oklch(1 0 0 / 10%);
+	--input: oklch(1 0 0 / 15%);
+	--ring: oklch(0.556 0 0);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--sidebar: oklch(0.205 0 0);
+	--sidebar-foreground: oklch(0.985 0 0);
+	--sidebar-primary: oklch(0.488 0.243 264.376);
+	--sidebar-primary-foreground: oklch(0.985 0 0);
+	--sidebar-accent: oklch(0.269 0 0);
+	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-border: oklch(1 0 0 / 10%);
+	--sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	html {
+		@apply font-sans;
+	}
 }
 /* ============================================================
    教材用のスタイル
@@ -134,49 +134,73 @@
    ============================================================ */
 
 :root {
-  --code-bg: oklch(0.985 0 0);
-  /* デモとコードの対応を示す色。
+	--code-bg: oklch(0.985 0 0);
+	/* デモとコードの対応を示す色。
      カードの枠・つなぐ線・コードの注目行をすべて同じ色にすることで、
      「この画面はこの行から出ている」と一目で分かるようにする */
-  --connection: oklch(0.55 0.21 258);
-  --code-line-active: oklch(0.93 0.055 258);
+	--connection: oklch(0.55 0.21 258);
+	--code-line-active: oklch(0.93 0.055 258);
 }
 
 /* いまはライト固定で運用しているが、shadcn のテーマ定義に合わせて対の値を置いてある */
 .dark {
-  --code-bg: oklch(0.17 0 0);
-  --connection: oklch(0.7 0.17 258);
-  --code-line-active: oklch(0.32 0.07 258);
+	--code-bg: oklch(0.17 0 0);
+	--connection: oklch(0.7 0.17 258);
+	--code-line-active: oklch(0.32 0.07 258);
+}
+
+/*
+  描き直された瞬間の光り方。
+  パッと光ってから、時間をかけてゆっくり消えていく。
+
+  短く消すと点滅に見えてしまい、何が起きたのか分からない。
+  ゆっくり消えることで「いま描き直された」という余韻が残り、
+  どのカードが反応したのかを目で追える。
+*/
+.react-dev-render-flash {
+	animation: react-dev-render-flash 900ms ease-out forwards;
+}
+
+@keyframes react-dev-render-flash {
+	0%,
+	12% {
+		opacity: 1;
+		box-shadow: 0 0 14px 0 rgba(56, 189, 248, 0.45);
+	}
+	100% {
+		opacity: 0;
+		box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+	}
 }
 
 /* ---------- 読み物 ---------- */
 
 .lesson-prose {
-  font-size: 1rem;
-  line-height: 2;
-  letter-spacing: 0.015em;
+	font-size: 1rem;
+	line-height: 2;
+	letter-spacing: 0.015em;
 }
 
 .lesson-prose > section + section {
-  margin-top: 3.5rem;
+	margin-top: 3.5rem;
 }
 
 .lesson-prose h2 {
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--border);
+	font-size: 1.5rem;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: -0.01em;
 }
 
 .lesson-prose h3 {
-  margin-top: 2.5rem;
-  margin-bottom: 0.875rem;
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.6;
+	margin-top: 2.5rem;
+	margin-bottom: 0.875rem;
+	font-size: 1.125rem;
+	font-weight: 700;
+	line-height: 1.6;
 }
 
 /*
@@ -185,57 +209,60 @@
   打ち消し側の詳細度が高くなり、部品が自分で指定した余白まで殺してしまう。
 */
 .lesson-prose p:not(.not-prose *) {
-  margin-bottom: 1.25rem;
+	margin-bottom: 1.25rem;
 }
 
 .lesson-prose ul:not(.not-prose *),
 .lesson-prose ol:not(.not-prose *) {
-  margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+	margin-bottom: 1.25rem;
+	padding-left: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
 }
 
 .lesson-prose ul:not(.not-prose *) {
-  list-style: disc;
+	list-style: disc;
 }
 
 .lesson-prose ol:not(.not-prose *) {
-  list-style: decimal;
+	list-style: decimal;
 }
 
 .lesson-prose li:not(.not-prose *)::marker {
-  color: var(--muted-foreground);
+	color: var(--muted-foreground);
 }
 
 .lesson-prose strong {
-  font-weight: 700;
-  /* 蛍光ペンで引いたような下線。太字だけだと日本語では目立ちにくい */
-  background: linear-gradient(transparent 65%, color-mix(in oklch, var(--foreground) 14%, transparent) 65%);
+	font-weight: 700;
+	/* 蛍光ペンで引いたような下線。太字だけだと日本語では目立ちにくい */
+	background: linear-gradient(
+		transparent 65%,
+		color-mix(in oklch, var(--foreground) 14%, transparent) 65%
+	);
 }
 
 .lesson-prose :not(pre) > code,
 .callout-body :not(pre) > code {
-  padding: 0.15em 0.4em;
-  border-radius: 0.3rem;
-  background: color-mix(in oklch, var(--foreground) 7%, transparent);
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  letter-spacing: 0;
+	padding: 0.15em 0.4em;
+	border-radius: 0.3rem;
+	background: color-mix(in oklch, var(--foreground) 7%, transparent);
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+	letter-spacing: 0;
 }
 
 .callout-body > p + p {
-  margin-top: 0.75rem;
+	margin-top: 0.75rem;
 }
 
 .callout-body ul {
-  margin-top: 0.5rem;
-  padding-left: 1.25rem;
-  list-style: disc;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+	margin-top: 0.5rem;
+	padding-left: 1.25rem;
+	list-style: disc;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
 }
 
 /* ---------- コード表示 ---------- */
@@ -243,87 +270,89 @@
 /* 高さは置かれる場所（右ペイン / 拡大表示 / 本文中）が決める。
    ここで一律に制限すると、枠が中途半端な高さで終わってしまう */
 .code-scroll {
-  scrollbar-width: thin;
+	scrollbar-width: thin;
 }
 
 .code-scroll .shiki {
-  padding: 1rem 0;
-  font-size: 0.813rem;
-  line-height: 1.75;
-  background: transparent !important;
+	padding: 1rem 0;
+	font-size: 0.813rem;
+	line-height: 1.75;
+	background: transparent !important;
 }
 
 .shiki code {
-  display: grid;
-  counter-reset: shiki-line;
+	display: grid;
+	counter-reset: shiki-line;
 }
 
 .shiki .line {
-  /* 長い行は横スクロールさせずに折り返す。
+	/* 長い行は横スクロールさせずに折り返す。
      コードが画面の外で切れていると、教材としてそこで話が終わってしまう。
      折り返した続きは text-indent で行番号の幅だけ下げ、行頭がそろうようにしている */
-  padding-right: 1rem;
-  padding-left: 3.25rem;
-  text-indent: -3.25rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  transition: opacity 0.35s ease, background-color 0.35s ease;
-  border-left: 3px solid transparent;
+	padding-right: 1rem;
+	padding-left: 3.25rem;
+	text-indent: -3.25rem;
+	white-space: pre-wrap;
+	word-break: break-word;
+	transition:
+		opacity 0.35s ease,
+		background-color 0.35s ease;
+	border-left: 3px solid transparent;
 }
 
 .shiki .line::before {
-  counter-increment: shiki-line;
-  content: counter(shiki-line);
-  display: inline-block;
-  width: 2.25rem;
-  margin-right: 1rem;
-  text-align: right;
-  opacity: 0.35;
-  user-select: none;
+	counter-increment: shiki-line;
+	content: counter(shiki-line);
+	display: inline-block;
+	width: 2.25rem;
+	margin-right: 1rem;
+	text-align: right;
+	opacity: 0.35;
+	user-select: none;
 }
 
 /* コードは常にはっきり読める状態を保つ。
    注目行は「他を暗くする」のではなく、色を乗せて浮かせることで示す。
    全体を読みたいときに読めないコードは、教材としてそもそも機能しない */
 .shiki .line[data-active="true"] {
-  background-color: var(--code-line-active);
-  border-left-color: var(--connection);
+	background-color: var(--code-line-active);
+	border-left-color: var(--connection);
 }
 
 /* ---------- 共通のふるまい ---------- */
 
 /* キーボードで操作している人に、いまどこにいるかを示す */
 .focus-ring:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
 }
 
 /* shiki のデュアルテーマ。ダークモードは CSS 側で切り替える */
 .shiki,
 .shiki span {
-  color: var(--shiki-light);
+	color: var(--shiki-light);
 }
 
 .dark .shiki,
 .dark .shiki span {
-  color: var(--shiki-dark);
+	color: var(--shiki-dark);
 }
 
 /* 本文中に引用する短いコードには行番号を出さない */
 .static-code .shiki {
-  padding: 0.875rem 0;
-  font-size: 0.813rem;
-  line-height: 1.8;
-  background: transparent !important;
+	padding: 0.875rem 0;
+	font-size: 0.813rem;
+	line-height: 1.8;
+	background: transparent !important;
 }
 
 .static-code .line::before {
-  display: none;
+	display: none;
 }
 
 .static-code .line {
-  padding-left: 1rem;
-  text-indent: 0;
+	padding-left: 1rem;
+	text-indent: 0;
 }
 
 /* デモや図の中の体裁は、それぞれの部品が自分で決める。
@@ -337,15 +366,15 @@
 */
 ::view-transition-old(page-content),
 ::view-transition-new(page-content) {
-  animation-duration: 0.26s;
-  animation-timing-function: ease;
+	animation-duration: 0.26s;
+	animation-timing-function: ease;
 }
 
 /* 動きを減らす設定にしている人には、切り替えの演出を出さない */
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
 }
