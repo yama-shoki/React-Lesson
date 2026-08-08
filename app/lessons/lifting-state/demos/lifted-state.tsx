@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -27,9 +26,6 @@ function Panel({
 
 // 共通の親が値を持つ
 export function LiftedState() {
-  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
-  useTrackDemoRender();
-
   const [count, setCount] = useState(0);
   const increase = () => setCount((current) => current + 1);
 
