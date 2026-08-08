@@ -143,11 +143,13 @@ export const curriculum: Part[] = [
         slug: "events",
         title: "イベントハンドラ",
         summary: "onClick に渡すのは「関数」であって「実行結果」ではない",
+        ready: true,
       },
       {
         slug: "conditional-rendering",
         title: "条件によって出し分ける",
         summary: "&& を使うと画面に 0 が出てしまう問題",
+        ready: true,
       },
       {
         slug: "list-and-key",
