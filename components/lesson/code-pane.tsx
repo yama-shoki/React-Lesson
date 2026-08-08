@@ -18,13 +18,14 @@ const CodeBlock = ({
   snippet,
   lines,
   scrollToHighlight,
-  expanded,
+  className,
 }: {
   snippet: Snippet;
   lines?: readonly [number, number];
   /** 右ペインでは注目行まで自動で送る。インライン表示では動かさない */
   scrollToHighlight?: boolean;
-  expanded?: boolean;
+  /** 高さの決め方は置かれる場所によって違うので、外から渡す */
+  className?: string;
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const start = lines?.[0];
@@ -65,8 +66,10 @@ const CodeBlock = ({
   return (
     <div
       ref={scrollRef}
-      data-expanded={expanded ? "true" : undefined}
-      className="code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]"
+      className={cn(
+        "code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]",
+        className
+      )}
     >
       {/*
         ここに入るのは、このリポジトリのソースファイルを shiki がハイライトした HTML だけ。
@@ -151,7 +154,17 @@ export const CodePane = () => {
           </button>
         </div>
 
-        <CodeBlock snippet={current} lines={lines} scrollToHighlight />
+        {/*
+          コードの枠は画面の高さいっぱいに広げる。
+          中身の高さに合わせて縮めてしまうと、デモカードから伸びるピンクの線が
+          枠の外を通ってしまい、どこにつながっているのか分からなくなる。
+        */}
+        <CodeBlock
+          snippet={current}
+          lines={lines}
+          scrollToHighlight
+          className="min-h-0 flex-1"
+        />
       </div>
 
       {/*
@@ -179,9 +192,11 @@ export const CodePane = () => {
               </button>
             </div>
 
-            <div className="min-h-0 flex-1">
-              <CodeBlock snippet={current} lines={lines} expanded />
-            </div>
+            <CodeBlock
+              snippet={current}
+              lines={lines}
+              className="min-h-0 flex-1"
+            />
 
             <p className="text-center text-xs text-muted-foreground">
               Esc で閉じる
@@ -214,7 +229,7 @@ export const InlineCode = ({
       <p className="mb-1.5 font-mono text-xs text-muted-foreground">
         {snippet.label}
       </p>
-      <CodeBlock snippet={snippet} lines={lines} />
+      <CodeBlock snippet={snippet} lines={lines} className="max-h-[70dvh]" />
     </div>
   );
 };

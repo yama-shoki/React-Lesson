@@ -123,8 +123,10 @@ export const CodePaneProvider = ({
       getObserver().observe(element);
 
       // 最初のセクションが登録された時点で右ペインを埋めておく。
-      // これがないと、ページを開いた直後にコードが空になる
-      setActive((current) => current ?? code);
+      // これがないとページを開いた直後にコードが空になる。
+      // ただし行のハイライトは付けない。まだ読んでいない箇所が
+      // 光っていると、それが何を指しているのか分からないため
+      setActive((current) => current ?? { snippetId: code.snippetId });
 
       return () => {
         sectionsRef.current.delete(element);
