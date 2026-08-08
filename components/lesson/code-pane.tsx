@@ -101,9 +101,10 @@ const FileTabs = ({
         onClick={() => onSelect(snippet.id)}
         className={cn(
           "rounded-md px-2.5 py-1 font-mono text-xs transition-colors",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
           snippet.id === currentId
             ? "bg-foreground text-background"
-            : "text-muted-foreground hover:bg-muted"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
         )}
       >
         {snippet.label}
@@ -150,7 +151,7 @@ export const CodePane = () => {
             onClick={() => setExpanded(true)}
             aria-label="コードを拡大する"
             title="コードを拡大する"
-            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
           >
             <Maximize2 className="size-4" />
           </button>
@@ -178,27 +179,30 @@ export const CodePane = () => {
         typeof document !== "undefined" &&
         createPortal(
           <div className="fixed inset-0 z-[100] flex flex-col gap-2 bg-background p-4 md:p-8">
-            <div className="flex items-start gap-2">
-              <FileTabs
-                snippets={snippets}
-                currentId={current.id}
-                onSelect={selectSnippet}
-              />
-              <button
-                type="button"
-                onClick={() => setExpanded(false)}
-                aria-label="閉じる"
-                className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <X className="size-4" />
-              </button>
-            </div>
+            {/* 画面幅いっぱいに広げるとコードが左端に貼り付いて読みにくいので、中央に収める */}
+            <div className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-2">
+              <div className="flex items-start gap-2">
+                <FileTabs
+                  snippets={snippets}
+                  currentId={current.id}
+                  onSelect={selectSnippet}
+                />
+                <button
+                  type="button"
+                  onClick={() => setExpanded(false)}
+                  aria-label="閉じる"
+                  className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
 
-            <CodeBlock
-              snippet={current}
-              lines={lines}
-              className="min-h-0 flex-1"
-            />
+              <CodeBlock
+                snippet={current}
+                lines={lines}
+                className="min-h-0 flex-1"
+              />
+            </div>
 
             <p className="text-center text-xs text-muted-foreground">
               Esc で閉じる

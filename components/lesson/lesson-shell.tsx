@@ -28,7 +28,8 @@ export const LessonShell = ({
         余った幅はすべてコード側に回す。本文はこれ以上広げても読みにくくなるだけ。
       */}
       <div className="mx-auto grid w-full max-w-[1680px] gap-x-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:px-10 2xl:grid-cols-[minmax(0,46rem)_minmax(0,1fr)]">
-        <article className="lesson-prose min-w-0 py-10 lg:py-14">
+        {/* 読み終わりに余白がないと、ページの終わりが唐突に見える */}
+        <article className="lesson-prose min-w-0 pt-10 pb-20 lg:pt-14 lg:pb-28">
           {children}
         </article>
 

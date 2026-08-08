@@ -272,7 +272,7 @@ export default async function Page() {
       </LessonSection>
 
       <LessonSection id="beyond-input" {...at(ROW)}>
-        <h2>これは input だけの話ではない</h2>
+        <h2>これは入力欄だけの話ではない</h2>
 
         <p>
           分かりやすさのために入力欄を使いましたが、同じことは

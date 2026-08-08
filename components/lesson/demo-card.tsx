@@ -64,7 +64,9 @@ export const DemoCard = ({
       className={cn(
         "not-prose relative my-6 rounded-xl border transition-shadow",
         toneStyles[tone],
-        isPinned && "border-[var(--connection)] ring-2 ring-[var(--connection)]/35"
+        // 画面が狭いときは線が出ず、コードもすぐ下に出るので枠の強調はいらない
+        isPinned &&
+          "lg:border-[var(--connection)] lg:ring-2 lg:ring-[var(--connection)]/35"
       )}
     >
       {showRenderCount && <RenderFlash />}
@@ -96,6 +98,7 @@ export const DemoCard = ({
               title="このデモのコードを見る"
               className={cn(
                 "ml-auto shrink-0 rounded-md border p-1 transition-colors",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                 isPinned
                   ? "border-[var(--connection)] text-[var(--connection)]"
                   : "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"

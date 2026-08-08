@@ -71,9 +71,9 @@ export function AppSidebar() {
                   if (!lesson.ready) {
                     return (
                       <SidebarMenuItem key={lesson.slug}>
-                        <span className="flex h-8 cursor-default items-center gap-2 rounded-md px-2 text-sm text-muted-foreground/45">
+                        <span className="flex h-8 cursor-default items-center gap-2 rounded-md px-2 text-sm text-muted-foreground/70">
                           <span className="truncate">{lesson.title}</span>
-                          <span className="ml-auto shrink-0 text-[0.625rem]">
+                          <span className="ml-auto shrink-0 text-[0.625rem] text-muted-foreground/60">
                             準備中
                           </span>
                         </span>

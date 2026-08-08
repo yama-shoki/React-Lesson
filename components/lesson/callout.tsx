@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Info, Key, TriangleAlert } from "lucide-react";
+import { Info, Lightbulb, TriangleAlert } from "lucide-react";
 
 type Variant = "note" | "warn" | "key";
 
@@ -19,8 +19,9 @@ const variants: Record<
     className: "border-amber-500/40 bg-amber-500/[0.05]",
     iconClassName: "text-amber-600 dark:text-amber-500",
   },
+  // 鍵のアイコンは React の key と紛らわしいので使わない
   key: {
-    icon: Key,
+    icon: Lightbulb,
     label: "ここが要点",
     className: "border-foreground/25 bg-foreground/[0.04]",
     iconClassName: "text-foreground",
