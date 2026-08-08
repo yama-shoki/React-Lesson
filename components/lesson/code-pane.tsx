@@ -2,11 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import type { Snippet } from "@/lib/code";
-import { useEffect, useRef } from "react";
+import { Maximize2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useCodePane } from "./code-pane-context";
 
 /**
- * shiki が作った HTML を描画し、指定された行だけを光らせる。
+ * shiki が作った HTML を描画し、指定された行に色を乗せる。
  *
  * shiki の出力には各行に data-line が入っているので（lib/code.ts の transformer）、
  * それを目印にして DOM 側で属性を付け替えている。
@@ -16,11 +17,13 @@ const CodeBlock = ({
   snippet,
   lines,
   scrollToHighlight,
+  expanded,
 }: {
   snippet: Snippet;
   lines?: readonly [number, number];
-  /** 右ペインでは光った行まで自動で送る。インライン表示では動かさない */
+  /** 右ペインでは注目行まで自動で送る。インライン表示では動かさない */
   scrollToHighlight?: boolean;
+  expanded?: boolean;
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const start = lines?.[0];
@@ -29,10 +32,6 @@ const CodeBlock = ({
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
-
-    const pre = container.querySelector("pre");
-    // 光らせる行があるときだけ、それ以外の行を薄くする
-    pre?.setAttribute("data-dimmed", start !== undefined ? "true" : "false");
 
     let firstActive: HTMLElement | null = null;
 
@@ -47,7 +46,14 @@ const CodeBlock = ({
       if (isActive && !firstActive) firstActive = line;
     }
 
-    if (!scrollToHighlight || !firstActive) return;
+    if (!scrollToHighlight) return;
+
+    // 注目行がないとき（ファイル全体を見せるとき）は先頭から読ませる。
+    // 前に見ていた位置が残っていると、いきなり途中から始まって戸惑う
+    if (!firstActive) {
+      container.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
     // scrollIntoView は祖先のスクロール位置まで動かしてしまい、
     // 読んでいる本文が飛ぶことがある。このコンテナだけを動かす
@@ -58,6 +64,7 @@ const CodeBlock = ({
   return (
     <div
       ref={scrollRef}
+      data-expanded={expanded ? "true" : undefined}
       className="code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]"
     >
       {/*
@@ -70,42 +77,110 @@ const CodeBlock = ({
   );
 };
 
+/** ファイル名のタブ */
+const FileTabs = ({
+  snippets,
+  currentId,
+  onSelect,
+}: {
+  snippets: Snippet[];
+  currentId: string;
+  onSelect: (id: string) => void;
+}) => (
+  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
+    {snippets.map((snippet) => (
+      <button
+        key={snippet.id}
+        type="button"
+        onClick={() => onSelect(snippet.id)}
+        className={cn(
+          "rounded-md px-2.5 py-1 font-mono text-xs transition-colors",
+          snippet.id === currentId
+            ? "bg-foreground text-background"
+            : "text-muted-foreground hover:bg-muted"
+        )}
+      >
+        {snippet.label}
+      </button>
+    ))}
+  </div>
+);
+
 /** 右ペイン本体。解説のスクロールに合わせて中身が入れ替わる */
 export const CodePane = () => {
   const { snippets, active, selectSnippet } = useCodePane();
+  const [expanded, setExpanded] = useState(false);
+
   const current =
     snippets.find((snippet) => snippet.id === active?.snippetId) ?? snippets[0];
 
+  // 拡大表示は Esc で閉じられるようにしておく
+  useEffect(() => {
+    if (!expanded) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [expanded]);
+
   if (!current) return null;
 
+  const lines = active?.snippetId === current.id ? active.lines : undefined;
+
   return (
-    <div className="flex h-full flex-col gap-2">
-      {snippets.length > 1 && (
-        <div className="flex flex-wrap items-center gap-1">
-          {snippets.map((snippet) => (
+    <>
+      <div className="flex h-full flex-col gap-2">
+        <div className="flex items-start gap-2">
+          <FileTabs
+            snippets={snippets}
+            currentId={current.id}
+            onSelect={selectSnippet}
+          />
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            aria-label="コードを拡大する"
+            title="コードを拡大する"
+            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <Maximize2 className="size-4" />
+          </button>
+        </div>
+
+        <CodeBlock snippet={current} lines={lines} scrollToHighlight />
+      </div>
+
+      {expanded && (
+        <div className="fixed inset-0 z-50 flex flex-col gap-2 bg-background/97 p-4 backdrop-blur md:p-8">
+          <div className="flex items-start gap-2">
+            <FileTabs
+              snippets={snippets}
+              currentId={current.id}
+              onSelect={selectSnippet}
+            />
             <button
-              key={snippet.id}
               type="button"
-              onClick={() => selectSnippet(snippet.id)}
-              className={cn(
-                "rounded-md px-2.5 py-1 font-mono text-xs transition-colors",
-                snippet.id === current.id
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:bg-muted"
-              )}
+              onClick={() => setExpanded(false)}
+              aria-label="閉じる"
+              className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
-              {snippet.label}
+              <X className="size-4" />
             </button>
-          ))}
+          </div>
+
+          <div className="min-h-0 flex-1">
+            <CodeBlock snippet={current} lines={lines} expanded />
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground">
+            Esc で閉じる
+          </p>
         </div>
       )}
-
-      <CodeBlock
-        snippet={current}
-        lines={active?.snippetId === current.id ? active.lines : undefined}
-        scrollToHighlight
-      />
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { CircleCheck, TriangleAlert } from "lucide-react";
+import { CircleCheck, Code, TriangleAlert } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { useCodePane } from "./code-pane-context";
 
 type Tone = "neutral" | "bad" | "good";
 
@@ -14,47 +15,62 @@ const toneStyles: Record<Tone, string> = {
 
 const toneLabel: Record<Tone, { text: string; className: string } | null> = {
   neutral: null,
-  bad: { text: "うまくいかない例", className: "text-amber-600 dark:text-amber-500" },
-  good: { text: "直した例", className: "text-emerald-600 dark:text-emerald-500" },
+  bad: { text: "うまくいかない例", className: "text-amber-600" },
+  good: { text: "直した例", className: "text-emerald-600" },
 };
 
 /**
  * 実際に動くデモを載せる箱。
  *
+ * sourcePath を渡すと右上にコードボタンが出て、押すと右のコードペインが
+ * そのファイルに切り替わる。このときカードとコードがピンクの線でつながるので、
+ * 「画面のどの部分が、どのコードなのか」が一目で分かる。
+ *
  * showRenderCount を付けると、そのデモが何回描き直されたかが数字で出て、
- * 描き直された瞬間に枠が光る。目に見えない再レンダリングを見えるようにするための仕掛け。
+ * 描き直された瞬間に枠が光る。目に見えない再レンダリングを見せるための仕掛け。
  */
 export const DemoCard = ({
   title,
   description,
   tone = "neutral",
+  sourcePath,
   showRenderCount = false,
   children,
 }: {
   title: string;
   description?: string;
   tone?: Tone;
+  /** このデモの実装ファイル。指定するとコードペインと連動する */
+  sourcePath?: string;
   showRenderCount?: boolean;
   children: React.ReactNode;
 }) => {
+  const { pinned, selectSnippet } = useCodePane();
   const label = toneLabel[tone];
+  const isPinned = sourcePath !== undefined && pinned === sourcePath;
 
   return (
     <div
       className={cn(
-        "not-prose relative my-6 overflow-hidden rounded-xl border",
-        toneStyles[tone]
+        "not-prose relative my-6 rounded-xl border transition-shadow",
+        toneStyles[tone],
+        isPinned && "border-pink-500 ring-2 ring-pink-500/40"
       )}
     >
       {showRenderCount && <RenderFlash />}
 
-      <div className="border-b bg-background/40 px-4 py-2.5">
+      {/* カードから右のコードペインへ伸びる線。つながりを目で追えるようにする */}
+      {isPinned && (
+        <span className="pointer-events-none absolute top-1/2 left-full hidden h-px w-12 bg-pink-500 lg:block" />
+      )}
+
+      <div className="rounded-t-xl border-b bg-background/40 px-4 py-2.5">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           {tone === "bad" && (
-            <TriangleAlert className="size-4 shrink-0 text-amber-600 dark:text-amber-500" />
+            <TriangleAlert className="size-4 shrink-0 text-amber-600" />
           )}
           {tone === "good" && (
-            <CircleCheck className="size-4 shrink-0 text-emerald-600 dark:text-emerald-500" />
+            <CircleCheck className="size-4 shrink-0 text-emerald-600" />
           )}
 
           <span className="text-sm font-semibold">{title}</span>
@@ -66,6 +82,23 @@ export const DemoCard = ({
           )}
 
           {showRenderCount && <RenderCount />}
+
+          {sourcePath && (
+            <button
+              type="button"
+              onClick={() => selectSnippet(sourcePath)}
+              aria-label="このデモのコードを見る"
+              title="このデモのコードを見る"
+              className={cn(
+                "ml-auto shrink-0 rounded-md border p-1 transition-colors",
+                isPinned
+                  ? "border-pink-500 text-pink-500"
+                  : "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+            >
+              <Code className="size-3.5" />
+            </button>
+          )}
         </div>
 
         {description && (
@@ -102,7 +135,7 @@ function RenderCount() {
   return (
     <span
       ref={labelRef}
-      className="ml-auto font-mono text-xs tabular-nums text-muted-foreground"
+      className="font-mono text-xs tabular-nums text-muted-foreground"
     />
   );
 }

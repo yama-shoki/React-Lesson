@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { ThemeProvider } from "@/components/theme-provider";
+import { PageTitle } from "@/components/page-title";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -43,26 +43,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // 目次から章へ飛ぶときに滑らかにスクロールさせる（Next.js 16 では明示指定が必要）
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      // next-themes がマウント前に class を書き換えるため、差分の警告を抑える
-      suppressHydrationWarning
     >
       <body className="min-h-full">
-        <ThemeProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="relative min-w-0 flex-1">
-              {/*
-                サイドバーは畳める（Cmd + B でも切り替わる）。
-                畳むと本文とコードの両方が広がるので、読むことに集中したいときに効く。
-                高さ 0 の器に入れて、本文のレイアウトを押し下げないようにしている。
-              */}
-              <div className="sticky top-0 z-40 flex h-0 items-start">
-                <SidebarTrigger className="mt-2.5 ml-2.5 bg-background/70 text-muted-foreground backdrop-blur" />
-              </div>
-              {children}
-            </main>
-          </SidebarProvider>
-        </ThemeProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="relative min-w-0 flex-1">
+            {/*
+              いま読んでいる章を常に画面上部に出しておく。
+              長い章を読み進めても、自分がどこにいるか見失わないようにするため。
+              サイドバーの開閉ボタンもここに置く（Cmd + B でも切り替わる）。
+            */}
+            <header className="sticky top-0 z-40 flex h-12 items-center gap-2 border-b bg-background/95 px-3 backdrop-blur">
+              <SidebarTrigger className="shrink-0 text-muted-foreground" />
+              <PageTitle />
+            </header>
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );

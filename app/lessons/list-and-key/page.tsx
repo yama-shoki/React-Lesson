@@ -75,7 +75,7 @@ export default async function Page() {
           <code>for</code> 文を書く必要はありません。
         </p>
 
-        <DemoCard title="配列を並べただけのリスト">
+        <DemoCard title="配列を並べただけのリスト" sourcePath={BASIC}>
           <BasicList />
         </DemoCard>
 
@@ -167,6 +167,7 @@ export default async function Page() {
         <DemoCard
           title="key に index を使ったリスト"
           tone="bad"
+          sourcePath={BROKEN}
           description="さとうに書いたはずのメモが、やまだの行に残ってしまう"
         >
           <BrokenList />
@@ -236,6 +237,7 @@ export default async function Page() {
         <DemoCard
           title="key に id を使ったリスト"
           tone="good"
+          sourcePath={FIXED}
           description="さっきと同じ手順で試してみてください"
         >
           <FixedList />

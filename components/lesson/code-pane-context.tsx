@@ -20,7 +20,13 @@ export type ActiveCode = {
 type CodePaneValue = {
   snippets: Snippet[];
   active: ActiveCode | null;
-  /** 読者が自分でタブを切り替えたときに使う */
+  /**
+   * 読者が自分で選んだファイル。
+   * スクロールによる自動切り替えと区別するために別で持っている。
+   * デモカードとコードを線で結ぶ演出は、自分で選んだときだけ出したい。
+   */
+  pinned: string | null;
+  /** タブやデモカードの「コードを見る」ボタンから呼ばれる */
   selectSnippet: (snippetId: string) => void;
   /**
    * セクションを監視対象に登録する。
@@ -54,6 +60,7 @@ export const CodePaneProvider = ({
   children: ReactNode;
 }) => {
   const [active, setActive] = useState<ActiveCode | null>(null);
+  const [pinned, setPinned] = useState<string | null>(null);
 
   /** 登録されたセクション要素 → そのセクションが指すコード */
   const sectionsRef = useRef(new Map<Element, ActiveCode>());
@@ -75,6 +82,10 @@ export const CodePaneProvider = ({
 
     const code = sectionsRef.current.get(visible[0]);
     if (!code) return;
+
+    // 読み進めたら、自分で選んだ状態は解除する。
+    // 解説と関係のないコードが選ばれたまま残るほうが混乱するため
+    setPinned(null);
 
     setActive((current) =>
       current?.snippetId === code.snippetId &&
@@ -125,12 +136,14 @@ export const CodePaneProvider = ({
   );
 
   const selectSnippet = useCallback((snippetId: string) => {
+    setPinned(snippetId);
+    // ファイル全体を見たいときの操作なので、行のハイライトは外す
     setActive({ snippetId });
   }, []);
 
   return (
     <CodePaneContext
-      value={{ snippets, active, selectSnippet, registerSection }}
+      value={{ snippets, active, pinned, selectSnippet, registerSection }}
     >
       {children}
     </CodePaneContext>

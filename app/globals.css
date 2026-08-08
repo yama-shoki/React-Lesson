@@ -232,10 +232,16 @@
 /* ---------- コード表示 ---------- */
 
 .code-scroll {
-  /* 上下の余白 (py-6 = 3rem) とファイル名タブの高さを引いた分だけ使う。
+  /* 画面の高さから、上部ヘッダー・上下の余白・ファイル名タブの分を引く。
      ここを引き忘れると、コードの枠が画面の下で切れて「まだ続きがある」ことが伝わらない */
-  max-height: calc(100dvh - 7.5rem);
+  max-height: calc(100dvh - 9rem);
   scrollbar-width: thin;
+}
+
+/* 拡大表示のときは画面いっぱいまで使う */
+.code-scroll[data-expanded="true"] {
+  max-height: none;
+  height: 100%;
 }
 
 .code-scroll .shiki {
@@ -274,15 +280,10 @@
   user-select: none;
 }
 
-/* 注目してほしい行があるときは、それ以外を少しだけ沈める。
-   沈めすぎるとコード全体の文脈が読めなくなるので、
-   「消す」のではなく「注目行を持ち上げる」側で差をつけている */
-.shiki[data-dimmed="true"] .line {
-  opacity: 0.62;
-}
-
-.shiki[data-dimmed="true"] .line[data-active="true"] {
-  opacity: 1;
+/* コードは常にはっきり読める状態を保つ。
+   注目行は「他を暗くする」のではなく、色を乗せて浮かせることで示す。
+   全体を読みたいときに読めないコードは、教材としてそもそも機能しない */
+.shiki .line[data-active="true"] {
   background-color: var(--code-line-active);
   border-left-color: var(--code-line-marker);
 }

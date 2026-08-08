@@ -26,12 +26,13 @@ export const LessonShell = ({
         広い画面では本文を 46rem（日本語で 1 行 40 字前後）で止めて、
         余った幅はすべてコード側に回す。本文はこれ以上広げても読みにくくなるだけ。
       */}
-      <div className="mx-auto grid w-full max-w-[1680px] gap-x-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:pl-14 xl:px-10 2xl:grid-cols-[minmax(0,46rem)_minmax(0,1fr)]">
-        <article className="lesson-prose min-w-0 py-12 lg:py-16">
+      <div className="mx-auto grid w-full max-w-[1680px] gap-x-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:px-10 2xl:grid-cols-[minmax(0,46rem)_minmax(0,1fr)]">
+        <article className="lesson-prose min-w-0 py-10 lg:py-14">
           {children}
         </article>
 
-        <aside className="sticky top-0 hidden h-dvh py-6 lg:block">
+        {/* 上部ヘッダー（h-12）の下に貼り付ける */}
+        <aside className="sticky top-12 hidden h-[calc(100dvh-3rem)] py-6 lg:block">
           <CodePane />
         </aside>
       </div>
