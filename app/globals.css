@@ -328,3 +328,24 @@
 
 /* デモや図の中の体裁は、それぞれの部品が自分で決める。
    ここで打ち消しを書くと部品側の指定より強くなってしまうため、何も書かない。 */
+
+/* ---------- 章を移動したときの切り替わり ---------- */
+
+/*
+  何もしないと前の内容が消えた瞬間に次が出るので、移動したことが伝わりにくい。
+  少し重ねて入れ替えると「同じ場所で中身が変わった」ように見える。
+*/
+::view-transition-old(page-content),
+::view-transition-new(page-content) {
+  animation-duration: 0.26s;
+  animation-timing-function: ease;
+}
+
+/* 動きを減らす設定にしている人には、切り替えの演出を出さない */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

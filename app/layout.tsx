@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { PageTitle } from "@/components/page-title";
+import { PageTransition } from "@/components/page-transition";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -57,7 +58,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <SidebarTrigger className="shrink-0 text-muted-foreground" />
               <PageTitle />
             </header>
-            {children}
+            {/* ヘッダーとサイドバーはそのまま、中身だけを入れ替える */}
+            <PageTransition>{children}</PageTransition>
           </main>
         </SidebarProvider>
       </body>
