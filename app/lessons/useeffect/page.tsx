@@ -72,6 +72,7 @@ export default async function Page() {
         <DemoCard
           title="タブ名を state に合わせる"
           sourcePath={TITLE}
+          showRenderCount
           description="押すとブラウザのタブ名が変わる"
         >
           <TitleSync />

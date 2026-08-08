@@ -1,9 +1,13 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export function EventObject() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [text, setText] = useState("");
 
   // ハンドラは、何が起きたかを説明するオブジェクトを受け取る

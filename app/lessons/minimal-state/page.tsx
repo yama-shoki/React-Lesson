@@ -71,6 +71,7 @@ const [count, setCount] = useState(1);`}
           title="件数も state にした場合"
           tone="bad"
           sourcePath={DUPLICATED}
+          showRenderCount
           description="中身は空なのに、件数だけ残る"
         >
           <DuplicatedState />
@@ -123,6 +124,7 @@ const count = items.length;`}
           title="件数を計算で出した場合"
           tone="good"
           sourcePath={DERIVED}
+          showRenderCount
           description="更新の書き忘れが起こりえない"
         >
           <DerivedState />

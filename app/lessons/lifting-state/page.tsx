@@ -60,6 +60,7 @@ export default async function Page() {
           title="子がそれぞれ state を持つ"
           tone="bad"
           sourcePath={SEPARATE}
+          showRenderCount
           description="上下で別々の数になる"
         >
           <SeparateState />
@@ -96,6 +97,7 @@ export default async function Page() {
           title="親が state を持つ"
           tone="good"
           sourcePath={LIFTED}
+          showRenderCount
           description="どちらを押しても、両方が変わる"
         >
           <LiftedState />

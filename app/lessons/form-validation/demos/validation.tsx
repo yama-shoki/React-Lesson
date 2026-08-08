@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -13,6 +14,9 @@ const validateEmail = (value: string) => {
 };
 
 export function Validation() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [email, setEmail] = useState("");
   // 一度でも触ったかどうか。触る前からエラーを出さないために持つ
   const [touched, setTouched] = useState(false);

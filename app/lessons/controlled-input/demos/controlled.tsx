@@ -1,10 +1,14 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export function Controlled() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [name, setName] = useState("");
 
   // 入力が空かどうかは、state から計算できる

@@ -6,10 +6,14 @@
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export function EffectDerived() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [items, setItems] = useState(["りんご"]);
   const [count, setCount] = useState(1);
 

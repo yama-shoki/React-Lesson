@@ -110,6 +110,7 @@ export default async function Page() {
         <DemoCard
           title="React のカウンター"
           sourcePath={REACT}
+          showRenderCount
           description="更新のための処理はどこにも書いていない"
         >
           <ReactCounter />

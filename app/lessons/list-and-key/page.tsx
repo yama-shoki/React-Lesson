@@ -168,6 +168,7 @@ export default async function Page() {
           title="key に index を使ったリスト"
           tone="bad"
           sourcePath={BROKEN}
+          showRenderCount
           description="さとうに書いたはずのメモが、やまだの行に残ってしまう"
         >
           <BrokenList />
@@ -245,6 +246,7 @@ export default async function Page() {
           title="key に id を使ったリスト"
           tone="good"
           sourcePath={FIXED}
+          showRenderCount
           description="さっきと同じ手順で試してみてください"
         >
           <FixedList />

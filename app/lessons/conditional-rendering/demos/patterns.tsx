@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -19,6 +20,9 @@ function Result({ status }: { status: Status }) {
 }
 
 export function Patterns() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [status, setStatus] = useState<Status>("loading");
 
   return (

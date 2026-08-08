@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -24,6 +25,9 @@ function Clock() {
 }
 
 export function Timer() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   const [isVisible, setIsVisible] = useState(true);
 
   return (

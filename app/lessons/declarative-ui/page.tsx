@@ -112,6 +112,7 @@ function logout() {
         <DemoCard
           title="状態はひとつだけ"
           sourcePath={LOGIN}
+          showRenderCount
           description="ボタンを押すと 3 か所が同時に変わる"
         >
           <LoginView />

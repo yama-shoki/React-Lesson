@@ -144,6 +144,7 @@ const showError = touched && error !== null;`}
         <DemoCard
           title="触ってから出るエラー"
           sourcePath={VALIDATION}
+          showRenderCount
           description="入力欄から離れると、はじめてエラーが出る"
         >
           <Validation />

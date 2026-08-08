@@ -101,6 +101,7 @@ export default async function Page() {
           title="件数がないときの表示"
           tone="bad"
           sourcePath={BROKEN}
+          showRenderCount
           description="空にすると 0 が残る"
         >
           <BrokenCondition />
@@ -143,6 +144,7 @@ export default async function Page() {
           title="比較してから渡す"
           tone="good"
           sourcePath={FIXED}
+          showRenderCount
           description="空にしても何も出ない"
         >
           <FixedCondition />
@@ -193,6 +195,7 @@ export default async function Page() {
         <DemoCard
           title="状態ごとに表示を変える"
           sourcePath={PATTERNS}
+          showRenderCount
           description="ボタンで状態を切り替えられる"
         >
           <Patterns />

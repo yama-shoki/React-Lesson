@@ -70,6 +70,7 @@ useEffect(() => {
           title="effect で件数を合わせる"
           tone="bad"
           sourcePath={EFFECT}
+          showRenderCount
           description="動くが、遠回りしている"
         >
           <EffectDerived />
@@ -95,6 +96,7 @@ useEffect(() => {
           title="ただ計算する"
           tone="good"
           sourcePath={CALCULATE}
+          showRenderCount
           description="useEffect も state も要らない"
         >
           <JustCalculate />

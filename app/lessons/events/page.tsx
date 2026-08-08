@@ -84,6 +84,7 @@ export default async function Page() {
         <DemoCard
           title="押したボタンによって表示を変える"
           sourcePath={CLICK}
+          showRenderCount
           description="引数のある処理は関数で包んで渡している"
         >
           <ClickBasic />
@@ -125,6 +126,7 @@ export default async function Page() {
         <DemoCard
           title="入力された文字を受け取る"
           sourcePath={EVENT}
+          showRenderCount
           description="打つたびにハンドラが呼ばれている"
         >
           <EventObject />

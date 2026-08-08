@@ -1,9 +1,13 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export function LoginView() {
+  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
+  useTrackDemoRender();
+
   // 画面が持っている状態は、この 1 つだけ
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

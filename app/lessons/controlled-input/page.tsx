@@ -59,6 +59,7 @@ export default async function Page() {
           title="値を渡していない入力欄"
           tone="bad"
           sourcePath={UNCONTROLLED}
+          showRenderCount
           description="打てるが、React 側からは中身が分からない"
         >
           <Uncontrolled />
@@ -113,6 +114,7 @@ export default async function Page() {
           title="value と onChange をつなぐ"
           tone="good"
           sourcePath={CONTROLLED}
+          showRenderCount
           description="文字数も、ボタンの状態も、クリアもできる"
         >
           <Controlled />
