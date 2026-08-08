@@ -10,7 +10,7 @@ export function BasicList() {
   return (
     <ul className="flex flex-col gap-1.5">
       {members.map((member) => (
-        <li key={member.id} className="rounded border px-3 py-1.5">
+        <li key={member.id} className="rounded border p-2">
           {member.name}
         </li>
       ))}

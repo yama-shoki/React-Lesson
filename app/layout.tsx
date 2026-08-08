@@ -51,7 +51,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SidebarProvider>
             <AppSidebar />
             <main className="relative min-w-0 flex-1">
-              <SidebarTrigger className="fixed top-3 left-3 z-50 bg-background/80 backdrop-blur md:hidden" />
+              {/*
+                サイドバーは畳める（Cmd + B でも切り替わる）。
+                畳むと本文とコードの両方が広がるので、読むことに集中したいときに効く。
+                高さ 0 の器に入れて、本文のレイアウトを押し下げないようにしている。
+              */}
+              <div className="sticky top-0 z-40 flex h-0 items-start">
+                <SidebarTrigger className="mt-2.5 ml-2.5 bg-background/70 text-muted-foreground backdrop-blur" />
+              </div>
               {children}
             </main>
           </SidebarProvider>

@@ -156,7 +156,7 @@ const Frame = ({
   arrows: { from: number; to: number; emphasis?: boolean }[];
   caption: string;
 }) => (
-  <figure className="not-prose my-6">
+  <figure className="not-prose my-6 max-w-2xl">
     <svg
       viewBox="0 0 540 250"
       className="w-full"

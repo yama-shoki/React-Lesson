@@ -21,7 +21,12 @@ export const LessonShell = ({
 }) => {
   return (
     <CodePaneProvider snippets={snippets}>
-      <div className="mx-auto grid w-full max-w-[1680px] gap-x-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:px-10">
+      {/*
+        画面が狭いうちは左右を等分する。コード側だけ極端に細くなると折り返しだらけになるため。
+        広い画面では本文を 46rem（日本語で 1 行 40 字前後）で止めて、
+        余った幅はすべてコード側に回す。本文はこれ以上広げても読みにくくなるだけ。
+      */}
+      <div className="mx-auto grid w-full max-w-[1680px] gap-x-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:pl-14 xl:px-10 2xl:grid-cols-[minmax(0,46rem)_minmax(0,1fr)]">
         <article className="lesson-prose min-w-0 py-12 lg:py-16">
           {children}
         </article>
