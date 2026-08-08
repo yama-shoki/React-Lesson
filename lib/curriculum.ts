@@ -37,6 +37,7 @@ export const curriculum: Part[] = [
         slug: "variables",
         title: "変数と const",
         summary: "なぜ React では let をほとんど使わないのか",
+        ready: true,
       },
       {
         slug: "functions",
