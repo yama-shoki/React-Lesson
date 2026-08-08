@@ -60,6 +60,7 @@ export default async function Page() {
           title="子がそれぞれ state を持つ"
           tone="bad"
           sourcePath={SEPARATE}
+          showRenderCount
           description="上下で別々の数になる"
         >
           <SeparateState />
@@ -70,6 +71,15 @@ export default async function Page() {
           <code>useState</code> は<strong>そのコンポーネントごとに別の値</strong>を用意します。
           同じコードから作られていても、置かれた 2 つは別物です。
         </p>
+
+        <Callout variant="note" title="render の数字について">
+          <p>
+            このデモにはパネルが 2 つ入っているので、
+            右上の数字は<strong>2 つ分を合わせた回数</strong>になります。
+            片方を押したときも数字は増えますが、
+            実際に描き直されているのは<strong>押したほうのパネルだけ</strong>です。
+          </p>
+        </Callout>
 
         <p>
           「別々でいい」ならこれで正解です。
@@ -96,6 +106,7 @@ export default async function Page() {
           title="親が state を持つ"
           tone="good"
           sourcePath={LIFTED}
+          showRenderCount
           description="どちらを押しても、両方が変わる"
         >
           <LiftedState />
