@@ -75,30 +75,20 @@ export const ConnectionLine = () => {
       path.setAttribute("opacity", "1");
     };
 
-    let ticking = false;
-    const schedule = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        update();
-      });
+    /*
+     * スクロールイベントを拾って更新すると、必ず 1 フレーム遅れて線がずれる。
+     * とくにコードペインが注目行までなめらかに移動している間は、
+     * 行の位置が動き続けるのでイベントでは追いつかない。
+     * 毎フレーム測り直すことで、どんな動きの途中でも線が正確につながる。
+     */
+    let frame = 0;
+    const loop = () => {
+      update();
+      frame = requestAnimationFrame(loop);
     };
 
-    update();
-
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-
-    // コードペインの中のスクロールでも行の位置が変わる
-    const scroller = document.querySelector(".code-scroll");
-    scroller?.addEventListener("scroll", schedule, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      scroller?.removeEventListener("scroll", schedule);
-    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
   }, [active, pinned]);
 
   return (

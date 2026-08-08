@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Check, X } from "lucide-react";
+import { Check, CircleHelp, X } from "lucide-react";
 import { useState } from "react";
 
 export type QuizOption = {
@@ -26,13 +26,20 @@ export const Quiz = ({
   const answered = selected !== null;
 
   return (
-    <div className="not-prose my-6 rounded-xl border bg-muted/30 p-4">
-      <p className="mb-3 text-sm font-semibold">{question}</p>
+    <div className="not-prose my-7 rounded-xl border bg-card p-5 shadow-sm">
+      {/* 本文の流れの中に置かれるので、ひと目で「問題だ」と分かる印を付ける */}
+      <p className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground">
+        <CircleHelp className="size-3.5" />
+        確認クイズ
+      </p>
 
-      <ul className="flex flex-col gap-2">
+      <p className="mb-4 text-[0.938rem] leading-relaxed font-semibold">
+        {question}
+      </p>
+
+      <ul className="flex flex-col gap-2.5">
         {options.map((option, index) => {
           const isSelected = selected === index;
-          const revealed = answered;
 
           return (
             <li key={option.label}>
@@ -41,23 +48,33 @@ export const Quiz = ({
                 onClick={() => setSelected(index)}
                 aria-pressed={isSelected}
                 className={cn(
-                  "flex w-full items-start gap-2.5 rounded-lg border px-3 py-2.5 text-left text-sm transition-colors",
-                  !revealed && "hover:bg-background",
-                  revealed && option.correct && "border-emerald-500/60 bg-emerald-500/[0.07]",
-                  revealed && !option.correct && isSelected && "border-red-500/60 bg-red-500/[0.07]",
-                  revealed && !option.correct && !isSelected && "opacity-55"
+                  "flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition-colors",
+                  !answered && "hover:border-foreground/30 hover:bg-muted/60",
+                  answered &&
+                    option.correct &&
+                    "border-emerald-500/60 bg-emerald-500/[0.06]",
+                  answered &&
+                    !option.correct &&
+                    isSelected &&
+                    "border-red-500/60 bg-red-500/[0.06]",
+                  answered && !option.correct && !isSelected && "opacity-50"
                 )}
               >
                 <span
                   className={cn(
-                    "mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full border text-[0.625rem] font-mono",
-                    revealed && option.correct && "border-emerald-500 bg-emerald-500 text-white",
-                    revealed && !option.correct && isSelected && "border-red-500 bg-red-500 text-white"
+                    "mt-px flex size-5 shrink-0 items-center justify-center rounded-full border font-mono text-[0.625rem]",
+                    answered &&
+                      option.correct &&
+                      "border-emerald-500 bg-emerald-500 text-white",
+                    answered &&
+                      !option.correct &&
+                      isSelected &&
+                      "border-red-500 bg-red-500 text-white"
                   )}
                 >
-                  {revealed && option.correct ? (
+                  {answered && option.correct ? (
                     <Check className="size-3" strokeWidth={3} />
-                  ) : revealed && isSelected ? (
+                  ) : answered && isSelected ? (
                     <X className="size-3" strokeWidth={3} />
                   ) : (
                     String.fromCharCode(65 + index)
@@ -65,9 +82,9 @@ export const Quiz = ({
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="block">{option.label}</span>
-                  {revealed && (
-                    <span className="mt-1 block text-[0.813rem] leading-relaxed text-muted-foreground">
+                  <span className="block leading-relaxed">{option.label}</span>
+                  {answered && (
+                    <span className="mt-1.5 block text-[0.813rem] leading-relaxed text-muted-foreground">
                       {option.explanation}
                     </span>
                   )}
@@ -82,7 +99,7 @@ export const Quiz = ({
         <button
           type="button"
           onClick={() => setSelected(null)}
-          className="mt-3 text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          className="mt-3.5 text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
         >
           選び直す
         </button>

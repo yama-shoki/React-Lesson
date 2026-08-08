@@ -204,20 +204,27 @@ export default async function Page() {
         </p>
       </LessonSection>
 
-      <LessonSection id="input-value" {...at(ROW, "<input", "/>")}>
+      <LessonSection id="input-value" {...at(ROW, "<Input")}>
         <h3>流用された箱の中身は残る</h3>
 
-        <p>
-          ここで効いてくるのが、メモ欄の <code>input</code> です。
-        </p>
+        <p>ここで効いてくるのが、メモ欄です。</p>
 
         <p>
-          この <code>input</code> に打った文字は、
+          ここに打った文字は、
           <strong>React が管理している値ではありません</strong>。
           ブラウザの入力欄そのものが内部で持っている値です。
           React は名前の部分しか書き換えないので、
           <strong>文字はその場に残ります</strong>。
         </p>
+
+        <Callout variant="note">
+          <p>
+            メモ欄には <code>Input</code> という部品を使っていますが、中身は
+            ふつうの <code>&lt;input&gt;</code> です。
+            見た目を整えるためにあらかじめ用意してあるものなので、
+            ここでは「入力欄」と読んでもらって大丈夫です。
+          </p>
+        </Callout>
 
         <p>
           結果として、さとうに書いたメモが、やまだの行に付いているように見える。

@@ -138,16 +138,16 @@
   /* デモとコードの対応を示す色。
      カードの枠・つなぐ線・コードの注目行をすべて同じ色にすることで、
      「この画面はこの行から出ている」と一目で分かるようにする */
-  --connection: oklch(0.62 0.24 350);
-  --code-line-active: oklch(0.94 0.05 350);
+  --connection: oklch(0.55 0.21 258);
+  --code-line-active: oklch(0.93 0.055 258);
   --code-line-marker: var(--connection);
 }
 
 /* いまはライト固定で運用しているが、shadcn のテーマ定義に合わせて対の値を置いてある */
 .dark {
   --code-bg: oklch(0.17 0 0);
-  --connection: oklch(0.72 0.2 350);
-  --code-line-active: oklch(0.32 0.06 350);
+  --connection: oklch(0.7 0.17 258);
+  --code-line-active: oklch(0.32 0.07 258);
   --code-line-marker: var(--connection);
 }
 
