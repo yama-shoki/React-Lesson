@@ -43,6 +43,7 @@ export const curriculum: Part[] = [
         slug: "functions",
         title: "関数を値として扱う",
         summary: "「関数を渡す」が分かると onClick が読めるようになる",
+        ready: true,
       },
       {
         slug: "array-map",
