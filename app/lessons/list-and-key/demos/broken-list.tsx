@@ -26,8 +26,8 @@ export function BrokenList() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2.5">
         {members.map((member, index) => (
           // key に index を使っている。ここが問題
           <MemberRow key={index} name={member.name} />

@@ -115,7 +115,7 @@ export const DemoCard = ({
 
       {/* デモ側で毎回 text-sm を書かなくて済むように、ここで文字サイズを決めておく。
           教材のコードは主題だけに集中させたい */}
-      <div className="p-4 text-sm">{children}</div>
+      <div className="p-5 text-sm">{children}</div>
     </div>
   );
 };

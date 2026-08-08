@@ -8,7 +8,7 @@ const members = [
 
 export function BasicList() {
   return (
-    <ul className="flex flex-col gap-1.5">
+    <ul className="flex flex-col gap-2.5">
       {members.map((member) => (
         <li key={member.id} className="rounded border p-2">
           {member.name}

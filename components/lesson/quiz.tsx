@@ -37,7 +37,9 @@ export const Quiz = ({
         {question}
       </p>
 
-      <ul className="flex flex-col gap-2.5">
+      {/* 枠のある要素を縦に並べるときは、線どうしが近づいて余白が潰れて見える。
+          文字の行間より広めにとる */}
+      <ul className="flex flex-col gap-3.5">
         {options.map((option, index) => {
           const isSelected = selected === index;
 

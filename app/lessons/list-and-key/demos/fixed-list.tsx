@@ -25,8 +25,8 @@ export function FixedList() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2.5">
         {members.map((member) => (
           // データ自身が持つ id を key にする
           <MemberRow key={member.id} name={member.name} />
