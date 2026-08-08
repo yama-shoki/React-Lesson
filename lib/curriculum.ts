@@ -61,6 +61,7 @@ export const curriculum: Part[] = [
         slug: "truthy-falsy",
         title: "truthy / falsy と && || ??",
         summary: "条件によって出し分けるための土台",
+        ready: true,
       },
       {
         slug: "typescript-basics",
