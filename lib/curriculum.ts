@@ -67,6 +67,7 @@ export const curriculum: Part[] = [
         slug: "typescript-basics",
         title: "TypeScript のさわり",
         summary: "型があると、なぜ書くのが楽になるのか",
+        ready: true,
       },
     ],
   },
