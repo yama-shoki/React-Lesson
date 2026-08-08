@@ -59,18 +59,15 @@ export const DemoCard = ({
 
   return (
     <div
+      // ConnectionLine がこの印を目印にして、コードの該当行まで線を引く
+      data-demo-linked={isPinned ? "true" : undefined}
       className={cn(
         "not-prose relative my-6 rounded-xl border transition-shadow",
         toneStyles[tone],
-        isPinned && "border-pink-500 ring-2 ring-pink-500/40"
+        isPinned && "border-[var(--connection)] ring-2 ring-[var(--connection)]/35"
       )}
     >
       {showRenderCount && <RenderFlash />}
-
-      {/* カードから右のコードペインへ伸びる線。つながりを目で追えるようにする */}
-      {isPinned && (
-        <span className="pointer-events-none absolute top-1/2 left-full hidden h-px w-12 bg-pink-500 lg:block" />
-      )}
 
       <div className="rounded-t-xl border-b bg-background/40 px-4 py-2.5">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -100,7 +97,7 @@ export const DemoCard = ({
               className={cn(
                 "ml-auto shrink-0 rounded-md border p-1 transition-colors",
                 isPinned
-                  ? "border-pink-500 text-pink-500"
+                  ? "border-[var(--connection)] text-[var(--connection)]"
                   : "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >

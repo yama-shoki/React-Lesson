@@ -66,6 +66,8 @@ const CodeBlock = ({
   return (
     <div
       ref={scrollRef}
+      // 右ペインだけが線の行き先になる（本文中や拡大表示は対象外）
+      data-code-pane={scrollToHighlight ? "" : undefined}
       className={cn(
         "code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]",
         className

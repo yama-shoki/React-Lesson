@@ -3,6 +3,7 @@
 import type { Snippet } from "@/lib/code";
 import { CodePane } from "./code-pane";
 import { CodePaneProvider } from "./code-pane-context";
+import { ConnectionLine } from "./connection-line";
 
 /**
  * レッスンページの外枠。左に読み物、右に追従するコード。
@@ -36,6 +37,8 @@ export const LessonShell = ({
           <CodePane />
         </aside>
       </div>
+
+      <ConnectionLine />
     </CodePaneProvider>
   );
 };
