@@ -179,12 +179,17 @@
   line-height: 1.6;
 }
 
-.lesson-prose p {
+/*
+  本文の体裁は、デモやクイズの中（.not-prose の内側）には効かせない。
+  「いったん全部に効かせてから打ち消す」書き方にすると、
+  打ち消し側の詳細度が高くなり、部品が自分で指定した余白まで殺してしまう。
+*/
+.lesson-prose p:not(.not-prose *) {
   margin-bottom: 1.25rem;
 }
 
-.lesson-prose ul,
-.lesson-prose ol {
+.lesson-prose ul:not(.not-prose *),
+.lesson-prose ol:not(.not-prose *) {
   margin-bottom: 1.25rem;
   padding-left: 1.5rem;
   display: flex;
@@ -192,15 +197,15 @@
   gap: 0.375rem;
 }
 
-.lesson-prose ul {
+.lesson-prose ul:not(.not-prose *) {
   list-style: disc;
 }
 
-.lesson-prose ol {
+.lesson-prose ol:not(.not-prose *) {
   list-style: decimal;
 }
 
-.lesson-prose li::marker {
+.lesson-prose li:not(.not-prose *)::marker {
   color: var(--muted-foreground);
 }
 
@@ -321,16 +326,5 @@
   text-indent: 0;
 }
 
-/* デモや図の中は本文用のスタイルから切り離す。
-   .not-prose を付けた要素の中では、リストの黒丸や余白を打ち消す */
-.lesson-prose .not-prose ul,
-.lesson-prose .not-prose ol {
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-  gap: 0;
-}
-
-.lesson-prose .not-prose p {
-  margin-bottom: 0;
-}
+/* デモや図の中の体裁は、それぞれの部品が自分で決める。
+   ここで打ち消しを書くと部品側の指定より強くなってしまうため、何も書かない。 */
