@@ -49,6 +49,7 @@ export const curriculum: Part[] = [
         slug: "array-map",
         title: "配列の map",
         summary: "リスト表示のすべてがここから始まる",
+        ready: true,
       },
       {
         slug: "destructuring",
