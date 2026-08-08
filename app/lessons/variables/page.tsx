@@ -53,7 +53,7 @@ export default async function Page() {
         </p>
       </LessonHeader>
 
-      <LessonSection id="what" {...at(OBJECT)}>
+      <LessonSection id="what" {...at(OBJECT, "export const user")}>
         <h2>変数は、値につけた名前</h2>
 
         <p>
@@ -75,7 +75,7 @@ console.log(name); // "さとう"`}
         </p>
       </LessonSection>
 
-      <LessonSection id="const-let" {...at(OBJECT)}>
+      <LessonSection id="const-let" {...at(OBJECT, "// user = {")}>
         <h2>const と let</h2>
 
         <p>変数を作る方法は、いまは 2 つだけ覚えれば十分です。</p>

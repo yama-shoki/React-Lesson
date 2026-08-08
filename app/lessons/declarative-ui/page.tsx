@@ -132,7 +132,7 @@ function logout() {
         </p>
       </LessonSection>
 
-      <LessonSection id="formula" {...at(LOGIN)}>
+      <LessonSection id="formula" {...at(LOGIN, "return (", ");")}>
         <h2>画面は、状態から決まる</h2>
 
         <p>この考え方は、よくこう表現されます。</p>

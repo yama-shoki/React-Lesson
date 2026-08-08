@@ -142,7 +142,7 @@ export default async function Page() {
         </p>
       </LessonSection>
 
-      <LessonSection id="tradeoff" {...at(REACT)}>
+      <LessonSection id="tradeoff" {...at(REACT, "onClick={() => setCount")}>
         <h2>その代わりに払うもの</h2>
 
         <p>

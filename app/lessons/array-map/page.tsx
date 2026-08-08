@@ -152,7 +152,7 @@ export default async function Page() {
         </Callout>
       </LessonSection>
 
-      <LessonSection id="friends" {...at(BASIC)}>
+      <LessonSection id="friends" {...at(BASIC, "export const numbers")}>
         <h3>ついでに覚えておくと便利なもの</h3>
 
         <p>
