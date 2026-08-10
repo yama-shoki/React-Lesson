@@ -64,6 +64,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "async-await",
+				title: "待つ処理（Promise と async/await）",
+				summary: "API 通信を読むための土台。順番が入れ替わる理由",
+				ready: true,
+			},
+			{
 				slug: "typescript-basics",
 				title: "TypeScript のさわり",
 				summary: "型があると、なぜ書くのが楽になるのか",
@@ -113,6 +119,12 @@ export const curriculum: Part[] = [
 				slug: "props",
 				title: "props と型のつけ方",
 				summary: "部品に情報を渡す。必須と任意の書き分け",
+				ready: true,
+			},
+			{
+				slug: "props-patterns",
+				title: "props の渡し方いろいろ",
+				summary: "関数・見た目の種類・残り全部。実際によく使う 3 つ",
 				ready: true,
 			},
 			{
@@ -370,6 +382,12 @@ export const curriculum: Part[] = [
 				slug: "server-state",
 				title: "サーバーのデータ",
 				summary: "取得したデータは state とは別物として扱う",
+				ready: true,
+			},
+			{
+				slug: "api-request",
+				title: "データを送る",
+				summary: "取ってくるのとは違う。二重送信と、送ったあとの画面",
 				ready: true,
 			},
 			{

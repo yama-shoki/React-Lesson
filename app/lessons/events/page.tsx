@@ -46,7 +46,15 @@ export default async function Page() {
         <p>
           Part 0 でやった「関数を値として渡す」が、そのまま実物になります。
         </p>
-      </LessonHeader>
+      	<Callout variant="note" title="デモに出てくる useState について">
+					<p>
+						この Part のデモには <code>useState</code> という見慣れないものが
+						出てきます。<strong>Part 4 で正面から扱います</strong>ので、
+						いまは<strong>「React が覚えていてくれる値」</strong>
+						とだけ思って読み進めてください。
+					</p>
+				</Callout>
+			</LessonHeader>
 
       <LessonSection id="basic" {...at(CLICK, "onClick={reset}")}>
         <h2>渡すのは関数、括弧は付けない</h2>
