@@ -133,6 +133,12 @@ export const curriculum: Part[] = [
 				summary: "継承ではなく組み合わせで作る理由",
 				ready: true,
 			},
+			{
+				slug: "render-props",
+				title: "children を関数にする",
+				summary: "包む側が持っている値を、中身に渡す",
+				ready: true,
+			},
 		],
 	},
 	{
@@ -309,6 +315,12 @@ export const curriculum: Part[] = [
 				slug: "react-compiler",
 				title: "React Compiler",
 				summary: "上の 3 つが、そのうち要らなくなる話",
+				ready: true,
+			},
+			{
+				slug: "suspense",
+				title: "Suspense",
+				summary: "縮められない待ち時間を、どう見せるか",
 				ready: true,
 			},
 		],
