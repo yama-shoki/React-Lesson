@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { PageTitle } from "@/components/page-title";
 import { PageTransition } from "@/components/page-transition";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -46,7 +47,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
-        <SidebarProvider>
+        {/* URL を状態の置き場所として使う章があるので、全体を包んでおく */}
+        <NuqsAdapter>
+          <SidebarProvider>
           <AppSidebar />
           <main className="relative min-w-0 flex-1">
             {/*
@@ -62,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <PageTransition>{children}</PageTransition>
           </main>
         </SidebarProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
