@@ -259,6 +259,12 @@ export const curriculum: Part[] = [
 				summary: "後片付けを書かないと何が漏れるのか",
 				ready: true,
 			},
+			{
+				slug: "custom-hooks",
+				title: "カスタムフック",
+				summary: "自分でフックを作る。ただの関数の切り出し",
+				ready: true,
+			},
 		],
 	},
 	{
@@ -364,6 +370,32 @@ export const curriculum: Part[] = [
 				slug: "where-to-put-state",
 				title: "状態の置き場所を選ぶ",
 				summary: "4 つの選択肢を、同じ形で並べて見比べる",
+				ready: true,
+			},
+		],
+	},
+	{
+		label: "Part 10",
+		title: "実務で使う道具",
+		summary:
+			"自分で書けるけれど、書かないほうがいいもの。よく使われるライブラリを、困りごとから逆算して見る。",
+		lessons: [
+			{
+				slug: "react-hook-form",
+				title: "React Hook Form",
+				summary: "項目が増えたフォームを、描き直さずに扱う",
+				ready: true,
+			},
+			{
+				slug: "debounce",
+				title: "入力を間引く",
+				summary: "打つたびに走らせない。debounce と throttle",
+				ready: true,
+			},
+			{
+				slug: "choosing-libraries",
+				title: "ライブラリの選び方",
+				summary: "入れる前に何を見るか。この教材で使ったものの一覧",
 				ready: true,
 			},
 		],
