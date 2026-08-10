@@ -316,11 +316,13 @@ export const curriculum: Part[] = [
 				slug: "context",
 				title: "Context",
 				summary: "バケツリレーをやめる",
+				ready: true,
 			},
 			{
 				slug: "context-performance",
 				title: "Context と再レンダリング",
 				summary: "1 つの Context に詰め込むと何が起きるか",
+				ready: true,
 			},
 			{
 				slug: "url-state",
