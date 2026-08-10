@@ -2,7 +2,7 @@
 
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
-import { createContext, type ReactNode, use, useState } from "react";
+import { createContext, use, useState } from "react";
 
 // 値の置き場所を作る
 const UserContext = createContext<string>("");

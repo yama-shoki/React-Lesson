@@ -197,6 +197,12 @@ export const curriculum: Part[] = [
 				summary: "push してはいけない。なぜ毎回新しく作るのか",
 				ready: true,
 			},
+			{
+				slug: "usereducer",
+				title: "useReducer",
+				summary: "更新のしかたが増えてきたら、1 か所にまとめる",
+				ready: true,
+			},
 		],
 	},
 	{
