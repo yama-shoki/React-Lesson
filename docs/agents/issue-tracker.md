@@ -27,20 +27,30 @@
 
 - **react-dev の調査** — 完了。取り込むべきパターンが判明（下記）
 - **useCallback は「最適化」ではなく「怠ると無限ループになるバグ」として先に見せる** — react-dev がこの順序を採っており、優先度の付け方として正しい
+- **Suspense は Part 8 の末尾に置く** — Part 8 の他の章が「むだな描き直しを減らす」話なので、「縮められない待ち時間の見せ方」だと冒頭で線を引いたうえで並べた。Part 9 の url-state が Suspense を必要とするので、先に来ている必要もあった
+- **Part 10 は独立させる** — Part 9 に混ぜると「状態の置き場所」という Part の筋が濁る。「困りごとが先、ライブラリは後」という別の主題として切り出した
 - **Part 9 は「状態の置き場所」で統一する** — react-dev は useState / SWR / localStorage / URL を全部 `[value, setValue]` の同じ形に揃え、「API は同じ、置き場所が違うだけ」を体で覚えさせている
 
 ### react-dev から取り込むパターン
 
 | パターン | 取り込み先 | 状態 |
 | --- | --- | --- |
-| useEffect の無限ループ（2 種） | Part 6 に新章「無限ループにしない」 | 実装中 |
-| children による再レンダリング分離（Flat vs Count） | Part 8 | 未 |
-| memo / useMemo / useCallback（1 行だけ違う双子で見せる） | Part 8 | 未 |
-| Context を分割する理由（large → split の対比） | Part 9 | 未 |
-| 状態の置き場所 4 種を同じ形で見せる | Part 9 | 未 |
-| useReducer（counter → form → todo の階段） | Part 4 に新章 | 未 |
-| スーパー → スプリット → FaaC の階段 | Part 2 | 未 |
-| Suspense（async な Server Component） | Part 9 か新設 | 未 |
+| useEffect の無限ループ（2 種） | Part 6「無限ループにしない」 | 済 |
+| children による再レンダリング分離 | Part 8「children で切り離す」 | 済 |
+| memo / useMemo / useCallback（1 行だけ違う双子） | Part 8 | 済 |
+| Context を分割する理由（large → split） | Part 9「Context と再レンダリング」 | 済 |
+| 状態の置き場所 4 種を同じ形で見せる | Part 9「状態の置き場所を選ぶ」 | 済 |
+| useReducer | Part 4「useReducer」 | 済 |
+| スーパー → スプリット | Part 2「合成という考え方」 | 済（元からあった） |
+| FaaC / render props | Part 2「children を関数にする」 | 済 |
+| Suspense（async な Server Component） | Part 8「Suspense」 | 済 |
+
+**react-dev には無いが、こちらで足したもの**
+
+- カスタムフック（Part 6） — react-dev に単独の扱いがなく、Part 10 への橋として必要だった
+- Part 10「実務で使う道具」 — react-hook-form / debounce / ライブラリの選び方
+- useState の実践パターン（Part 4） — 依頼主の指摘で追加
+- `scripts/check-highlights.mjs` — 目印の空振りを機械的に検出する
 
 ### react-dev の教材設計から学んだこと
 
@@ -51,9 +61,17 @@
 
 ## Not yet specified
 
-- 5 周の見直しで、それぞれ何を見るのか（周ごとに観点を変えるべきか、同じ観点で反復するか）
-- 実務ライブラリ章を独立した Part にするか、Part 9 に統合するか
-- Suspense をどの Part に置くか（Server Component の話が必要になる）
+- （実装に関するものは残っていない）
+
+## 見直し 5 周の割り当て
+
+| 周 | 見るもの | 状態 |
+| --- | --- | --- |
+| 1 | ハイライトの目印が空振りしていないか（機械検査） | 済 — 1 件発見・修正、254 件一致 |
+| 2 | showRenderCount の付け漏れ / カリキュラムと実ディレクトリの整合 | 済 — 漏れなし（Part 0〜2 は静的デモなので意図的に無し） |
+| 3 | 全 49 章の内容点検（事実誤り / 本文とデモの不一致 / 章参照 / クイズ） | 実施中（4 並列） |
+| 4 | 3 周目の指摘の反映 | 未 |
+| 5 | リファクタリングと最終確認（lint / 目印 / build） | 未 |
 
 ## Out of scope
 
