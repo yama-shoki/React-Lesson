@@ -236,6 +236,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "effect-loop",
+				title: "無限ループにしない",
+				summary: "依存配列に入れた値を、その中で更新してはいけない",
+				ready: true,
+			},
+			{
 				slug: "cleanup",
 				title: "クリーンアップ",
 				summary: "後片付けを書かないと何が漏れるのか",
