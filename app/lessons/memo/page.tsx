@@ -126,7 +126,7 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 				<StaticCode lang="ts" code={`const user = { name: "さとう" };`} />
 
 				<p>
-					前の章で見たとおり、この行は
+					Part 6「無限ループにしない」で見たとおり、この行は
 					<strong>描き直されるたびに実行され、毎回新しいオブジェクトを作ります</strong>。
 					中身は同じでも、React にとっては別のものです。
 				</p>

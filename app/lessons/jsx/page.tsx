@@ -152,9 +152,17 @@ jsx("p", { className: "text", children: "こんにちは" })`}
         <h3>class ではなく className</h3>
 
         <p>
-          <code>class</code> は JavaScript の予約語（クラスを作るための言葉）なので、
-          属性名として使えません。そのため <code>className</code> になっています。
-          同じ理由で <code>for</code> は <code>htmlFor</code> です。
+          JSX の属性名は、<strong>ブラウザが持っているプロパティ名にそろえてあります</strong>。
+          JavaScript から要素の class を触るときは{" "}
+          <code>element.className</code> と書くので、JSX でも{" "}
+          <code>className</code> です。同じ理由で <code>for</code> は{" "}
+          <code>htmlFor</code>（<code>label.htmlFor</code>）になります。
+        </p>
+
+        <p>
+          ブラウザ側がこの名前になっているのは、昔の JavaScript で{" "}
+          <code>class</code> が名前として使えなかった名残です。
+          いまは使えるのですが、名前だけが残っています。
         </p>
 
         <h3>属性はキャメルケース</h3>
@@ -167,6 +175,12 @@ jsx("p", { className: "text", children: "こんにちは" })`}
           <code>onchange</code> ではなく <code>onChange</code>。
           JavaScript のオブジェクトのキーとして書かれるので、
           JavaScript の命名にそろえてあります。
+        </p>
+
+        <p>
+          ただし <code>aria-label</code> や <code>data-id</code> は例外で、
+          <strong>HTML と同じくハイフンのまま</strong>書きます。
+          この 2 種類だけは、そういうものだと覚えてください。
         </p>
 
         <h3>タグは必ず閉じる</h3>
@@ -208,7 +222,9 @@ jsx("p", { className: "text", children: "こんにちは" })`}
             TypeScript で JSX を書くとき、ファイルの拡張子は{" "}
             <code>.tsx</code> になります。
             中身は JSX と同じで、そこに型が付けられるだけです。
-            この教材のファイルもすべて <code>.tsx</code> です。
+            JSX を含むファイルが <code>.tsx</code>、含まないものは{" "}
+            <code>.ts</code> です。Part 0 の右ペインに{" "}
+            <code>const-object.ts</code> と出ていたのは後者でした。
           </p>
         </Callout>
       </LessonSection>
@@ -242,15 +258,15 @@ jsx("p", { className: "text", children: "こんにちは" })`}
           question="class ではなく className と書くのはなぜ？"
           options={[
             {
-              label: "class が JavaScript の予約語で、そのままでは使えないから",
+              label: "ブラウザ側のプロパティ名が element.className だから",
               correct: true,
               explanation:
-                "JSX は JavaScript に変換されるため、予約語を属性名にできません。同じ理由で for は htmlFor になります。",
+                "JSX の属性名は DOM のプロパティ名にそろえてあります。同じ理由で for は htmlFor です。",
             },
             {
-              label: "React が独自に付けた名前で、深い理由はない",
+              label: "class が JavaScript の予約語で、属性名にできないから",
               explanation:
-                "理由があります。JavaScript の予約語との衝突を避けるためです。",
+                "よく言われますが、正確ではありません。いまの JavaScript では class をプロパティ名に使えます。DOM 側が className なのは、それが使えなかった時代の名残です。",
             },
             {
               label: "CSS のクラスとは別のものを指しているから",

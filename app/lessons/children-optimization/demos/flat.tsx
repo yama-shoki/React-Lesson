@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -10,6 +11,8 @@ function Heavy() {
 }
 
 export function Flat() {
+	useTrackDemoRender();
+
 	const [count, setCount] = useState(0);
 
 	return (

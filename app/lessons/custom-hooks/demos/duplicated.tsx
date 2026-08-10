@@ -1,6 +1,7 @@
 "use client";
 
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { RenderBox } from "@/components/lesson/render-box";
 import { useEffect, useState } from "react";
 
 function WidthLabel() {
@@ -16,7 +17,7 @@ function WidthLabel() {
 	}, []);
 	// ここまで
 
-	return <p className="text-sm">いまの画面幅: {width}px</p>;
+	return <RenderBox title="WidthLabel">いまの画面幅: {width}px</RenderBox>;
 }
 
 function DeviceLabel() {
@@ -32,9 +33,9 @@ function DeviceLabel() {
 	}, []);
 
 	return (
-		<p className="text-sm">
+		<RenderBox title="DeviceLabel">
 			判定: {width < 768 ? "スマホ向け" : "パソコン向け"}
-		</p>
+		</RenderBox>
 	);
 }
 

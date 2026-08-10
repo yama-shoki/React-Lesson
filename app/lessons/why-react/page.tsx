@@ -123,8 +123,11 @@ export default async function Page() {
         </p>
 
         <p>
-          それでも画面は更新されます。React
-          が<strong>「値が変わった」ことを検知して、勝手に描き直している</strong>からです。
+          それでも画面は更新されます。
+          <code>setCount</code> を呼ぶことが、React への
+          <strong>「描き直して」という合図</strong>になっているからです。
+          React は値を見張っているのではなく、
+          <strong>合図を受け取ったら描き直す</strong>という仕組みで動いています。
         </p>
 
         <Callout variant="point" title="React が肩代わりしていること">

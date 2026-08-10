@@ -89,7 +89,8 @@ export default async function Page() {
         </p>
 
         <p>
-          前の章で「React では値を書き換えず、新しく作る」と書きました。
+          <strong>「変数と const」</strong>の章で
+          「React では値を書き換えず、新しく作る」と書きました。
           <code>map</code> はまさにその考え方でできています。
           React と相性がいいのはそのためです。
         </p>

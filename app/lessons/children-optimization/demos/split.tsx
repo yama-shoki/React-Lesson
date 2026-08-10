@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { type ReactNode, useState } from "react";
@@ -30,6 +31,8 @@ function Counter({ children }: { children: ReactNode }) {
 }
 
 export function Split() {
+	useTrackDemoRender();
+
 	return (
 		<Counter>
 			<Heavy />

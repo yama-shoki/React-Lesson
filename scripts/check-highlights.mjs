@@ -37,16 +37,38 @@ const parseAliases = (source, paths) => {
 	);
 };
 
-/** at(NAME, "from", "to") を拾う。引用符はどちらでもよい */
+/**
+ * at(NAME) / at(NAME, "from") / at(NAME, "from", "to") を拾う。
+ * 引用符はどちらでもよく、中の \" のような打ち消しも通す。
+ */
 const parseCalls = (source) => {
-	const pattern =
-		/\bat\(\s*([A-Z0-9_]+)\s*,\s*(?:"([^"]*)"|'([^']*)')\s*(?:,\s*(?:"([^"]*)"|'([^']*)'))?\s*\)/g;
+	const str = `("(?:[^"\\\\]|\\\\.)*"|'(?:[^'\\\\]|\\\\.)*')`;
+	const pattern = new RegExp(
+		`\\bat\\(\\s*([A-Z0-9_]+)\\s*(?:,\\s*${str}\\s*(?:,\\s*${str})?)?\\s*,?\\s*\\)`,
+		"g",
+	);
 
-	return [...source.matchAll(pattern)].map((match) => ({
+	// "..." / '...' を中身の文字列に戻す
+	const unquote = (literal) =>
+		literal === undefined
+			? undefined
+			: literal.slice(1, -1).replace(/\\(.)/g, "$1");
+
+	const calls = [...source.matchAll(pattern)].map((match) => ({
 		alias: match[1],
-		from: match[2] ?? match[3],
-		to: match[4] ?? match[5],
+		from: unquote(match[2]),
+		to: unquote(match[3]),
 	}));
+
+	// 読み落としに気づけるように、at( の総数と拾えた数を突き合わせる
+	const total = [...source.matchAll(/\bat\(/g)].length;
+	if (total !== calls.length) {
+		throw new Error(
+			`at( が ${total} 個あるのに ${calls.length} 個しか解析できませんでした`,
+		);
+	}
+
+	return calls;
 };
 
 const problems = [];

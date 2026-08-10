@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { memo, useCallback, useState } from "react";
@@ -16,6 +17,8 @@ const Child = memo(function Child({ onSave }: { onSave: () => void }) {
 });
 
 export function WithCallback() {
+	useTrackDemoRender();
+
 	const [count, setCount] = useState(0);
 	const [saved, setSaved] = useState(0);
 

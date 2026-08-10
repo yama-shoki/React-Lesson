@@ -36,8 +36,9 @@ export default async function Page() {
 		<LessonShell snippets={snippets}>
 			<LessonHeader slug={SLUG}>
 				<p>
-					再レンダリングが起きる理由は 2 つだけです。 自分の state
+					再レンダリングが起きる理由は、いまのところ 2 つです。 自分の state
 					が変わったときと、親がもう一度描き直されたときです。
+					（3 つめは Part 9 の Context で出てきます）
 				</p>
 				<p>
 					ここで大切なのは、<strong>props が変わったから</strong>

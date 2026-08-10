@@ -67,8 +67,7 @@ export default async function Page() {
 					title="同じ 8 行が 2 か所にある"
 					tone="bad"
 					sourcePath={DUPLICATED}
-					showRenderCount
-					description="ウィンドウの幅を変えてみる"
+					description="ウィンドウの幅を変えると、2 つとも光る"
 				>
 					<Duplicated />
 				</DemoCard>
@@ -149,8 +148,7 @@ useEffect(() => {
 					title="カスタムフックにまとめた"
 					tone="good"
 					sourcePath={EXTRACTED}
-					showRenderCount
-					description="動きはまったく同じ"
+					description="動きも光り方も、まったく同じ"
 				>
 					<Extracted />
 				</DemoCard>
@@ -169,6 +167,11 @@ useEffect(() => {
 						カスタムフックが共有するのは<strong>ロジックだけ</strong>で、
 						state ではありません。
 						<code>useState</code> を 2 回書いたのと同じ状態になります。
+					</p>
+					<p>
+						デモで幅を変えると<strong>2 つの箱が別々に光ります</strong>。
+						それぞれが自分の <code>width</code> を持って、
+						自分で描き直されている証拠です。
 					</p>
 					<p>
 						state まで共有したいなら、Part 9 の Context を使います。
@@ -199,7 +202,7 @@ useEffect(() => {
 
 				<Callout variant="note" title="世の中のライブラリも、ほとんどこれ">
 					<p>
-						この教材で使ってきた <code>useQueryState</code>、
+						このあと Part 9 で使う <code>useQueryState</code>、
 						<code>useLocalStorageState</code>、<code>useSWR</code>。
 						全部カスタムフックです。
 					</p>

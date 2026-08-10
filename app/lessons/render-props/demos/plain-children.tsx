@@ -15,7 +15,8 @@ function Panel({ children }: { children: ReactNode }) {
 				{isOpen ? "閉じる" : "開く"}
 			</Button>
 
-			{isOpen && <div className="mt-3">{children}</div>}
+			{/* 中身はいつも出す。違いは「値を渡せるかどうか」だけ */}
+			<div className="mt-3">{children}</div>
 		</div>
 	);
 }
@@ -27,7 +28,7 @@ export function PlainChildren() {
 		<Panel>
 			{/* ここから isOpen は見えない。「開いています」と書くことができない */}
 			<p className="text-sm text-muted-foreground">
-				中身です。ここから開閉の状態は見えません。
+				いま……（開いているのか閉じているのか、ここからは分かりません）
 			</p>
 		</Panel>
 	);

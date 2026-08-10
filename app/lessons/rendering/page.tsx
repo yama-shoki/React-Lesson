@@ -69,7 +69,7 @@ export default async function Page() {
 				</DemoCard>
 
 				<p>
-					左のデモでボタンを押すと、右上の数字が増えます。
+					左のデモでボタンを押すと、カードの見出しの横にある数字が増えます。
 					これは「このデモの中の tracked
 					コンポーネントが再び描かれた」ことを表しています。
 				</p>
@@ -80,18 +80,18 @@ export default async function Page() {
 				{...at(
 					COUNTER,
 					"const [count, setCount] = useState(0);",
-					"onClick={() => setCount(count + 1)}",
+					"再レンダリングする",
 				)}
 			>
 				<h2>再レンダリングは、画面の更新ではない</h2>
 
 				<StaticCode
 					lang="ts"
-					code={`const [count, setCount] = useState(0);
+					code={`function RenderCounter() {
+  const [count, setCount] = useState(0);
 
-function RenderCounter() {
   return (
-    <button onClick={() => setCount(count + 1)}>
+    <button onClick={() => setCount((current) => current + 1)}>
       {count}
     </button>
   );

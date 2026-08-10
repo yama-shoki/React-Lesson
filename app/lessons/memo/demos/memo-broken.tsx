@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { memo, useState } from "react";
@@ -14,6 +15,8 @@ const Memoized = memo(function Memoized({ user }: { user: { name: string } }) {
 });
 
 export function MemoBroken() {
+	useTrackDemoRender();
+
 	const [count, setCount] = useState(0);
 
 	// 描き直されるたびに、新しいオブジェクトが作られる

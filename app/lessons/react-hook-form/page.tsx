@@ -117,6 +117,18 @@ export default async function Page() {
 					</p>
 				</Callout>
 
+				<Callout variant="note" title="入力欄の値は、いつも文字列">
+					<p>
+						年齢の欄だけ <code>{'register("age", { valueAsNumber: true })'}</code>{" "}
+						と書いてあります。
+					</p>
+					<p>
+						HTML の入力欄から取れる値は、
+						<strong>数字を打っても文字列の <code>&quot;18&quot;</code></strong> です。
+						このひと言を足すと、検査に渡す前に数値へ直してくれます。
+					</p>
+				</Callout>
+
 				<p>
 					Part 4 でやった<strong>「state は最小限にする」</strong>の徹底版です。
 					画面に出すのに state が要らないなら、持たない。
@@ -196,7 +208,8 @@ export default async function Page() {
 
 				<p>
 					最後の 2 つは <code>mode: &quot;onTouched&quot;</code> と{" "}
-					<code>isSubmitting</code> を書いただけです。
+					<code>isSubmitting</code> のおかげです（一度エラーを出したあと
+					打つたびに再判定するのは、既定でそうなっています）。
 					Part 5 で自分で組み立てた「いつエラーを出すか」の作法が、
 					<strong>設定 1 つで手に入っています</strong>。
 				</p>

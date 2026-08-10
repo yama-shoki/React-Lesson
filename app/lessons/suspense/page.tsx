@@ -103,7 +103,8 @@ export default async function Page() {
 				<p>
 					<strong>コンポーネントが <code>async</code> になっていて、
 					中で <code>await</code> しています。</strong>
-					Part 6 でやった <code>useEffect</code> でのデータ取得と比べてください。
+					もしこれを、ブラウザ側で自分で書くとどうなるか。
+					（この書き方は Part 9 で詳しく扱います）
 				</p>
 
 				<StaticCode

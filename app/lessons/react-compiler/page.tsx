@@ -31,7 +31,7 @@ export default async function Page() {
 		<LessonShell snippets={snippets}>
 			<LessonHeader slug={SLUG}>
 				<p>
-					ここまで 3 つの道具を見てきました。
+					この Part で 3 つの道具を見てきました。
 					<code>memo</code>、<code>useMemo</code>、<code>useCallback</code>。
 				</p>
 				<p>
@@ -67,7 +67,7 @@ function Counter() {
 				/>
 
 				<p>
-					つまり、<strong>ここまでの 3 章でやったことを、書かなくてよくなります</strong>。
+					つまり、<strong>この Part でやってきたことを、書かなくてよくなります</strong>。
 					<code>useCallback</code> も <code>useMemo</code> も
 					<code>memo</code> も、自分で書く必要がなくなります。
 				</p>
@@ -121,7 +121,8 @@ function Counter() {
 				<Callout variant="point" title="この教材が Compiler を無効にしている理由">
 					<p>
 						この教材のプロジェクトは、<strong>意図的に無効</strong>にしてあります。
-						有効にすると、前の 3 章のデモで
+						有効にすると、<code>memo</code> / <code>useMemo</code> /{" "}
+						<code>useCallback</code> の各章のデモで
 						<strong>「memo なし」も自動でメモ化されてしまい、差が消える</strong>からです。
 					</p>
 					<p>
@@ -135,17 +136,33 @@ function Counter() {
 
 				<StaticCode
 					lang="bash"
-					code={`# Next.js の場合、設定を 1 行足すだけ
-# next.config.ts
-experimental: {
+					code={`# コンパイラ本体を入れて
+bun add -D babel-plugin-react-compiler`}
+				/>
+
+				<StaticCode
+					lang="ts"
+					code={`// next.config.ts — 設定はこの 1 行
+const nextConfig: NextConfig = {
   reactCompiler: true,
-}`}
+};`}
 				/>
 
 				<p>
+					React Compiler は 1.0 で安定版になり、
+					Next.js 16 では設定項目から <code>experimental</code> が取れました。
+					<strong>もう実験的な機能ではありません</strong>。
+					（古い記事にある <code>experimental: {"{ reactCompiler: true }"}</code>{" "}
+					は Next.js 15 までの書き方です）
+				</p>
+
+				<p>
 					導入したら、<strong>既存の <code>useMemo</code> や{" "}
-					<code>useCallback</code> は消してかまいません</strong>。
-					残しておいても害はありませんが、コードが読みやすくなります。
+					<code>useCallback</code> は、動作を確かめながら少しずつ外していけます</strong>。
+					一度に全部消さないでください。
+					さきほど見たとおり、コンパイラは
+					<strong>React の決まりを守れていない場所では手を出しません</strong>。
+					そこだけは自分のメモ化が効いていた、ということがあり得ます。
 				</p>
 
 				<Callout variant="note" title="これからどうなるか">

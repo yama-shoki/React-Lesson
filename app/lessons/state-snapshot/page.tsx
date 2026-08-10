@@ -45,7 +45,7 @@ export default async function Page() {
         </p>
       </LessonHeader>
 
-      <LessonSection id="broken" {...at(SNAPSHOT, "setCount(count + 1)", "setCount(count + 1);")}>
+      <LessonSection id="broken" {...at(SNAPSHOT, "const addThree", "};")}>
         <h2>3 回呼んでも 1 しか増えない</h2>
 
         <p>
@@ -128,7 +128,7 @@ setCount(count + 1); // setCount(0 + 1) → やっぱり 1 にして`}
         </p>
       </LessonSection>
 
-      <LessonSection id="updater" {...at(UPDATER, "setCount((current) => current + 1)", "setCount((current) => current + 1);")}>
+      <LessonSection id="updater" {...at(UPDATER, "const addThree", "};")}>
         <h2>いまの値を使いたいときは関数を渡す</h2>
 
         <p>

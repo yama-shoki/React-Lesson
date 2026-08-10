@@ -20,11 +20,10 @@ export function ObjectLoop() {
 
   useEffect(() => {
     if (!running) return;
-    if (count >= LIMIT) return;
 
-    // count は依存配列に入っていないのに、それでも止まらない
-    setCount((current) => current + 1);
-  }, [running, options, count]);
+    // count は依存配列に入っていない。それでも止まらない
+    setCount((current) => (current >= LIMIT ? current : current + 1));
+  }, [running, options]);
 
   return (
     <div className="flex flex-col gap-4">

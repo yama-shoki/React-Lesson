@@ -50,7 +50,7 @@ export default async function Page() {
         </p>
       </LessonHeader>
 
-      <LessonSection id="ternary" {...at(PATTERNS, "if (status ===")}>
+      <LessonSection id="ternary" {...at(PATTERNS, "status === value ?")}>
         <h2>2 つのうちどちらかなら、三項演算子</h2>
 
         <p>
@@ -154,12 +154,17 @@ export default async function Page() {
           <p>
             <code>false</code>、<code>null</code>、<code>undefined</code>{" "}
             は画面に出ません。
-            一方 <code>0</code> と <code>&quot;&quot;</code>{" "}
-            は falsy ですが<strong>表示されます</strong>。
+            一方 <code>0</code> は falsy ですが
+            <strong>そのまま数字として表示されます</strong>。
+            この章のバグの正体はこれです。
           </p>
           <p>
-            数値や文字列を <code>&amp;&amp;</code>{" "}
-            の左に置くのは危険、と覚えておくと安全です。
+            （<code>&quot;&quot;</code> も出ますが、空なので見えません。
+            目に見える形で残るのは <code>0</code> だけだと思って大丈夫です）
+          </p>
+          <p>
+            <strong>数値を <code>&amp;&amp;</code> の左に置かない。</strong>
+            これだけ覚えておけば防げます。
           </p>
         </Callout>
       </LessonSection>

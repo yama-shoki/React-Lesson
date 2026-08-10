@@ -94,15 +94,23 @@ export default async function Page() {
         <p>
           React は<strong>頭文字だけを見て</strong>、
           「これは自作の部品か、それとも HTML のタグか」を判断しています。
-          小文字で書くと、React は
-          <code>greeting</code> という名前の HTML タグを探しに行きます。
-          そんなタグは存在しないので、画面には何も出ません。
+          小文字で書くと、React はそれを
+          <strong>HTML のタグ名だと思って</strong>、
+          <code>&lt;greeting&gt;</code> という要素をそのまま作ります。
+          そんなタグはブラウザにとって意味がないので、画面には何も出ません。
         </p>
 
-        <Callout variant="warn" title="エラーにならないのが厄介">
+        <Callout variant="warn" title="気づけるかどうかは、書き方しだい">
           <p>
-            この間違いは<strong>エラーにならず、ただ何も表示されない</strong>という形で現れます。
+            素の JavaScript で書いていると、この間違いは
+            <strong>エラーにならず、ただ何も表示されません</strong>。
             「作ったはずの部品が出ない」ときは、まず頭文字を確認してください。
+          </p>
+          <p>
+            この教材のように <strong>TypeScript</strong> で書いていれば、
+            <code>&lt;greeting /&gt;</code> の時点で
+            「そんな HTML タグはない」と赤線が出ます。
+            型を付けておくと、こういう間違いが書いた瞬間に分かります。
           </p>
         </Callout>
       </LessonSection>
@@ -158,7 +166,8 @@ export default async function Page() {
           </p>
           <p>
             分けすぎると、今度はファイルを行き来する手間が増えます。
-            Part 9 の手前でこの話をもう一度扱います。
+            分け方そのものは、この Part の
+            <strong>「合成という考え方」</strong>で改めて扱います。
           </p>
         </Callout>
       </LessonSection>
@@ -195,7 +204,7 @@ export default async function Page() {
               label: "名前が小文字で始まっていないか",
               correct: true,
               explanation:
-                "小文字だと HTML タグとして扱われ、存在しないタグなので何も表示されません。エラーが出ないので気づきにくい典型です。",
+                "小文字だと HTML タグとして扱われ、意味のない要素が作られるだけなので何も表示されません。TypeScript を使っていれば赤線で気づけます。",
             },
             {
               label: "return を書き忘れていないか",

@@ -164,10 +164,15 @@ export default async function Page() {
 
         <Callout variant="note">
           <p>
-            React が画面に出さないのは <code>false</code>、<code>null</code>、
-            <code>undefined</code> です。
-            <code>0</code> と <code>&quot;&quot;</code>{" "}
-            以外の falsy はそのまま消えるので、0 だけが目立つ形で残ります。
+            React が画面に出さないのは <code>null</code>、
+            <code>undefined</code>、そして真偽値（<code>true</code> も{" "}
+            <code>false</code> も）です。
+          </p>
+          <p>
+            逆に、falsy なのに<strong>そのまま文字として出てしまう</strong>のが{" "}
+            <code>0</code> と <code>NaN</code> です。
+            <code>&quot;&quot;</code> も出ますが、空なので見えません。
+            つまり事故になるのは実質この 2 つです。
           </p>
         </Callout>
       </LessonSection>

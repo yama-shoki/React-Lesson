@@ -95,7 +95,8 @@ export default async function Page() {
 
         <StaticCode
           lang="bash"
-          code={`Warning: Each child in a list should have a unique "key" prop.`}
+          code={`Each child in a list should have a unique "key" prop.
+See https://react.dev/link/warning-keys for more information.`}
         />
 
         <p>

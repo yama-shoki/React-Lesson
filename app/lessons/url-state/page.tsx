@@ -89,9 +89,9 @@ const [keyword, setKeyword] = useQueryState("keyword", { defaultValue: "" });`}
 						<strong>リロードする</strong> … 入力が残っています
 					</li>
 					<li>
-						<strong>ブラウザの戻るボタンを押す</strong> …{" "}
-						1 文字ずつ戻ります
-					</li>
+						<strong>URL をコピーして別のタブで開く</strong> …{" "}
+							同じ絞り込みの状態で開きます
+						</li>
 				</ul>
 			</LessonSection>
 
@@ -111,7 +111,7 @@ const [keyword, setKeyword] = useQueryState("keyword", { defaultValue: "" });`}
 						<strong>URL を送れば、同じ画面を相手に見せられる</strong>
 					</li>
 					<li>
-						<strong>戻る / 進むボタンが効く</strong>
+						<strong>戻る / 進むボタンを効かせることもできる</strong>（後述）
 					</li>
 					<li>
 						<strong>お気に入りに登録できる</strong>
@@ -170,8 +170,20 @@ const [open, setOpen] = useQueryState("open", parseAsBoolean.withDefault(false))
 
 				<Callout variant="note">
 					<p>
-						この教材のサイト自体も nuqs を使っています。
-						デモカードの「コードを見る」ボタンを押すと URL が変わるのが、それです。
+						既定では、値が変わっても<strong>履歴には残りません</strong>
+						（上書きされます）。このデモで戻るボタンを押すと、
+						検索前ではなく<strong>前のページに戻ります</strong>。
+					</p>
+					<StaticCode
+						lang="ts"
+						code={`// 戻るボタンで 1 つ前の値に戻したいとき
+useQueryState("tab", { defaultValue: "profile", history: "push" });`}
+					/>
+					<p>
+						検索窓のように<strong>1 文字ごとに変わるもの</strong>は既定のままにします。
+						履歴が文字数ぶん積まれて、戻るボタンが使いものにならなくなるからです。
+						タブや並び順のように<strong>ぽんと切り替わるもの</strong>には{" "}
+						<code>history: &quot;push&quot;</code> が向いています。
 					</p>
 				</Callout>
 
@@ -219,7 +231,7 @@ const [open, setOpen] = useQueryState("open", parseAsBoolean.withDefault(false))
 							label: "リロードしても消えず、URL を送れば同じ画面を相手に見せられる",
 							correct: true,
 							explanation:
-								"戻るボタンも効くようになります。ブラウザが元から持っている仕組みに乗せているためです。",
+								"ブラウザが元から持っている仕組みに乗せているためです。設定しだいで戻るボタンも効かせられます。",
 						},
 						{
 							label: "描き直しが減って速くなる",
@@ -265,7 +277,7 @@ const [open, setOpen] = useQueryState("open", parseAsBoolean.withDefault(false))
 						状態の置き場所は <code>useState</code> だけではない
 					</li>
 					<li>
-						URL に置くと、<strong>リロードで消えず・共有でき・戻るボタンが効く</strong>
+						URL に置くと、<strong>リロードで消えず、URL を送れば共有できる</strong>
 					</li>
 					<li>
 						判断の目安は<strong>「他人に見せて意味があるか」</strong>

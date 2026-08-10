@@ -87,7 +87,7 @@ export default async function Page() {
         </p>
       </LessonSection>
 
-      <LessonSection id="lifted" {...at(LIFTED, "export function LiftedState")}>
+      <LessonSection id="lifted" {...at(LIFTED, "const [count, setCount]", "<Panel")}>
         <h2>共通の親へ引き上げる</h2>
 
         <p>

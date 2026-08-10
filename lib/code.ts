@@ -123,6 +123,10 @@ const findRange = (
     .slice(startIndex)
     .findIndex((line) => line.includes(to));
 
+  if (relativeEnd === -1 && process.env.NODE_ENV !== "production") {
+    console.warn(`[code] 終端の "${to}" が ${snippet.id} に見つかりません`);
+  }
+
   const endIndex = relativeEnd === -1 ? startIndex : startIndex + relativeEnd;
 
   return [startIndex + 1, endIndex + 1] as const;

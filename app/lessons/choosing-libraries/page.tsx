@@ -36,7 +36,8 @@ export default async function Page() {
 			<LessonHeader slug={SLUG}>
 				<p>
 					この教材で、いくつものライブラリを使ってきました。
-					nuqs、SWR、React Hook Form、zod、use-debounce。
+					nuqs、use-local-storage-state、SWR、
+					React Hook Form、zod、use-debounce。
 				</p>
 				<p>
 					どれも<strong>自分で書けるもの</strong>です。
@@ -91,18 +92,32 @@ export default async function Page() {
 				</Callout>
 
 				<p>
-					3 つめが実は決定的です。
-					<code>useWindowWidth</code> は、後片付けを忘れれば
-					<strong>すぐに動かなくなって気づきます</strong>。
-					だから自分で書いてよい。
+					3 つめが実は決定的です。並べてみます。
+				</p>
+
+				<ul>
+					<li>
+						<strong>気づける間違い</strong> …{" "}
+						メールアドレスの形を間違えて判定していれば、
+						試した瞬間に分かります。直せます
+					</li>
+					<li>
+						<strong>気づけない間違い</strong> …{" "}
+						Part 9 で見た「古い結果が後から届いて上書きする」。
+						<strong>たまにしか起きず、再現もできません</strong>
+					</li>
+				</ul>
+
+				<p>
+					自分で書いてよいのは前者です。
+					<strong>後者を自分で正しく書き切るのは、かなり難しい。</strong>
+					SWR のような道具に任せる価値があるのは、まさにここです。
 				</p>
 
 				<p>
-					一方、Part 9 で見た
-					<strong>「古い結果が後から届いて上書きする」</strong>ような不具合は、
-					たまにしか起きず、再現もできません。
-					<strong>気づけない種類の間違い</strong>です。
-					SWR に任せる価値があるのは、ここです。
+					<code>useWindowWidth</code> のようなものは、
+					間違えても<strong>影響がその 1 か所に閉じます</strong>。
+					これも自分で書いてよい側です。
 				</p>
 			</LessonSection>
 
@@ -224,7 +239,7 @@ const [debounced] = useDebounce(keyword, 500);
 									use-local-storage-state
 								</td>
 								<td className="p-3">
-									素で書くとサーバー側で落ちる。タブ間でずれる
+									素で書くとサーバー側で落ちる。保存の書き忘れ
 								</td>
 								<td className="p-3">Part 9</td>
 							</tr>

@@ -40,8 +40,9 @@ export default async function Page() {
           <strong>「受け取った値を書き換えればいいのでは」</strong>と。
         </p>
         <p>
-          これはうまくいきません。しかも<strong>エラーも警告も出ません</strong>。
-          ただ、押しても何も起こらないだけです。
+          これはうまくいきません。しかも<strong>実行時には何も起きません</strong>。
+          例外も出ず、画面も変わらず、ただ押しても無反応なだけです。
+          （気づけるのは、あとで見るとおり lint が止めてくれるからです）
         </p>
         <p>
           この章では、なぜそうなるのかと、では何をすればいいのかを見ます。
@@ -84,8 +85,8 @@ export default async function Page() {
           </p>
           <p>
             何度押しても<strong>数字は増えず、光りもしません</strong>。
-            値が変わっても、
-            <strong>React はそれを知る手立てを持っていない</strong>ということです。
+            React は値を見張っているわけではないので、
+            <strong>更新関数を呼ばないかぎり、描き直すきっかけがない</strong>のです。
           </p>
         </Callout>
       </LessonSection>
@@ -129,7 +130,12 @@ export default async function Page() {
           <p>
             右のコードで警告を黙らせる 1 行が入っているのは、
             この教材で<strong>あえて間違った状態を動かして見せている</strong>からです。
-            実際に書くときは、警告が出た時点で気づけます。
+          </p>
+          <p>
+            つまり<strong>「実行しても何も起きない」けれど「書いた時点で怒られる」</strong>。
+            気づけるのは React のおかげではなく、道具のおかげです。
+            この決まりを知らないまま道具の警告を消してしまうと、
+            冒頭のデモと同じ、無反応なボタンができあがります。
           </p>
         </Callout>
       </LessonSection>
@@ -228,9 +234,9 @@ export default async function Page() {
                 "React が描き直すのは状態が変わったときです。関数の中のただの変数が変わっても、React には伝わりません。",
             },
             {
-              label: "React が props の書き換えを禁止していて、エラーになるから",
+              label: "React が props の書き換えを禁止していて、実行時にエラーになるから",
               explanation:
-                "エラーにはなりません。書き換え自体は成立してしまうので、かえって原因に気づきにくくなります。",
+                "実行時にはエラーになりません。書き換え自体は成立してしまいます。止めてくれるのは lint であって、React ではありません。",
             },
             {
               label: "書き換えた値が親に届かないから",
@@ -271,7 +277,8 @@ export default async function Page() {
             props は<strong>読み取り専用</strong>。子が書き換えても画面は変わらない
           </li>
           <li>
-            エラーも警告も出ず、<strong>ただ動かない</strong>ので気づきにくい
+            <strong>実行時には何も起きない</strong>ので気づきにくい。
+            教えてくれるのは React ではなく lint
           </li>
           <li>
             値は<strong>持っている側が変える</strong>。子は「押された」と伝えるだけ

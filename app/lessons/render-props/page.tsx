@@ -51,7 +51,7 @@ export default async function Page() {
 
 			<LessonSection
 				id="limit"
-				{...at(PLAIN, "function Panel", "{isOpen && <div")}
+				{...at(PLAIN, "function Panel", "<div className=\"mt-3\">{children}</div>")}
 			>
 				<h2>できないことを、先に見る</h2>
 
@@ -72,6 +72,7 @@ export default async function Page() {
 				<p>
 					ボタンの文字は「開く / 閉じる」と切り替わります。
 					<code>Panel</code> の中では <code>isOpen</code> が使えるからです。
+					ですが<strong>中身の文は、押しても何も変わりません</strong>。
 				</p>
 
 				<p>
@@ -242,7 +243,8 @@ items.map((item) => <li>{item}</li>);`}
 					/>
 					<p>
 						読みにくくなってきたら、
-						<strong>カスタムフックに切り出せないか</strong>を考えます。
+						<strong>カスタムフック</strong>（Part 6 で扱います）に
+						切り出せないかを考えます。
 						状態の共有だけが目的なら、そちらのほうが素直なことが多いです。
 					</p>
 					<p>

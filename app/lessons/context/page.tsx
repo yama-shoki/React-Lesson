@@ -139,9 +139,10 @@ const user = use(UserContext);`}
 						書く必要がありましたが、<strong><code>.Provider</code> は不要</strong>になりました。
 					</p>
 					<p>
-						取り出すほうも <code>useContext(UserContext)</code> から{" "}
-						<code>use(UserContext)</code> になっています。
-						古い記事では前の書き方が出てくるので、見比べるときは注意してください。
+						取り出すほうは <code>use(UserContext)</code> と書けるようになりました。
+						ただし <code>useContext(UserContext)</code> も
+						<strong>いまも現役で、なくなる予定はありません</strong>。
+						古い記事にこちらが出てきても、間違いではありません。
 					</p>
 				</Callout>
 			</LessonSection>

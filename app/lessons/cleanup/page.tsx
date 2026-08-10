@@ -105,7 +105,8 @@ export default async function Page() {
           </li>
           <li>
             <strong>消えたものを更新しようとする</strong> …
-            すでにない state を更新しようとして、警告やエラーになる
+            すでにない state を更新しようとする。
+            昔は警告が出ましたが、<strong>いまは何も言われずに黙って無視されます</strong>
           </li>
         </ul>
 

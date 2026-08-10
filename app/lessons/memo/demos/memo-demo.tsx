@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { memo, useState } from "react";
@@ -21,6 +22,8 @@ const Memoized = memo(function Memoized({ name }: { name: string }) {
 const names = ["さとう", "すずき", "たかはし"];
 
 export function MemoDemo() {
+	useTrackDemoRender();
+
 	const [count, setCount] = useState(0);
 	const [name, setName] = useState(names[0]);
 

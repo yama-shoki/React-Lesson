@@ -51,8 +51,8 @@ export default async function Page() {
 				<StaticCode
 					lang="ts"
 					code={`const [value, setValue] = useState("");
-const [value, setValue] = useQueryState("key");
-const [value, setValue] = useLocalStorageState("key");`}
+const [value, setValue] = useQueryState("key", { defaultValue: "" });
+const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 				/>
 
 				<p>
@@ -225,23 +225,23 @@ const [value, setValue] = useLocalStorageState("key");`}
 				<h2>理解できたか確かめる</h2>
 
 				<Quiz
-					question="一覧の絞り込み条件は、どこに置くのがよい？"
+					question="「文字を大きく表示する」という表示設定は、どこに置くのがよい？"
 					options={[
 						{
-							label: "URL",
+							label: "ブラウザの保存領域",
 							correct: true,
 							explanation:
-								"リロードで消えず、URL を送れば相手にも同じ結果を見せられます。戻るボタンも効きます。",
+								"その人のための設定なので、次に来たときも覚えていてほしい。ですが他人と共有する意味はありません。",
 						},
 						{
-							label: "useState",
+							label: "URL",
 							explanation:
-								"動きはしますが、リロードで消え、共有もできません。絞り込み条件は「もう一度その画面を開きたい」情報です。",
+								"URL を送った相手にまで自分の文字サイズを押しつけることになります。共有して意味のある情報ではありません。",
 						},
 						{
-							label: "ブラウザの保存領域",
+							label: "サーバー",
 							explanation:
-								"残りはしますが、他人と共有できません。また、次に開いたときに前回の絞り込みが残っていると戸惑わせます。",
+								"ログインが要らないサイトでは置き場所がありません。この程度の設定にサーバーは大げさです。",
 						},
 					]}
 				/>

@@ -96,8 +96,11 @@ const { name } = use(LargeContext);
 				/>
 
 				<p>
-					<strong>Context の中身が変われば、購読している部品はすべて描き直されます。</strong>
-					どの項目を使っているかは関係ありません。
+					React が見ているのは
+					<strong><code>value</code> に渡したものが、前と別のものになったかどうか</strong>
+					だけです。
+					別のものになっていれば、購読している部品はすべて描き直されます。
+					<strong>どの項目を使っているかは、見ていません。</strong>
 				</p>
 
 				<h3>2. value のオブジェクトが毎回新しく作られる</h3>

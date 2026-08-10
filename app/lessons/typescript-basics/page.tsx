@@ -191,6 +191,13 @@ const wrong: Status = "yet";    // エラー`}
         <p>
           <code>Record&lt;Status, string&gt;</code> は
           「Status のすべてに対して文字列を用意する」という意味です。
+        </p>
+
+        <p>
+          <code>&lt;&gt;</code> が急に出てきましたが、これは
+          <strong>型に渡す引数</strong>です。関数が <code>(引数)</code> を取るように、
+          型も <code>&lt;型&gt;</code> を取ることがある、とだけ思ってください。
+          <code>Record&lt;キーの型, 値の型&gt;</code> と読みます。
           あとから <code>Status</code> に種類を足すと、
           <strong>用意し忘れた場所がエラーで教えてもらえます</strong>。
           これが型のありがたみを最も感じる瞬間です。
