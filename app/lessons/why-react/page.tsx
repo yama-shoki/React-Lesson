@@ -102,7 +102,7 @@ export default async function Page() {
         </Callout>
       </LessonSection>
 
-      <LessonSection id="react" {...at(REACT, "const [count, setCount]", "})}")}>
+      <LessonSection id="react" {...at(REACT, "const [count, setCount]", "</div>")}>
         <h2>React で作ると</h2>
 
         <p>同じものを React で書くと、右のようになります。</p>

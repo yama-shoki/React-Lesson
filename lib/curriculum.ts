@@ -180,6 +180,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "usestate-patterns",
+				title: "useState の使い方いろいろ",
+				summary: "実際どう使われているか。基礎の 4 つと、応用の 2 つ",
+				ready: true,
+			},
+			{
 				slug: "state-snapshot",
 				title: "state は「その瞬間の写真」",
 				summary: "setState した直後に値が変わっていない理由",

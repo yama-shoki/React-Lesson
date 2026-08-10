@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:highlights": "bun scripts/check-highlights.mjs",
+    "verify": "bun run lint && bun run check:highlights && bun run build"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
