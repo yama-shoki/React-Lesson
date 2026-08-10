@@ -23,8 +23,10 @@ bun dev
 http://localhost:3000 を開いてください。
 
 ```bash
-bun run lint    # React 19 のルール違反も検出する
-bun run build   # 型チェックと本番ビルド
+bun run lint              # React 19 のルール違反も検出する
+bun run check:highlights  # 解説が指す目印が、デモに実在するか検査する
+bun run build             # 型チェックと本番ビルド
+bun run verify            # 上の 3 つをまとめて
 ```
 
 ## 構成
@@ -45,10 +47,16 @@ components/lesson/             教材用の部品
 lib/
   curriculum.ts                目次の定義（サイドバー・前後ナビの情報源）
   code.ts                      デモのソース読み込みと shiki でのハイライト
+scripts/
+  check-highlights.mjs         解説の目印がデモに実在するかの検査
 ```
 
 右ペインに出るコードは、**実際にそのページで動いているファイルをそのまま読んでいます**。
 解説用に別途書き写したコードではないので、デモを直せば解説側も必ず追従します。
+
+光らせる行は行番号ではなく**コード中の文字列で指定**しています。デモに 1 行足しても
+ずれませんが、その行自体を書き換えると目印が空振りします。`bun run check:highlights`
+がそれを検出します。
 
 ## 章を追加する
 
