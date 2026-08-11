@@ -57,7 +57,8 @@ export default async function Page() {
         <h2>map は「ひとつずつ作り変える」</h2>
 
         <p>
-          <code>map</code> は配列のメソッドで、やることはひとつだけです。
+          <code>map</code> は配列の<strong>メソッド</strong>
+          （＝配列が最初から持っている関数）で、やることはひとつだけです。
         </p>
 
         <Callout variant="point" title="map がやっていること">

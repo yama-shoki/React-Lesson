@@ -171,7 +171,7 @@ const updated = { ...original, age: 21 };
           <p>
             <code>user.age = 21</code> と書き換えるのではなく、
             <strong>新しいオブジェクトを作って渡す</strong>。
-            Part 0-1 でやった「const は中身を守らない」と、ここでつながります。
+            Part 0 の「変数と const」 でやった「const は中身を守らない」と、ここでつながります。
           </p>
         </Callout>
       </LessonSection>

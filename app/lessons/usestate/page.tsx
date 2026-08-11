@@ -142,7 +142,7 @@ export default async function Page() {
         </ul>
 
         <p>
-          角括弧は、Part 0-4 でやった<strong>配列の分割代入</strong>です。
+          角括弧は、Part 0 の「分割代入とスプレッド構文」 でやった<strong>配列の分割代入</strong>です。
           <code>useState</code> が 2 つ入った配列を返すので、
           それを順番に受け取っているだけです。React 専用の記法ではありません。
         </p>

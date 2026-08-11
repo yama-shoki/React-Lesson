@@ -9,6 +9,8 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { StateDown } from "./demos/state-down";
+import { StateUp } from "./demos/state-up";
 import { ParentRerendersChild } from "./demos/parent-re-renders-child";
 
 const SLUG = "render-triggers";
@@ -22,9 +24,17 @@ const SOURCES = [
 		path: "lessons/render-triggers/demos/parent-re-renders-child.tsx",
 		label: "parent-re-renders-child.tsx",
 	},
+	{
+		path: "lessons/render-triggers/demos/state-up.tsx",
+		label: "state-up.tsx",
+	},
+	{
+		path: "lessons/render-triggers/demos/state-down.tsx",
+		label: "state-down.tsx",
+	},
 ] as const;
 
-const [PARENT] = SOURCES.map((source) => source.path);
+const [PARENT, UP, DOWN] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
 	const snippets = await loadSnippets(SOURCES);
@@ -124,6 +134,78 @@ function Parent() {
 				</Callout>
 			</LessonSection>
 
+			<LessonSection id="placement" {...at(UP, "const [keyword, setKeyword]")}>
+				<h2>だから「state をどこに置くか」が効いてくる</h2>
+
+				<p>
+					親が動けば子も動く。この性質には、実用的な使い道があります。
+					<strong>state を置く場所を変えるだけで、
+					描き直される範囲が変わります。</strong>
+				</p>
+
+				<p>
+					下は検索欄と一覧です。一覧は入力とまったく関係ありません。
+					<strong>打ちながら、下の箱が光るかどうかを見てください。</strong>
+				</p>
+
+				<DemoCard
+					title="state を外側に置いた場合"
+					tone="bad"
+					sourcePath={UP}
+					showRenderCount
+					description="打つたびに、関係のない一覧まで光る"
+				>
+					<StateUp />
+				</DemoCard>
+
+				<p>
+					<strong>一覧まで一緒に光っています。</strong>
+					<code>keyword</code> を受け取ってすらいないのに、です。
+					いちばん外側が描き直されているので、中身が全部巻き込まれています。
+				</p>
+
+				<p>
+					直し方は<strong>state を、それを使う部品の中まで下ろす</strong>ことです。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// 入力欄だけを部品にして、state をその中に持たせる
+function SearchBox() {
+  const [keyword, setKeyword] = useState("");
+  return <input value={keyword} ... />;
+}`}
+				/>
+
+				<DemoCard
+					title="state を使う場所まで下ろした場合"
+					tone="good"
+					sourcePath={DOWN}
+					showRenderCount
+					description="打っても、一覧は光らない"
+				>
+					<StateDown />
+				</DemoCard>
+
+				<p>
+					<strong>一覧が光らなくなりました。</strong>
+					描き直されるのは <code>SearchBox</code> の中だけです。
+					外側は state を持っていないので、そもそも動きません。
+				</p>
+
+				<Callout variant="point" title="最初の一手は、道具ではなく置き場所">
+					<p>
+						次の Part では、描き直しを止める道具
+						（<code>memo</code> など）が出てきます。
+					</p>
+					<p>
+						ですが<strong>先に試すべきはこちら</strong>です。
+						state を下ろすだけで済むなら、
+						覚えることも、書き足すコードも増えません。
+					</p>
+				</Callout>
+			</LessonSection>
+
 			<LessonSection id="quiz" {...at(PARENT, "function Child")}>
 				<h2>理解できたか確かめる</h2>
 
@@ -139,7 +221,7 @@ function Parent() {
 						{
 							label: "props が変わったときだけ",
 							explanation:
-								"props はきっかけのひとつではありますが、親の再レンダリング自体も再レンダリングの理由になります。",
+								"props が同じでも子の関数は実行されるので、props は条件ではありません。React が props を見るのは、そのあとの話です。",
 						},
 						{
 							label: "子に state があるときだけ",
@@ -170,6 +252,28 @@ function Parent() {
 						},
 					]}
 				/>
+			</LessonSection>
+
+			<LessonSection id="summary" {...at(DOWN, "function SearchBox")}>
+				<h2>この章のまとめ</h2>
+
+				<ul>
+					<li>
+						再レンダリングの理由は
+						<strong>自分の state が変わったか、親が描き直されたか</strong>
+					</li>
+					<li>
+						<strong>props が変わったから、ではありません。</strong>
+						props を受け取っていない子も、親と一緒に描き直される
+					</li>
+					<li>
+						つまり<strong>描き直しは、上から下へ広がります</strong>
+					</li>
+					<li>
+						だから<strong>state は、使う場所のなるべく近くに置く</strong>。
+						それだけで範囲が狭まる
+					</li>
+				</ul>
 			</LessonSection>
 
 			<LessonFooter slug={SLUG} />

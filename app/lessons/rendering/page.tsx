@@ -36,7 +36,7 @@ export default async function Page() {
 		<LessonShell snippets={snippets}>
 			<LessonHeader slug={SLUG}>
 				<p>
-					Part 4-1 で、<code>setCount</code> は画面を直接書き換えるのではなく、
+					Part 4 の「useState」 で、<code>setCount</code> は画面を直接書き換えるのではなく、
 					<strong>関数をもう一度実行させる</strong>と説明しました。
 				</p>
 				<p>
@@ -70,8 +70,8 @@ export default async function Page() {
 
 				<p>
 					左のデモでボタンを押すと、カードの見出しの横にある数字が増えます。
-					これは「このデモの中の tracked
-					コンポーネントが再び描かれた」ことを表しています。
+					これは<strong>このコンポーネントの関数が、
+					もう一度実行された回数</strong>です。
 				</p>
 			</LessonSection>
 
@@ -105,9 +105,48 @@ export default async function Page() {
 				</p>
 
 				<p>
-					そして React は、前回の結果と今回の結果を比べて
-					<strong>変わったところだけを実際の画面に反映します</strong>。
-					すべてをまっさらに作り直すわけではありません。
+					ここで<strong>「結果」とは何か</strong>をはっきりさせておきます。
+					これが分かると、この先の Part 8 が一気に読みやすくなります。
+				</p>
+
+				<p>
+					Part 1 でやったとおり、<strong>JSX はただの値</strong>でした。
+					<code>&lt;button&gt;{"{count}"}&lt;/button&gt;</code> を実行すると、
+					画面が書き換わるのではなく
+					<strong>「こういう button を出してくれ」という指示書</strong>が
+					1 つできあがります。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// 実行すると、だいたいこういう形の値になる
+{ type: "button", props: { children: 1 } }`}
+				/>
+
+				<p>
+					関数がもう一度実行されると、
+					<strong>この指示書がもう 1 枚</strong>できます。
+					React がやっているのは、
+					<strong>前回の指示書と今回の指示書を見比べること</strong>です。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`前回: { type: "button", props: { children: 0 } }
+今回: { type: "button", props: { children: 1 } }
+         ↑ タグは同じ。中の文字だけ違う`}
+				/>
+
+				<p>
+					<strong>違うのは文字だけなので、文字だけ書き換えます。</strong>
+					button 自体は作り直しません。だからボタンを押していても
+					フォーカスが外れませんし、入力欄の中身も消えません。
+				</p>
+
+				<p>
+					この「見比べ」を<strong>差分の検出</strong>と呼びます。
+					Part 3 の <code>key</code> は、
+					まさにこの見比べのときに使われる目印でした。
 				</p>
 
 				<Callout variant="point" title="再レンダリングと画面の更新は別物">
@@ -175,6 +214,32 @@ export default async function Page() {
 						},
 					]}
 				/>
+			</LessonSection>
+
+			<LessonSection
+				id="summary"
+				{...at(COUNTER, "const [count, setCount] = useState(0);")}
+			>
+				<h2>この章のまとめ</h2>
+
+				<ul>
+					<li>
+						再レンダリング＝
+						<strong>コンポーネントの関数がもう一度実行されること</strong>
+					</li>
+					<li>
+						実行して出てくるのは画面ではなく、
+						<strong>「こう出してくれ」という指示書（JSX）</strong>
+					</li>
+					<li>
+						React は<strong>前回の指示書と見比べて、違うところだけ</strong>
+						実際の画面に反映する
+					</li>
+					<li>
+						だから<strong>再レンダリング＝遅い、ではありません</strong>。
+						関数の実行と、画面の書き換えは別の段階
+					</li>
+				</ul>
 			</LessonSection>
 
 			<LessonFooter slug={SLUG} />

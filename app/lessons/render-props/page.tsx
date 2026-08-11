@@ -149,7 +149,13 @@ items.map((item) => <li>{item}</li>);`}
 				/>
 
 				<p>
-					<strong>仕掛けはこれだけです。</strong>
+					<code>typeof</code> は
+						<strong>「これは何の種類の値か」を調べる書き方</strong>です。
+						関数なら <code>&quot;function&quot;</code> が返ります。
+					</p>
+
+					<p>
+						<strong>仕掛けはこれだけです。</strong>
 					React の特別な機能ではありません。
 					「関数だったら呼ぶ」という、ただの JavaScript です。
 				</p>

@@ -76,6 +76,27 @@ console.log(name); // "さとう"`}
       </LessonSection>
 
       <LessonSection id="const-let" {...at(OBJECT, "// user = {")}>
+        <Callout variant="note" title="文字列に変数を混ぜる書き方">
+          <p>
+            この先のコードに、見慣れない引用符が出てきます。
+          </p>
+          <StaticCode
+            lang="ts"
+            code={`const name = "さとう";
+
+"こんにちは、" + name + " さん"     // つなげて書く
+\`こんにちは、\${name} さん\`         // 同じ意味。こちらが今の主流`}
+          />
+          <p>
+            囲んでいるのは <strong>バッククォート</strong>（Shift + @）です。
+            中で <code>{"${ }"}</code> と書くと、そこに変数の中身が入ります。
+          </p>
+          <p>
+            あとで出てくる JSX の <code>{"{ }"}</code> とは
+            <strong>別物</strong>です。こちらは文字列の中でだけ使います。
+          </p>
+        </Callout>
+
         <h2>const と let</h2>
 
         <p>変数を作る方法は、いまは 2 つだけ覚えれば十分です。</p>

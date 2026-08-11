@@ -92,7 +92,7 @@ export const curriculum: Part[] = [
 			{
 				slug: "declarative-ui",
 				title: "宣言的 UI",
-				summary: "「UI は状態の写像である」の意味",
+				summary: "画面を書き換えるのをやめて、状態を書き換える",
 				ready: true,
 			},
 			{
@@ -122,15 +122,15 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
-				slug: "props-patterns",
-				title: "props の渡し方いろいろ",
-				summary: "関数・見た目の種類・残り全部。実際によく使う 3 つ",
-				ready: true,
-			},
-			{
 				slug: "props-readonly",
 				title: "props は書き換えられない",
 				summary: "書き換えたら何が起きるのか、実際に壊してみる",
+				ready: true,
+			},
+			{
+				slug: "props-patterns",
+				title: "props の渡し方いろいろ",
+				summary: "関数・見た目の種類・残り全部。実際によく使う 3 つ",
 				ready: true,
 			},
 			{
@@ -189,6 +189,12 @@ export const curriculum: Part[] = [
 				slug: "usestate",
 				title: "useState",
 				summary: "なぜ普通の変数ではダメなのか",
+				ready: true,
+			},
+			{
+				slug: "hooks-rules",
+				title: "フックの決まり",
+				summary: "if の中で呼んではいけない。その理由まで",
 				ready: true,
 			},
 			{

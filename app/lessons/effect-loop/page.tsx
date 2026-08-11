@@ -153,7 +153,7 @@ export default async function Page() {
 				</p>
 
 				<p>
-					Part 4-5 でやった
+					Part 4 の「オブジェクトと配列の更新」 でやった
 					<strong>「React は同じものかどうかだけを見る」</strong>
 					が、ここでも効いてきます。
 					毎回別のものが渡ってくるので、React は毎回「依存が変わった」と判断します。

@@ -115,7 +115,7 @@ export default async function Page() {
         <p>
           子のコードから <code>useState</code> が消えました。
           子は<strong>値を受け取って表示し、押されたら伝えるだけ</strong>です。
-          Part 2-3 でやった形と、まったく同じになっています。
+          Part 2 の「props は書き換えられない」 でやった形と、まったく同じになっています。
         </p>
 
         <Callout variant="point" title="リフトアップの手順">

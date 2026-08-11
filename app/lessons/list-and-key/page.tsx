@@ -213,7 +213,8 @@ See https://react.dev/link/warning-keys for more information.`}
 
         <p>
           ここに打った文字は、
-          <strong>React が管理している値ではありません</strong>。
+          <strong>React が管理している値ではありません</strong>
+          （この話は Part 5 の「制御コンポーネント」で正面から扱います）。
           ブラウザの入力欄そのものが内部で持っている値です。
           React は名前の部分しか書き換えないので、
           <strong>文字はその場に残ります</strong>。

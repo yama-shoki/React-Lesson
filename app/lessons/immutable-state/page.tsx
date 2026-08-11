@@ -35,7 +35,7 @@ export default async function Page() {
     <LessonShell snippets={snippets}>
       <LessonHeader slug={SLUG}>
         <p>
-          Part 0-1 で、こう書きました。
+          Part 0 の「変数と const」 で、こう書きました。
         </p>
         <p>
           「<strong>const なのに中身が変わる</strong>のは、React
@@ -97,7 +97,7 @@ export default async function Page() {
         <p>
           <code>push</code> は、配列そのものを別のものに置き換えません。
           <strong>同じ配列の中身が増えるだけ</strong>です。
-          Part 0-1 の言い方をすれば、
+          Part 0 の「変数と const」 の言い方をすれば、
           箱の中身を変えただけで、箱は同じもののままです。
         </p>
 
@@ -124,7 +124,7 @@ export default async function Page() {
         <h2>新しく作って渡す</h2>
 
         <p>
-          Part 0-4 でやったスプレッド構文の出番です。
+          Part 0 の「分割代入とスプレッド構文」 でやったスプレッド構文の出番です。
           元の配列は触らず、<strong>中身を展開した新しい配列</strong>を作ります。
         </p>
 

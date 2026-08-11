@@ -152,7 +152,13 @@ function ErrorAlert({ children }: { children: ReactNode }) {
           <code>Alert</code> 自体は何も変わりません。
         </p>
 
-        <h3>なぜ継承を使わないのか</h3>
+        <h3>他の言語を知っている人へ</h3>
+
+        <p>
+          他の言語では、<strong>継承</strong>という仕組みでこれをやります
+          （知らなければ読み飛ばして構いません）。
+          React が継承を使わないのには理由があります。
+        </p>
 
         <p>
           継承だと、親を直したときに

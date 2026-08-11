@@ -178,6 +178,45 @@ export default async function Page() {
       </LessonSection>
 
       <LessonSection id="nullish" {...at(OPERATORS, "count ?? ")}>
+        <h3>右側は、実行されないことがある</h3>
+
+        <p>
+          <code>&amp;&amp;</code> は、
+          <strong>左が偽なら、右をそもそも実行しません</strong>。
+          左だけ見て答えが決まってしまうからです。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`user && user.getName()   // user が null なら、getName() は呼ばれない`}
+        />
+
+        <p>
+          これは<strong>安全装置としてよく使われます</strong>。
+          左が空のときに右で落ちるのを、これ 1 つで防げます。
+        </p>
+
+        <h3>3 つに分かれる書き方（三項演算子）</h3>
+
+        <p>
+          <code>&amp;&amp;</code> は「あるときだけ出す」でした。
+          <strong>「A か B のどちらかを出す」</strong>ときは、別の書き方を使います。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`条件 ? 条件が真のとき : 条件が偽のとき
+
+isLoggedIn ? "さとうさん" : "ゲスト"`}
+        />
+
+        <p>
+          <code>?</code> と <code>:</code> の 3 つの部分に分かれるので
+          <strong>三項演算子</strong>と呼びます。
+          <code>if</code> と違って<strong>値になる</strong>ので、
+          このあと JSX の中でよく使うことになります。
+        </p>
+
         <h2>|| と ?? の使い分け</h2>
 
         <p>

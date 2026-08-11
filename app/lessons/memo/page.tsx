@@ -134,7 +134,7 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 				<p>
 					<code>memo</code> は props を見比べるとき、
 					<strong>「同じものかどうか」だけを見ます</strong>。
-					Part 4-5 の話と、まったく同じ判定です。
+					Part 4 の「オブジェクトと配列の更新」 の話と、まったく同じ判定です。
 					毎回別のものが渡ってくるので、
 					<strong>「props が変わった」と判断されます</strong>。
 				</p>

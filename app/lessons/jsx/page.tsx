@@ -266,7 +266,7 @@ jsx("p", { className: "text", children: "こんにちは" })`}
             {
               label: "class が JavaScript の予約語で、属性名にできないから",
               explanation:
-                "よく言われますが、正確ではありません。いまの JavaScript では class をプロパティ名に使えます。DOM 側が className なのは、それが使えなかった時代の名残です。",
+                "よく言われますが、正確ではありません。class は JavaScript でも特別な意味を持つ単語ですが、いまは名前として使えます。ブラウザ側が className なのは、それが使えなかった時代の名残です。",
             },
             {
               label: "CSS のクラスとは別のものを指しているから",

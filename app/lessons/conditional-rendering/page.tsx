@@ -112,7 +112,7 @@ export default async function Page() {
         </p>
 
         <p>
-          理由は Part 0-5 でやったとおりです。
+          理由は Part 0 の「truthy / falsy」 でやったとおりです。
           <code>&amp;&amp;</code> は true / false を返すのではなく、
           <strong>左が偽ならその左の値をそのまま返します</strong>。
           件数が 0 のとき、この式は <code>0</code> になります。

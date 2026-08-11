@@ -45,6 +45,20 @@ export default async function Page() {
           この違いが分かると、React
           のコードが「なぜあの形をしているのか」に納得がいきます。
         </p>
+        <Callout variant="point" title="先に「状態」という言葉について">
+          <p>
+            この章から<strong>状態</strong>という言葉がよく出てきます。
+            むずかしい意味はありません。
+          </p>
+          <p>
+            <strong>いまの画面の見た目を決めている値</strong>のことです。
+            ログイン中かどうか。メニューが開いているかどうか。何件あるか。
+          </p>
+          <p>
+            これを React に覚えさせる方法は Part 4 でやります。
+            ここでは<strong>「そういう値がある」</strong>とだけ思って読んでください。
+          </p>
+        </Callout>
       </LessonHeader>
 
       <LessonSection id="imperative" {...at(LOGIN, "const [isLoggedIn")}>
@@ -55,7 +69,12 @@ export default async function Page() {
           ヘッダーの名前、本文、ボタンの文字です。
         </p>
 
-        <p>手順として書くと、こうなります。</p>
+        <p>
+          手順として書くと、こうなります。
+          （<code>header.textContent = &quot;…&quot;</code> は
+          <strong>「ヘッダーの文字を、これに書き換えろ」</strong>という命令です。
+          前の章で見た素の JavaScript と同じ書き方です）
+        </p>
 
         <StaticCode
           lang="ts"
@@ -139,6 +158,13 @@ function logout() {
         <p>この考え方は、よくこう表現されます。</p>
 
         <StaticCode lang="ts" code={`UI = f(state)`} />
+
+        <p>
+          記号が並んでいますが、身構えなくて大丈夫です。
+          <code>f</code> は<strong>関数</strong>のこと。
+          <code>UI</code> は画面、<code>state</code> は状態です。
+          つまり<strong>「状態を入れると、画面が出てくる箱」</strong>と書いてあるだけです。
+        </p>
 
         <p>
           画面は、状態を渡すと結果が返ってくる<strong>関数のようなもの</strong>だ、という意味です。

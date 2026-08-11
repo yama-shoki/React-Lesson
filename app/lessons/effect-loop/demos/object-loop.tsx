@@ -1,6 +1,12 @@
 "use client";
 
+/*
+  この章の題材そのもの。lint は「options を useMemo で包め」と言ってくるが、
+  ここでは「包まないと何が起きるか」を見せたいので、わざと従っていない。
+  effect の中で setState しているのも同じ理由。
+*/
 /* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";

@@ -156,7 +156,7 @@ const found = items.filter((item) => item.done);   // 数百件程度なら不�
 					</p>
 				</Callout>
 
-				<Callout variant="point" title="Part 4-3 と矛盾しません">
+				<Callout variant="point" title="Part 4 の「state は最小限にする」 と矛盾しません">
 					<p>
 						「計算できるものは state にしない」と書きました。
 						<code>useMemo</code> はそれを覆すものではありません。

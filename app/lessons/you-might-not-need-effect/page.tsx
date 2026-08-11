@@ -86,7 +86,7 @@ useEffect(() => {
             1 回目の描画では、count はまだ古い値
           </li>
           <li>
-            Part 4-3 でやった<strong>二重管理</strong>そのもの
+            Part 4 の「state は最小限にする」 でやった<strong>二重管理</strong>そのもの
           </li>
         </ul>
 

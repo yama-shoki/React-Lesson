@@ -104,7 +104,7 @@ const error = validateEmail(email);`}
 
         <p>
           エラーは<strong>入力値から必ず決まります</strong>。
-          Part 4-3 でやった「計算できるものは state にしない」がそのまま当てはまります。
+          Part 4 の「state は最小限にする」 でやった「計算できるものは state にしない」がそのまま当てはまります。
         </p>
 
         <p>
@@ -239,7 +239,7 @@ type Form = z.infer<typeof schema>; // 型はここから作られる`}
               label: "持たない。入力値から計算できるため",
               correct: true,
               explanation:
-                "二重に持つと更新の書き忘れが起き、直したのにエラーが残る状態になります。Part 4-3 と同じ話です。",
+                "二重に持つと更新の書き忘れが起き、直したのにエラーが残る状態になります。Part 4 の「state は最小限にする」 と同じ話です。",
             },
             {
               label: "持つべき。表示するものは state にする決まりだから",

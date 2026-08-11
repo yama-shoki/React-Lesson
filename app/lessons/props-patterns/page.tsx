@@ -103,10 +103,10 @@ export default async function Page() {
 					</ul>
 					<p>
 						この 2 本立てが、React のほぼすべての部品の形です。
-						前の章の「props は書き換えられない」と合わせて読むと、
-						<strong>なぜ関数を渡す必要があるのか</strong>が見えてきます。
-						子は値を書き換えられないので、
+						前の章「props は書き換えられない」を思い出してください。
+						子は受け取った値を書き換えられません。だからこそ、
 						<strong>持っている側にお願いするしかない</strong>のです。
+						その「お願い」を運ぶのが、この関数です。
 					</p>
 				</Callout>
 
@@ -138,7 +138,7 @@ increaseCount, openModal`}
 <LikeButton onLike={handleLike()} />   // ✕ 呼んだ結果を渡す`}
 					/>
 					<p>
-						Part 3 の <code>onClick</code> とまったく同じ話です。
+						Part 0 の「関数を値として扱う」でやった話です。
 						<strong>括弧は「今すぐ実行しろ」の合図</strong>でした。
 					</p>
 				</Callout>

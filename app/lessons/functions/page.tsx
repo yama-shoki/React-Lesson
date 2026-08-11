@@ -76,6 +76,26 @@ const greet = () => "こんにちは";`}
           React のコードではこちらが主役なので、見慣れておいてください。
         </p>
 
+        <Callout variant="warn" title="return はどこへ消えたのか">
+          <p>
+            上には <code>return</code> があるのに、下にはありません。
+            ここは必ず引っかかるところです。
+          </p>
+          <p>
+            アロー関数は、
+            <strong>
+              <code>{"{ }"}</code> を書かずに式をひとつだけ書くと、
+              それがそのまま戻り値になります
+            </strong>
+            。省略しているだけで、返している値は同じです。
+          </p>
+          <StaticCode
+            lang="ts"
+            code={`const greet = () => "こんにちは";           // 省略した形
+const greet = () => { return "こんにちは"; }; // 省略しない形（同じ意味）`}
+          />
+        </Callout>
+
         <p>
           注目してほしいのは、アロー関数が <code>const greet = ...</code>{" "}
           という形をしていることです。これは前の章でやった変数そのものです。
@@ -121,6 +141,17 @@ const greet = () => "こんにちは";`}
 
       <LessonSection id="pass" {...at(PASS, "runTwice(say)")}>
         <h2>関数は、他の関数に渡せる</h2>
+
+        <Callout variant="note" title="引数と戻り値">
+          <p>
+            <strong>引数</strong>は、関数に<strong>渡す値</strong>。
+            <code>greet(&quot;さとう&quot;)</code> の括弧の中に書くものです。
+          </p>
+          <p>
+            <strong>戻り値</strong>は、関数が<strong>返してくる値</strong>。
+            <code>return</code> のうしろに書いたものが、呼んだ側に返ります。
+          </p>
+        </Callout>
 
         <p>
           関数が値なら、他の関数に引数として渡すこともできます。

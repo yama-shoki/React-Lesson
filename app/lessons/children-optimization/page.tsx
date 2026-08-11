@@ -160,7 +160,7 @@ function Counter({ children }) {
 						<strong>同じものかどうか。</strong>
 					</p>
 					<p>
-						Part 4-5 の state 更新、前の章の <code>memo</code>、
+						Part 4 の「オブジェクトと配列の更新」 の state 更新、前の章の <code>memo</code>、
 						そしてこの <code>children</code>。
 						すべて同じ判定でつながっています。
 						React は中身を見比べません。
