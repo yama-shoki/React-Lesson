@@ -187,7 +187,7 @@ useQueryState("tab", { defaultValue: "profile", history: "push" });`}
 					</p>
 				</Callout>
 
-				<h3>Suspense で包む必要がある</h3>
+				<h3>Suspense で包む必要がある（Next.js 固有の話）</h3>
 
 				<p>
 					Next.js でこれを使うと、ビルド時にエラーが出ることがあります。

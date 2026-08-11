@@ -77,6 +77,13 @@ export default async function Page() {
 			<LessonSection id="why" {...at(LARGE, "const { name } = use(LargeContext)")}>
 				<h2>なぜ関係ない部品まで描き直されるのか</h2>
 
+				<p>
+					Part 7 で「再レンダリングの理由は、いまのところ 2 つ」と書きました。
+					<strong>これが 3 つめです。</strong>
+					自分の state でも、親の描き直しでもなく、
+					<strong>見に行っている Context が変わったとき</strong>。
+				</p>
+
 				<p>理由は 2 つ重なっています。</p>
 
 				<h3>1. Context は「項目ごと」に見てくれない</h3>
@@ -312,7 +319,7 @@ const SetCountContext = createContext(() => {}); // 更新関数`}
 						<strong>Provider が描き直されれば必ず「変わった」</strong>ことになる
 					</li>
 					<li>
-						対処は<strong>関心ごとに分ける</strong>こと。基準は「一緒に変わるかどうか」
+						対処は<strong>一緒に変わるものだけ、同じ箱に入れる</strong>こと。基準は「一緒に変わるかどうか」
 					</li>
 					<li>
 						Provider は<strong>children を受け取る薄い部品</strong>にする。

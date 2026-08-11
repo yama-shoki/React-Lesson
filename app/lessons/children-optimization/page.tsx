@@ -125,7 +125,7 @@ function Counter({ children }) {
 				<h2>なぜ止まるのか</h2>
 
 				<p>
-					鍵は<strong>「その JSX を誰が作ったか」</strong>です。
+					鍵は<strong>「その &lt;Heavy /&gt; が、どの関数の中に書いてあるか」</strong>です。
 				</p>
 
 				<ChildrenBoundaryFigure />
@@ -133,7 +133,23 @@ function Counter({ children }) {
 				<p>
 					<code>&lt;Heavy /&gt;</code> という JSX は、
 					Part 1 でやったとおり<strong>ただの値</strong>です。
-					そして値は、<strong>それが書かれた場所で作られます</strong>。
+					ここまではいいとして、
+					<strong>その値がいつ作られるのか</strong>が問題になります。
+				</p>
+
+				<p>
+					関数の中に書いた行は、
+					<strong>その関数が呼ばれるたびに、上から順に実行されます</strong>。
+					Part 6 で見た <code>const options = {"{ ... }"}</code> が
+					毎回新しいオブジェクトになったのと、まったく同じことです。
+				</p>
+
+				<p>
+					つまり <code>&lt;Heavy /&gt;</code> も、
+					<strong>
+						Counter の中に書いてあれば、Counter が動くたびに作り直されます
+					</strong>
+					。外に書いてあれば、作り直されません。
 				</p>
 
 				<ul>

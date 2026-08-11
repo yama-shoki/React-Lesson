@@ -186,7 +186,7 @@ const options = useMemo(() => ({ unit: "回" }), []);`}
 
 				<p>
 					<code>memo</code> の章と、無限ループの章でやった問題への対処です。
-					<strong>計算が重いからではなく、参照を安定させるために使う</strong>
+					<strong>計算が重いからではなく、毎回同じオブジェクトを渡し続けるために使う</strong>
 					という使い方も覚えておいてください。
 				</p>
 			</LessonSection>
@@ -256,7 +256,7 @@ const options = useMemo(() => ({ unit: "回" }), []);`}
 						包むこと自体にコストがあり、軽い計算では逆効果
 					</li>
 					<li>
-						速さ以外に、<strong>参照を安定させる</strong>目的でも使う
+						速さ以外に、<strong>毎回同じものを渡し続ける</strong>目的でも使う
 					</li>
 				</ul>
 			</LessonSection>

@@ -161,7 +161,7 @@ useEffect(fn);          // 毎回（ほとんど使わない）`}
 
         <Callout variant="point" title="判断の基準">
           <p>
-            <strong>React の外側にあるものと同期しているか。</strong>
+            <strong>React の外側にあるものを、いまの state に合わせにいっているか。</strong>
           </p>
           <p>
             外側が出てこないなら、たいてい useEffect は要りません。

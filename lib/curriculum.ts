@@ -284,6 +284,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "useref",
+				title: "useRef",
+				summary: "覚えておきたいけれど、画面には関係ない値",
+				ready: true,
+			},
+			{
 				slug: "custom-hooks",
 				title: "カスタムフック",
 				summary: "自分でフックを作る。ただの関数の切り出し",
@@ -360,6 +366,12 @@ export const curriculum: Part[] = [
 		title: "state を共有する",
 		summary: "アプリが大きくなったときに、どこに状態を置くか。",
 		lessons: [
+			{
+				slug: "server-components",
+				title: "サーバーで動くコンポーネント",
+				summary: '"use client" の 1 行が何を分けているのか',
+				ready: true,
+			},
 			{
 				slug: "context",
 				title: "Context",

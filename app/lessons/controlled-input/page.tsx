@@ -50,6 +50,26 @@ export default async function Page() {
       <LessonSection id="uncontrolled" {...at(UNCONTROLLED, "<Input placeholder")}>
         <h2>React が値を知らない状態</h2>
 
+        <Callout variant="note" title="呼び名を先に決めておきます">
+          <p>
+            いまから 2 つの状態を比べます。呼び名があると話が早いので、
+            先に決めておきます。
+          </p>
+          <ul>
+            <li>
+              <strong>非制御</strong> … 値をブラウザの入力欄が持っている。
+              React は知らない（いまから見るほう）
+            </li>
+            <li>
+              <strong>制御</strong> … 値を React が持っている（このあと作るほう）
+            </li>
+          </ul>
+          <p>
+            「制御されている」の主語は React です。
+            <strong>React が値を握っているかどうか</strong>で呼び分けます。
+          </p>
+        </Callout>
+
         <p>
           入力欄をただ置くと、値を持っているのはブラウザです。
           React は何が入力されたか知りません。

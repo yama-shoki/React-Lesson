@@ -186,14 +186,34 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 				</Callout>
 
 				<p>
-					先回りの最適化は、<strong>読みにくさという確実な損</strong>と引き換えに、
-					<strong>速くなるかもしれないという不確実な得</strong>を買う行為です。
+					まだ遅くもないのに包むと、
+					<strong>読みにくさは必ず増えて、速さは増えるか分かりません</strong>。
 					割に合いません。
 				</p>
 
 				<p>
 					それに、次の章でやる方法を使えば、
 					<strong><code>memo</code> を使わずに描き直しを減らせる</strong>場合があります。
+				</p>
+			</LessonSection>
+
+			<LessonSection id="term" {...at(DEMO, "const Memoized = memo(")}>
+				<h3>この手のやり方を「メモ化」と呼びます</h3>
+
+				<p>
+					<code>memo</code>、そしてこの Part でこのあと出てくる{" "}
+					<code>useMemo</code> と <code>useCallback</code>。
+					やっていることは共通しています。
+				</p>
+
+				<p>
+					<strong>前の結果をとっておいて、使い回す。</strong>
+					これをまとめて<strong>メモ化</strong>と呼びます。
+					（メモを取っておく、の「メモ」です）
+				</p>
+
+				<p>
+					記事や求人票でこの言葉を見かけたら、この 3 つのことだと思ってください。
 				</p>
 			</LessonSection>
 

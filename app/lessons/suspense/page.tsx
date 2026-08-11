@@ -130,24 +130,15 @@ const members = await getMembers();`}
 						<strong>サーバー側で実行されます</strong>。
 						ブラウザに届くのは、実行し終わった結果の HTML です。
 					</p>
-					<ul>
-						<li>
-							データベースや秘密の鍵に直接触れる
-							（ブラウザには渡らないので安全）
-						</li>
-						<li>
-							そのコンポーネントの JavaScript は
-							<strong>ブラウザに送られない</strong>
-						</li>
-						<li>
-							代わりに <code>useState</code> や
-							<code>onClick</code> は使えない
-						</li>
-					</ul>
 					<p>
-						この教材のページ本体も、ほとんどが Server Component です。
-						<code>&quot;use client&quot;</code> が付いているのは、
-						デモとクイズのように<strong>操作が要る部分だけ</strong>です。
+						サーバーで動くので <code>await</code> が書けます。
+						代わりに <code>useState</code> や <code>onClick</code> は使えません。
+					</p>
+					<p>
+						この話は<strong>Part 9 の最初の章</strong>
+						「サーバーで動くコンポーネント」で正面から扱います。
+						ここでは<strong>「サーバーで動くから待てる」</strong>
+						とだけ思って読み進めてください。
 					</p>
 				</Callout>
 			</LessonSection>
@@ -192,7 +183,7 @@ const members = await getMembers();`}
 				<h2>どこに置くか</h2>
 
 				<p>
-					<code>Suspense</code> は<strong>境界線</strong>です。
+					<code>Suspense</code> は<strong>仕切り</strong>です。
 					置いた場所より内側だけが待ちます。
 				</p>
 
@@ -222,6 +213,27 @@ const members = await getMembers();`}
 					<strong>片方だけ先に出したい</strong>なら、
 					それぞれ別々に包みます。早く終わったほうから順に出てきます。
 				</p>
+
+				<Callout variant="point" title="では、失敗は誰が受け持つのか">
+					<p>
+						「読み込み中は Suspense が外側で受け持つ」なら、
+						<strong>失敗したときは？</strong>と思ったはずです。
+					</p>
+					<p>
+						そちらにも受け皿があります。<strong>エラー境界</strong>と呼ばれるもので、
+						Next.js なら <code>error.tsx</code> というファイルを置くと、
+						その範囲で起きた失敗をそこで受け止めてくれます。
+					</p>
+					<StaticCode
+						lang="bash"
+						code={`app/lessons/error.tsx   ← この下で失敗が起きたら、これが出る`}
+					/>
+					<p>
+						<strong>待ちの外側が Suspense、失敗の外側がエラー境界。</strong>
+						対になっています。この教材では扱いませんが、
+						組みになっていることだけ覚えておいてください。
+					</p>
+				</Callout>
 
 				<Callout variant="note" title="Next.js の loading.tsx">
 					<p>

@@ -266,16 +266,11 @@ function Counter() { ... }`}
 					Part 8 で扱います。
 				</p>
 
-				<Callout variant="point" title="useCallback を最初に知るべき理由">
+				<Callout variant="point" title="いま覚えておくこと">
 					<p>
-						<code>useCallback</code> は「速くするための道具」として
-						紹介されることが多いのですが、実際に最初に出会うのは
-						<strong>この無限ループを止めるため</strong>です。
-					</p>
-					<p>
-						速度の話より先に、
-						<strong>「関数は毎回新しく作られる」</strong>
-						という事実を覚えておいてください。
+						道具の名前はまだ覚えなくて大丈夫です。
+						<strong>「オブジェクトや関数は、書き直されるたびに
+						新しく作られる」</strong>——これだけ持って先へ進んでください。
 					</p>
 				</Callout>
 			</LessonSection>

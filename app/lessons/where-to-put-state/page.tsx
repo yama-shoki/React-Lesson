@@ -94,7 +94,7 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 				<p>
 					コードの形は同じでも、
 					<strong>置き場所を変えるだけで振る舞いが変わります</strong>。
-					だから「どこに置くか」は設計の判断になります。
+					だから「どこに置くか」は、あとから効いてくる選択になります。
 				</p>
 			</LessonSection>
 
