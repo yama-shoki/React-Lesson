@@ -100,8 +100,16 @@ export default async function Page() {
 
 				<p>
 					<code>value</code> も <code>onChange</code> も書いていません。
-					<code>register</code> が、その両方を含んだ props を
-					まとめて返しています。
+					<code>register</code> が返しているのは、
+					<code>onChange</code> と、
+					<strong>「この入力欄はどれか」を React Hook Form に教えるための仕掛け</strong>
+					です。
+				</p>
+
+				<p>
+					<strong><code>value</code> は返していません。</strong>
+					ここが肝心なところです。
+					value を返さない＝React が値を持たない、ということだからです。
 				</p>
 
 				<Callout variant="point" title="値を state に持たない">

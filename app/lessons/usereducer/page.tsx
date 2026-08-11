@@ -104,6 +104,15 @@ export default async function Page() {
 					<strong>1 つのオブジェクト</strong>にします。
 				</p>
 
+				<StaticCode
+					lang="ts"
+					code={`type Form = {
+  name: string;
+  email: string;
+  agreed: boolean;
+};`}
+				/>
+
 				<p>
 					こうすると「フォームの状態」がコード上の 1 か所に現れます。
 					項目を足すのも、この型に 1 行足すだけです。
@@ -128,6 +137,11 @@ export default async function Page() {
 					<p>
 						<code>{'dispatch({ type: "changed_name", value: "太郎" })'}</code> は
 						<strong>「何が起きたか」</strong>を書いています。
+					</p>
+					<p>
+						（<code>dispatch</code> は
+						<strong>「出来事を送る関数」</strong>です。
+						この章のあいだ、ずっとこの意味で出てきます）
 					</p>
 				</Callout>
 
@@ -188,6 +202,20 @@ export default async function Page() {
 					画面のコードを追いかける必要がありません。
 				</p>
 
+				<Callout variant="note" title="default を書いていないのはなぜ？">
+					<p>
+						<code>switch</code> なのに <code>default</code> がありません。
+						ふつうは書き忘れですが、ここは意図的です。
+					</p>
+					<p>
+						<code>Action</code> の型で
+						<strong>ありうる出来事を並べてある</strong>ので、
+						4 つ全部書けば漏れはありません。
+						逆に 1 つ書き忘れると、
+						<strong>TypeScript がその場で教えてくれます</strong>。
+					</p>
+				</Callout>
+
 				<Callout variant="warn" title="reducer の中で state を書き換えない">
 					<p>
 						Part 4 の「オブジェクトと配列の更新」と同じ決まりです。
@@ -197,6 +225,9 @@ export default async function Page() {
 					<p>
 						reducer は<strong>純粋な関数</strong>である必要があります。
 						同じ引数なら必ず同じ結果を返し、外の世界に触らない。
+						（外の世界に触る、とは
+						<strong>通信したり、外の変数を書き換えたり、
+						画面を直接いじったりすること</strong>です）
 						そのおかげで、この関数だけを取り出してテストできます。
 					</p>
 				</Callout>
@@ -252,7 +283,7 @@ dispatch({ type: "reset" });`}
 				<h2>どちらを使うか</h2>
 
 				<p>
-					<code>useReducer</code> は上位互換ではありません。
+					<code>useReducer</code> のほうが必ず良い、というわけではありません。
 					<strong>書く量は確実に増えます</strong>。
 					その代わり、更新が 1 か所に集まります。
 				</p>

@@ -9,8 +9,8 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
-import { FetchDemo } from "./demos/fetch-demo";
-import { Order } from "./demos/order";
+import { FetchDemo } from "./demos/fetch-view";
+import { Order } from "./demos/order-view";
 
 const SLUG = "async-await";
 
@@ -19,8 +19,11 @@ export const metadata: Metadata = {
 };
 
 const SOURCES = [
-	{ path: "lessons/async-await/demos/order.tsx", label: "order.tsx" },
-	{ path: "lessons/async-await/demos/fetch-demo.tsx", label: "fetch-demo.tsx" },
+	{ path: "lessons/async-await/demos/order.ts", label: "order.ts" },
+	{
+		path: "lessons/async-await/demos/fetch-members.ts",
+		label: "fetch-members.ts",
+	},
 ] as const;
 
 const [ORDER, FETCH] = SOURCES.map((source) => source.path);
@@ -50,7 +53,7 @@ export default async function Page() {
 				</p>
 			</LessonHeader>
 
-			<LessonSection id="order" {...at(ORDER, "const withoutAwait")}>
+			<LessonSection id="order" {...at(ORDER, "export const withoutAwait", "add(\"3. 席に座った\");")}>
 				<h2>順番が入れ替わるところを見る</h2>
 
 				<p>
@@ -106,6 +109,19 @@ add("3. 席に座った");`}
 					code={`const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));`}
 				/>
 
+				<Callout variant="note" title="この 1 行は書けなくて大丈夫">
+					<p>
+						<code>new</code> や <code>resolve</code> など、
+						知らない言葉が並んでいます。
+						<strong>いまは読み飛ばして構いません。</strong>
+					</p>
+					<p>
+						「<code>wait(1000)</code> と書くと、
+						1 秒後に終わる引換券が返ってくる関数」
+						とだけ思ってください。
+					</p>
+				</Callout>
+
 				<p>
 					<code>wait(1000)</code> が返すのは、お茶ではありません。
 					<strong>「1 秒後にお渡しします」という引換券</strong>です。
@@ -116,15 +132,21 @@ add("3. 席に座った");`}
 
 				<ul>
 					<li>
-						<strong>待っている</strong>（pending）… まだ結果が出ていない
+						<strong>待っている</strong> … まだ結果が出ていない
 					</li>
 					<li>
-						<strong>成功した</strong>（fulfilled）… 値が入った
+						<strong>成功した</strong> … 値が入った
 					</li>
 					<li>
-						<strong>失敗した</strong>（rejected）… エラーになった
+						<strong>失敗した</strong> … エラーになった
 					</li>
 				</ul>
+
+				<p>
+					（コードやエラーの表示では、それぞれ
+					<code>pending</code> / <code>fulfilled</code> /{" "}
+					<code>rejected</code> と出てきます）
+				</p>
 
 				<p>
 					そして<strong>受け取り方が 2 通り</strong>あります。
@@ -142,12 +164,20 @@ add("届いた");`}
 
 				<p>
 					<strong>やっていることは同じ</strong>です。
+					違うのは<strong>「続き」の書き方</strong>だけ。
+					<code>.then</code> は
+					<strong>続きを関数にして渡す</strong>書き方、
+					<code>await</code> は
+					<strong>続きをそのまま下に書く</strong>書き方です。
+				</p>
+
+				<p>
 					下のほうが、上から下に読めるぶん分かりやすい。
 					だから <code>await</code> が使えるところでは、そちらを使います。
 				</p>
 			</LessonSection>
 
-			<LessonSection id="await" {...at(ORDER, "const withAwait")}>
+			<LessonSection id="await" {...at(ORDER, "export const withAwait")}>
 				<h2>await は「ここで待つ」</h2>
 
 				<StaticCode
@@ -350,7 +380,7 @@ const data = await response.json();   // 2 回目: 本文を読み終わるの�
 				/>
 			</LessonSection>
 
-			<LessonSection id="summary" {...at(FETCH, "const load = async")}>
+			<LessonSection id="summary" {...at(FETCH, "export const loadMembers")}>
 				<h2>この章のまとめ</h2>
 
 				<ul>

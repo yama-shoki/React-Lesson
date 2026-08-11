@@ -3,40 +3,27 @@
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { withAwait, withoutAwait } from "./order";
 
-// 1 秒かかる処理のつもり
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
+/** ログを画面に出すだけの入れ物。読者に見せるのは order.ts のほう */
 export function Order() {
 	useTrackDemoRender();
 
 	const [log, setLog] = useState<string[]>([]);
 	const add = (line: string) => setLog((current) => [...current, line]);
 
-	// ✕ 待たない書き方
-	const withoutAwait = () => {
+	const run = (fn: (add: (line: string) => void) => void) => {
 		setLog([]);
-		add("1. お茶を注文した");
-		wait(1000).then(() => add("2. お茶が届いた"));
-		add("3. 席に座った");
-	};
-
-	// ◯ 待つ書き方。await のところで、いったん止まる
-	const withAwait = async () => {
-		setLog([]);
-		add("1. お茶を注文した");
-		await wait(1000);
-		add("2. お茶が届いた");
-		add("3. 席に座った");
+		fn(add);
 	};
 
 	return (
 		<div className="flex flex-col gap-3">
 			<div className="flex gap-2">
-				<Button size="sm" variant="outline" onClick={withoutAwait}>
+				<Button size="sm" variant="outline" onClick={() => run(withoutAwait)}>
 					await なし
 				</Button>
-				<Button size="sm" onClick={withAwait}>
+				<Button size="sm" onClick={() => run(withAwait)}>
 					await あり
 				</Button>
 			</div>

@@ -123,6 +123,17 @@ export default async function Page() {
       <LessonSection id="react" {...at(OBJECT, "export const names")}>
         <h2>React では JSX を返す</h2>
 
+        <Callout variant="note" title="ここから先の &lt; &gt; について">
+          <p>
+            <code>&lt;li&gt;</code> や <code>{"{ }"}</code> が出てきますが、
+            <strong>読み方は Part 1 でやります</strong>。
+          </p>
+          <p>
+            いまは<strong>「map の結果が、そのまま画面の部品になる」</strong>
+            とだけ見てください。
+          </p>
+        </Callout>
+
         <p>
           ここまでくれば、React のリスト表示はもう読めます。
           返すものを<strong>画面の部品</strong>にするだけです。

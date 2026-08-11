@@ -54,6 +54,23 @@ export default async function Page() {
       </LessonHeader>
 
       <LessonSection id="what" {...at(OBJECT, "export const user")}>
+        <Callout variant="note" title="コードに : が出てきたら">
+          <p>
+            この先、右のコードにこういう書き方が出てきます。
+          </p>
+          <StaticCode lang="ts" code={`const logs: string[] = [];`} />
+          <p>
+            <code>: string[]</code> は
+            <strong>「この変数には文字列の配列が入ります」</strong>という
+            <strong>説明書き</strong>です。TypeScript の書き方で、
+            <strong>Part 0 の最後の章</strong>でまとめて扱います。
+          </p>
+          <p>
+            それまでは<strong>読み飛ばして構いません</strong>。
+            <code>:</code> から先を消しても、動きは変わりません。
+          </p>
+        </Callout>
+
         <h2>変数は、値につけた名前</h2>
 
         <p>

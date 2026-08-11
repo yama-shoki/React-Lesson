@@ -214,7 +214,8 @@ const [isError, setIsError] = useState(false);`}
 
 				<p>
 					真偽値が 3 つあると、組み合わせは <strong>2 × 2 × 2 = 8 通り</strong>。
-					そのうち<strong>意味があるのは 4 通りだけ</strong>です。
+					そのうち<strong>意味があるのは 4 通りだけ</strong>です
+					（まだ何もしていない / 送信中 / 完了 / 失敗）。
 					残りの 4 通りは、書けてしまうけれど存在してはいけない状態です。
 				</p>
 
@@ -310,7 +311,7 @@ const [status, setStatus] = useState<Status>("idle");`}
 				<p>
 					初期値として使われるのは最初の 1 回だけなのに、
 					<strong>計算だけは毎回走ります</strong>。
-					関数の引数は、渡す前に評価されるからです。
+					括弧を書いた時点で先に実行され、その<strong>結果</strong>が渡るからです。
 				</p>
 
 				<StaticCode
@@ -472,7 +473,7 @@ useState(buildInitialCode);`}
 							label: "前者は毎回呼ばれ、後者は最初の 1 回だけ呼ばれる",
 							correct: true,
 							explanation:
-								"括弧を付けると、渡す前に呼ばれてしまいます。関数そのものを渡せば、React が必要なときだけ呼びます。",
+								"括弧を書いた時点で先に実行され、その結果が渡ります。関数そのものを渡せば、React が必要なときだけ呼びます。",
 						},
 						{
 							label: "どちらも同じ。書き方の好み",
