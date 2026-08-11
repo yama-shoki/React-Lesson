@@ -200,7 +200,13 @@ export const curriculum: Part[] = [
 			{
 				slug: "usestate-patterns",
 				title: "useState の使い方いろいろ",
-				summary: "実際どう使われているか。基礎の 4 つと、応用の 2 つ",
+				summary: "実際どう使われているか。よく出てくる 4 つの形",
+				ready: true,
+			},
+			{
+				slug: "usestate-advanced",
+				title: "useState の応用",
+				summary: "初期値の遅延評価と、key でのリセット",
 				ready: true,
 			},
 			{
