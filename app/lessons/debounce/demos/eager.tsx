@@ -13,29 +13,29 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
 export function Eager() {
-	useTrackDemoRender();
+  useTrackDemoRender();
 
-	const [keyword, setKeyword] = useState("");
-	const [searchCount, setSearchCount] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  const [searchCount, setSearchCount] = useState(0);
 
-	useEffect(() => {
-		if (!keyword) return;
+  useEffect(() => {
+    if (!keyword) return;
 
-		// 本来はここで API を呼ぶ。回数だけ数えている
-		setSearchCount((count) => count + 1);
-	}, [keyword]);
+    // 本来はここで API を呼ぶ。回数だけ数えている
+    setSearchCount((count) => count + 1);
+  }, [keyword]);
 
-	return (
-		<div className="flex flex-col gap-3">
-			<Input
-				placeholder="検索してみる"
-				value={keyword}
-				onChange={(event) => setKeyword(event.target.value)}
-			/>
+  return (
+    <div className="flex flex-col gap-3">
+      <Input
+        placeholder="検索してみる"
+        value={keyword}
+        onChange={(event) => setKeyword(event.target.value)}
+      />
 
-			<p className="text-sm">
-				検索した回数: <strong>{searchCount}</strong>
-			</p>
-		</div>
-	);
+      <p className="text-sm">
+        検索した回数: <strong>{searchCount}</strong>
+      </p>
+    </div>
+  );
 }

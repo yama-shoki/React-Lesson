@@ -13,41 +13,41 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export function ManualFetch() {
-	useTrackDemoRender();
+  useTrackDemoRender();
 
-	// 取得したデータのために、state が 3 つも必要になる
-	const [members, setMembers] = useState<string[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+  // 取得したデータのために、state が 3 つも必要になる
+  const [members, setMembers] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		setIsLoading(true);
+  useEffect(() => {
+    setIsLoading(true);
 
-		fetch("/api/members")
-			.then((res) => res.json())
-			.then((data) => setMembers(data.members))
-			.catch(() => setError("取得に失敗しました"))
-			.finally(() => setIsLoading(false));
-	}, []);
+    fetch("/api/members")
+      .then((res) => res.json())
+      .then((data) => setMembers(data.members))
+      .catch(() => setError("取得に失敗しました"))
+      .finally(() => setIsLoading(false));
+  }, []);
 
-	return (
-		<div className="flex flex-col gap-3">
-			{isLoading && <p className="text-muted-foreground">読み込み中…</p>}
-			{error && <p className="text-red-600">{error}</p>}
+  return (
+    <div className="flex flex-col gap-3">
+      {isLoading && <p className="text-muted-foreground">読み込み中…</p>}
+      {error && <p className="text-red-600">{error}</p>}
 
-			{!isLoading && !error && (
-				<ul className="flex flex-wrap gap-2">
-					{members.map((member) => (
-						<li key={member} className="rounded-md border px-3 py-1.5">
-							{member}
-						</li>
-					))}
-				</ul>
-			)}
+      {!isLoading && !error && (
+        <ul className="flex flex-wrap gap-2">
+          {members.map((member) => (
+            <li key={member} className="rounded-md border px-3 py-1.5">
+              {member}
+            </li>
+          ))}
+        </ul>
+      )}
 
-			<Button size="sm" variant="outline" disabled>
-				取り直す（自分で書くと、ここも作り込みが要る）
-			</Button>
-		</div>
-	);
+      <Button size="sm" variant="outline" disabled>
+        取り直す（自分で書くと、ここも作り込みが要る）
+      </Button>
+    </div>
+  );
 }

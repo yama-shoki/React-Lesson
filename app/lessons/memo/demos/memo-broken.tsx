@@ -7,30 +7,30 @@ import { memo, useState } from "react";
 
 // さっきと同じように memo で包んである
 const Memoized = memo(function Memoized({ user }: { user: { name: string } }) {
-	return (
-		<RenderBox title="memo あり（オブジェクトを受け取る）" tone="highlight">
-			{user.name} さん
-		</RenderBox>
-	);
+  return (
+    <RenderBox title="memo あり（オブジェクトを受け取る）" tone="highlight">
+      {user.name} さん
+    </RenderBox>
+  );
 });
 
 export function MemoBroken() {
-	useTrackDemoRender();
+  useTrackDemoRender();
 
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	// 描き直されるたびに、新しいオブジェクトが作られる
-	const user = { name: "さとう" };
+  // 描き直されるたびに、新しいオブジェクトが作られる
+  const user = { name: "さとう" };
 
-	return (
-		<div className="flex flex-col gap-4">
-			<p className="rounded-md border p-3 font-mono">count: {count}</p>
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="rounded-md border p-3 font-mono">count: {count}</p>
 
-			<Button size="sm" onClick={() => setCount((c) => c + 1)}>
-				count を増やす（user の中身は変わらない）
-			</Button>
+      <Button size="sm" onClick={() => setCount((c) => c + 1)}>
+        count を増やす（user の中身は変わらない）
+      </Button>
 
-			<Memoized user={user} />
-		</div>
-	);
+      <Memoized user={user} />
+    </div>
+  );
 }

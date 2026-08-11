@@ -9,17 +9,17 @@ import { useEffect, useState } from "react";
  * それだけで「カスタムフック」と呼ばれる。特別な仕組みはない。
  */
 export function useWindowWidth() {
-	const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(0);
 
-	useEffect(() => {
-		const update = () => setWidth(window.innerWidth);
+  useEffect(() => {
+    const update = () => setWidth(window.innerWidth);
 
-		update();
-		window.addEventListener("resize", update);
+    update();
+    window.addEventListener("resize", update);
 
-		// 後片付けもここに置いておける。使う側は知らなくてよい
-		return () => window.removeEventListener("resize", update);
-	}, []);
+    // 後片付けもここに置いておける。使う側は知らなくてよい
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
-	return width;
+  return width;
 }

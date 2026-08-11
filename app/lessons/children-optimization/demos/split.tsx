@@ -7,35 +7,35 @@ import { type ReactNode, useState } from "react";
 
 // さっきとまったく同じ子
 function Heavy() {
-	return (
-		<RenderBox title="重い子" tone="highlight">
-			外で作られて、children として渡されている
-		</RenderBox>
-	);
+  return (
+    <RenderBox title="重い子" tone="highlight">
+      外で作られて、children として渡されている
+    </RenderBox>
+  );
 }
 
 // state を持つ側。子が何かは知らず、受け取って置くだけ
 function Counter({ children }: { children: ReactNode }) {
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	return (
-		<div className="flex flex-col gap-4">
-			<Button size="sm" onClick={() => setCount((c) => c + 1)}>
-				count: {count}
-			</Button>
+  return (
+    <div className="flex flex-col gap-4">
+      <Button size="sm" onClick={() => setCount((c) => c + 1)}>
+        count: {count}
+      </Button>
 
-			{/* Counter が描き直されても、children はすでに作られたものが渡ってくる */}
-			{children}
-		</div>
-	);
+      {/* Counter が描き直されても、children はすでに作られたものが渡ってくる */}
+      {children}
+    </div>
+  );
 }
 
 export function Split() {
-	useTrackDemoRender();
+  useTrackDemoRender();
 
-	return (
-		<Counter>
-			<Heavy />
-		</Counter>
-	);
+  return (
+    <Counter>
+      <Heavy />
+    </Counter>
+  );
 }

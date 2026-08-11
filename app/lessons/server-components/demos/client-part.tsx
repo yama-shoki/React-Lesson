@@ -3,21 +3,21 @@
 
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
-export function ClientPart({ children }: { children: React.ReactNode }) {
-	useTrackDemoRender();
+export function ClientPart({ children }: { children: ReactNode }) {
+  useTrackDemoRender();
 
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	return (
-		<div className="flex flex-col gap-3">
-			<Button size="sm" onClick={() => setCount(count + 1)}>
-				押した回数: {count}
-			</Button>
+  return (
+    <div className="flex flex-col gap-3">
+      <Button size="sm" onClick={() => setCount(count + 1)}>
+        押した回数: {count}
+      </Button>
 
-			{/* サーバーで作られたものを、そのまま置ける */}
-			{children}
-		</div>
-	);
+      {/* サーバーで作られたものを、そのまま置ける */}
+      {children}
+    </div>
+  );
 }

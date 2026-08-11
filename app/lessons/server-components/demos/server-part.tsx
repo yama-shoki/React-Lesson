@@ -8,12 +8,12 @@
 const SECRET_NOTE = "この文字列はサーバー側にあります";
 
 export function ServerPart() {
-	return (
-		<div className="rounded-md border p-3 text-sm">
-			<p>ここはサーバーで作られました。</p>
-			<p className="text-muted-foreground">{SECRET_NOTE}</p>
+  return (
+    <div className="rounded-md border p-3 text-sm">
+      <p>ここはサーバーで作られました。</p>
+      <p className="text-muted-foreground">{SECRET_NOTE}</p>
 
-			{/* useState も onClick も、ここでは使えない */}
-		</div>
-	);
+      {/* useState も onClick も、ここでは使えない */}
+    </div>
+  );
 }

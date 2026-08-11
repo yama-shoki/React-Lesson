@@ -77,14 +77,16 @@ export default async function Page() {
 				/>
 
 				<p>
-					この行は<strong>描き直されるたびに実行され、毎回新しい関数を作ります</strong>。
-					中身が同じでも、React にとっては別のものです。
+					<code>memo</code> の章で予告したとおりです。
+					この行は描き直されるたびに実行され、
+					<strong>毎回新しい関数を作ります</strong>。
+					だから <code>memo</code> は「props が変わった」と判断してしまいます。
 				</p>
 
 				<p>
-					<code>memo</code> は props を「同じものかどうか」で見比べます。
-					毎回別の関数が渡ってくるので、
-					<strong>「props が変わった」と判断してしまいます</strong>。
+					ここで、<strong>「新しい関数」とは何なのか</strong>を
+					はっきりさせておきます。ここが分かれば、
+					この Part の残りは全部同じ話です。
 				</p>
 
 				<Callout variant="note" title="関数が「毎回新しい」とはどういうことか">

@@ -180,7 +180,7 @@ export default async function Page() {
 				</Callout>
 			</LessonSection>
 
-			<LessonSection id="compose" {...at(CLIENT, "{ children }: { children: React.ReactNode }")}>
+			<LessonSection id="compose" {...at(CLIENT, "{ children }: { children: ReactNode }")}>
 				<h2>組み合わせ方の決まり</h2>
 
 				<p>

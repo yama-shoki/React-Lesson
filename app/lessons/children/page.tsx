@@ -94,7 +94,7 @@ export default async function Page() {
         </p>
       </LessonSection>
 
-      <LessonSection id="type" {...at(BASIC, "children: React.ReactNode")}>
+      <LessonSection id="type" {...at(BASIC, "children: ReactNode")}>
         <h3>型は ReactNode</h3>
 
         <p>

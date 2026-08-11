@@ -324,7 +324,7 @@ items.map((item) => <li>{item}</li>);`}
 						{
 							label: "できるが、型エラーになる",
 							explanation:
-								"children の型をユニオンにしてあるので、どちらでも通ります。",
+								"children の型をunionにしてあるので、どちらでも通ります。",
 						},
 					]}
 				/>

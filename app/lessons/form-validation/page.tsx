@@ -174,44 +174,22 @@ const showError = touched && error !== null;`}
         <h3>項目が増えたら道具を使う</h3>
 
         <p>
-          項目が 2 つ 3 つのうちは、いまの書き方で十分です。
-          ですが 10 個になると、
-          <code>useState</code> と <code>touched</code>{" "}
-          が項目の数だけ並ぶことになります。
+          項目が 3 つ 4 つと増えてくると、
+          この書き方はつらくなります。条件と表示が離れていくからです。
         </p>
 
-        <p>そうなったら、専用の道具を使います。</p>
+        <p>
+          そのための道具が
+          <strong>React Hook Form</strong> と <strong>zod</strong> です。
+          <strong>Part 10 で実際に使います。</strong>
+          ここでは名前だけ覚えておいてください。
+        </p>
 
-        <ul>
-          <li>
-            <strong>react-hook-form</strong> …
-            入力欄の値と触ったかどうかをまとめて管理してくれる
-          </li>
-          <li>
-            <strong>zod</strong> …
-            チェックのルールを宣言的に書ける。しかも
-            <strong>そこから型を作れる</strong>ので、型とチェックがズレない
-          </li>
-        </ul>
-
-        <StaticCode
-          lang="ts"
-          code={`// zod で書くと、ルールと型が 1 か所にまとまる
-const schema = z.object({
-  email: z.string().email("メールアドレスの形式ではありません"),
-  age: z.number().min(0),
-});
-
-type Form = z.infer<typeof schema>; // 型はここから作られる`}
-        />
-
-        <Callout variant="note">
-          <p>
-            ただし、<strong>いまの章でやったことが土台</strong>です。
-            道具はこれを楽にしてくれるだけで、
-            「エラーは計算で求まる」「触ってから見せる」という考え方は変わりません。
-          </p>
-        </Callout>
+        <p>
+          先に自分で書いておくと、
+          <strong>道具が何を肩代わりしてくれているのか</strong>が分かります。
+          この章はそのための下地です。
+        </p>
       </LessonSection>
 
       <LessonSection id="quiz" {...at(VALIDATION)}>

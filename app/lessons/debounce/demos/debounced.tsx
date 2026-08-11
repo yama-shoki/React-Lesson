@@ -14,38 +14,38 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 export function Debounced() {
-	useTrackDemoRender();
+  useTrackDemoRender();
 
-	const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState("");
 
-	// 打つのが 500ms 止まってから、こちらの値が追いつく
-	const [debouncedKeyword] = useDebounce(keyword, 500);
+  // 打つのが 500ms 止まってから、こちらの値が追いつく
+  const [debouncedKeyword] = useDebounce(keyword, 500);
 
-	const [searchCount, setSearchCount] = useState(0);
+  const [searchCount, setSearchCount] = useState(0);
 
-	useEffect(() => {
-		if (!debouncedKeyword) return;
+  useEffect(() => {
+    if (!debouncedKeyword) return;
 
-		// 見張るのは「落ち着いたほうの値」
-		setSearchCount((count) => count + 1);
-	}, [debouncedKeyword]);
+    // 見張るのは「落ち着いたほうの値」
+    setSearchCount((count) => count + 1);
+  }, [debouncedKeyword]);
 
-	return (
-		<div className="flex flex-col gap-3">
-			<Input
-				placeholder="検索してみる"
-				value={keyword}
-				onChange={(event) => setKeyword(event.target.value)}
-			/>
+  return (
+    <div className="flex flex-col gap-3">
+      <Input
+        placeholder="検索してみる"
+        value={keyword}
+        onChange={(event) => setKeyword(event.target.value)}
+      />
 
-			<p className="text-sm text-muted-foreground">
-				入力欄: {keyword || "（空）"} / 検索に使う値:{" "}
-				{debouncedKeyword || "（空）"}
-			</p>
+      <p className="text-sm text-muted-foreground">
+        入力欄: {keyword || "（空）"} / 検索に使う値:{" "}
+        {debouncedKeyword || "（空）"}
+      </p>
 
-			<p className="text-sm">
-				検索した回数: <strong>{searchCount}</strong>
-			</p>
-		</div>
-	);
+      <p className="text-sm">
+        検索した回数: <strong>{searchCount}</strong>
+      </p>
+    </div>
+  );
 }

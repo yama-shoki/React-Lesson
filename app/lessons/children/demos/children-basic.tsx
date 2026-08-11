@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
+
 // children という名前の props を受け取ると、
 // タグで囲んだ中身がそこに入る
-function Card({ children }: { children: React.ReactNode }) {
+function Card({ children }: { children: ReactNode }) {
   return <div className="rounded-md border p-3">{children}</div>;
 }
 
