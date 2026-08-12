@@ -448,6 +448,32 @@ export const curriculum: Part[] = [
 			},
 		],
 	},
+	{
+		label: "Part 11",
+		title: "作りながら総合する",
+		summary:
+			"ここまでの道具を、実際の画面 1 つにまとめる。新しい道具は出てこない。",
+		lessons: [
+			{
+				slug: "todo-app",
+				title: "TODO リストを作る",
+				summary: "型・部品・props・CRUD を 1 つの画面で通す",
+				ready: true,
+			},
+			{
+				slug: "pokemon-search",
+				title: "API と話す画面を作る",
+				summary: "本物の API を日本語で検索する。通信の 3 つの厄介ごとを潰す",
+				ready: true,
+			},
+			{
+				slug: "next-steps",
+				title: "ここから先へ",
+				summary: "覚えることは 5 つだけ。次に何を作り、どう調べるか",
+				ready: true,
+			},
+		],
+	},
 ];
 
 /** サイドバーや前後ナビ用に、全レッスンを平坦な配列にしたもの */
