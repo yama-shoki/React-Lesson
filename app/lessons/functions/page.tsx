@@ -1,10 +1,12 @@
 import { Callout } from "@/components/lesson/callout";
-import { DemoCard } from "@/components/lesson/demo-card";
 import { LessonFooter } from "@/components/lesson/lesson-footer";
 import { LessonHeader } from "@/components/lesson/lesson-header";
 import { LessonSection } from "@/components/lesson/lesson-section";
 import { LessonShell } from "@/components/lesson/lesson-shell";
+import { DemoCard } from "@/components/lesson/demo-card";
 import { Quiz } from "@/components/lesson/quiz";
+import { ParenBug } from "./demos/paren-bug";
+import { ParenFixed } from "./demos/paren-fixed";
 import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
@@ -22,9 +24,16 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/functions/demos/function-value.ts", label: "function-value.ts" },
   { path: "lessons/functions/demos/pass-function.ts", label: "pass-function.ts" },
+  { path: "lessons/functions/demos/paren-bug.tsx", label: "paren-bug.tsx" },
+  {
+    path: "lessons/functions/demos/paren-fixed.tsx",
+    label: "paren-fixed.tsx",
+  },
 ] as const;
 
-const [VALUE, PASS] = SOURCES.map((source) => source.path);
+const [VALUE, PASS, PAREN_BUG, PAREN_FIXED] = SOURCES.map(
+  (source) => source.path,
+);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -204,6 +213,46 @@ const greet = () => { return "こんにちは"; }; // 省略しない形（同�
         <p>
           <code>onClick</code> は「押されたときに呼んでほしい関数」を受け取る場所です。
           <code>runTwice</code> がそうだったのと、まったく同じ仕組みです。
+        </p>
+
+        <DemoCard
+          title="括弧を付けてしまうと"
+          tone="bad"
+          sourcePath={PAREN_BUG}
+          description="上のボタンは押さずに、下のボタンだけ押す"
+        >
+          <ParenBug />
+        </DemoCard>
+
+        <p>
+          <strong>一度も押していないのに、すでに呼ばれています。</strong>
+          しかも画面が描き直されるたびに増えていきます。
+        </p>
+
+        <Callout variant="note" title="この間違いは、型が教えてくれます">
+          <p>
+            TypeScript を使っていれば、
+            <code>onClick={"{shout()}"}</code> と書いた時点で赤線が出ます。
+            <strong>関数を渡す場所に、関数ではないものが来た</strong>からです。
+          </p>
+          <p>
+            右のコードに <code>@ts-expect-error</code> と書いてあるのは、
+            この教材で<strong>あえて間違いを動かして見せている</strong>からです。
+          </p>
+        </Callout>
+
+        <DemoCard
+          title="括弧を外すと"
+          tone="good"
+          sourcePath={PAREN_FIXED}
+          description="上を押した回数ぶんだけ増える"
+        >
+          <ParenFixed />
+        </DemoCard>
+
+        <p>
+          <strong>違いは括弧 2 文字だけです。</strong>
+          今度は、押した回数ぶんだけ増えます。
         </p>
 
         <Callout variant="point" title="括弧は「いま実行しろ」の合図">

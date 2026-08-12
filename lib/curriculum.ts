@@ -177,6 +177,12 @@ export const curriculum: Part[] = [
 				summary: "key を間違えると、入力した文字が別の行に移動する",
 				ready: true,
 			},
+			{
+				slug: "key-details",
+				title: "key の細かい話",
+				summary: "index を使っていい場合、key は props ではない、など",
+				ready: true,
+			},
 		],
 	},
 	{

@@ -1,10 +1,12 @@
 import { Callout } from "@/components/lesson/callout";
-import { DemoCard } from "@/components/lesson/demo-card";
 import { LessonFooter } from "@/components/lesson/lesson-footer";
 import { LessonHeader } from "@/components/lesson/lesson-header";
 import { LessonSection } from "@/components/lesson/lesson-section";
 import { LessonShell } from "@/components/lesson/lesson-shell";
+import { DemoCard } from "@/components/lesson/demo-card";
 import { Quiz } from "@/components/lesson/quiz";
+import { ZeroBug } from "./demos/zero-bug";
+import { ZeroFixed } from "./demos/zero-fixed";
 import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
@@ -21,9 +23,13 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/truthy-falsy/demos/falsy.ts", label: "falsy.ts" },
   { path: "lessons/truthy-falsy/demos/operators.ts", label: "operators.ts" },
+  { path: "lessons/truthy-falsy/demos/zero-bug.tsx", label: "zero-bug.tsx" },
+  { path: "lessons/truthy-falsy/demos/zero-fixed.tsx", label: "zero-fixed.tsx" },
 ] as const;
 
-const [FALSY, OPERATORS] = SOURCES.map((source) => source.path);
+const [FALSY, OPERATORS, ZERO_BUG, ZERO_FIXED] = SOURCES.map(
+  (source) => source.path,
+);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -147,6 +153,20 @@ export default async function Page() {
           非表示にしたかったのに、0 という文字が残るのはこのためです。
         </p>
 
+        <DemoCard
+          title="件数が 0 になると"
+          tone="bad"
+          sourcePath={ZERO_BUG}
+          description="「1 つ減らす」を 3 回押してみる"
+        >
+          <ZeroBug />
+        </DemoCard>
+
+        <p>
+          <strong>箱の中に 0 が出ました。</strong>
+          消えてほしかったのに、数字だけが取り残されています。
+        </p>
+
         <Callout variant="point" title="直し方">
           <p>
             <strong>条件をきちんと true / false にしてから</strong>{" "}
@@ -161,6 +181,20 @@ export default async function Page() {
 // ○ 比較して true / false にしてから渡す
 {items.length > 0 && <p>{items.length} 件あります</p>}`}
         />
+
+        <DemoCard
+          title="比較してから渡す"
+          tone="good"
+          sourcePath={ZERO_FIXED}
+          description="同じように 3 回押しても、何も出ない"
+        >
+          <ZeroFixed />
+        </DemoCard>
+
+        <p>
+          <strong>違いは <code>&gt; 0</code> の 4 文字だけです。</strong>
+          左が <code>false</code> になれば、React はそれを画面に出しません。
+        </p>
 
         <p>
           <code>false</code> は React が画面に出さないと決めている値なので、

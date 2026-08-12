@@ -275,183 +275,55 @@ See https://react.dev/link/warning-keys for more information.`}
         </p>
       </LessonSection>
 
-      <LessonSection id="beyond-input" {...at(ROW)}>
-        <h2>これは入力欄だけの話ではない</h2>
-
-        <p>
-          分かりやすさのために入力欄を使いましたが、同じことは
-          <strong>state を持つコンポーネント</strong>でも起きます。
-        </p>
-
-        <ul>
-          <li>チェックを入れたはずの行と、別の行にチェックが付く</li>
-          <li>開いていたアコーディオン（開閉するリスト）が、別の項目で開いたままになる</li>
-          <li>アニメーションが途中から始まる、あるいは動かない</li>
-        </ul>
-
-        <p>
-          React が「同じ行だ」と判断した箱の中身は、そのまま次のデータに引き継がれます。
-          key を間違えると、これが全部ズレます。
-        </p>
-
-        <Callout variant="point" title="key はコンポーネントの同一性そのもの">
-          <p>
-            逆から言うと、<strong>key が変わると React はそれを別のコンポーネントとみなし、state ごと作り直します</strong>。
-            これは知っておくと便利な性質で、
-            「このフォームを初期状態に戻したい」というときに、
-            わざと key を変えて作り直させる、という書き方もできます。
-          </p>
-        </Callout>
-      </LessonSection>
-
-      <LessonSection id="index-is-ok" {...at(BROKEN, "key={index}")}>
-        <h2>index を key にしていい場合</h2>
-
-        <p>
-          いつでもダメというわけではありません。
-          次の条件を<strong>全部</strong>満たすなら、index で問題ありません。
-        </p>
-
-        <ul>
-          <li>並び替えが起きない</li>
-          <li>途中への追加や削除が起きない（末尾に足すだけなら大丈夫）</li>
-          <li>各行が入力欄や state を持っていない</li>
-        </ul>
-
-        <p>
-          たとえば、固定のメニュー項目を並べるだけのリストなら index
-          で十分です。そもそも順番が変わらないので、index
-          は事実上そのデータ固有の値になっています。
-        </p>
-
-        <Callout variant="note">
-          <p>
-            とはいえ、最初は並び替えのなかったリストに、あとから並び替え機能が付くのはよくあることです。
-            id があるなら id を使っておくほうが、あとで困りません。
-          </p>
-        </Callout>
-      </LessonSection>
-
-      <LessonSection id="misconceptions" {...at(FIXED, "key={member.id}")}>
-        <h2>よくある勘違い</h2>
-
-        <h3>key は props ではない</h3>
-
-        <p>
-          key は React
-          が内部で使うための特別な属性で、<strong>子コンポーネントには渡りません</strong>。
-          子で受け取ろうとしても、そこには何も入っていません。
-          行の中で id が必要なら、別の名前でもう一度渡します。
-        </p>
-
-        <StaticCode
-          code={`// id を子でも使いたいときは、key とは別に渡す
-<MemberRow key={member.id} id={member.id} name={member.name} />`}
-        />
-
-        <h3>一意でなければいけないのは「兄弟の中だけ」</h3>
-
-        <p>
-          ページ全体で一意である必要はありません。
-          同じ <code>map</code> から出てきた要素どうしで重複していなければ大丈夫です。
-          画面上の別々のリストで key が <code>1</code> どうしぶつかっていても、
-          何の問題もありません。
-        </p>
-
-        <h3>key に Math.random() を使ってはいけない</h3>
-
-        <p>
-          一意な値がほしくて <code>Math.random()</code> や{" "}
-          <code>Date.now()</code> を使いたくなることがありますが、これは最悪の選択です。
-        </p>
-
-        <StaticCode
-          code={`// 絶対にやってはいけない
-{members.map((member) => (
-  <MemberRow key={Math.random()} name={member.name} />
-))}`}
-        />
-
-        <p>
-          描き直されるたびに違う値になるので、React
-          は毎回「全部が知らない行だ」と判断します。
-          つまり<strong>毎回すべての行が作り直されます</strong>。
-          遅くなるうえに、入力中の文字も state も毎回消えます。
-        </p>
-
-        <p>
-          key は<strong>同じデータなら毎回同じ値</strong>でなければ、
-          名札としての意味がありません。
-        </p>
-      </LessonSection>
-
       <LessonSection id="quiz" {...at(FIXED, "{members.map", "))}")}>
         <h2>理解できたか確かめる</h2>
 
         <p>手を動かす必要はありません。選んで、解説を読んでください。</p>
 
+        
+
+        
+
         <Quiz
-          question="index を key にしても問題が起きないのは、次のうちどれ？"
+          question="index を key にすると、なぜメモの内容が別の行に付いてしまう？"
           options={[
             {
-              label: "並び順が変わらず、各行が入力欄も state も持たないリスト",
+              label: "React が「同じ key = 同じもの」と判断して、箱を流用するから",
               correct: true,
               explanation:
-                "この条件なら、index は実質そのデータ固有の値と同じ意味になります。ただし、あとから並び替え機能が付く可能性は考えておきましょう。",
+                "並び替えても index は 0, 1, 2 のままです。React から見ると「中身が書き換わっただけ」なので、入力欄の箱はそのまま使い回されます。",
             },
             {
-              label: "行数が 10 行以下の小さいリスト",
+              label: "index が数値なので、React が扱えないから",
               explanation:
-                "行数は関係ありません。3 行でも、先頭に 1 行足せば同じ問題が起きます。",
+                "数値でも問題ありません。悪いのは「並び替えても値が変わらない」ことです。",
             },
             {
-              label: "id を持っていないデータのリスト",
+              label: "React のバグ",
               explanation:
-                "id がないことは index を使ってよい理由になりません。id がないなら、名前など重複しない値を key にするか、データを受け取った時点で id を振ります。",
+                "バグではありません。key を目印として信じた結果、そのとおりに動いています。",
             },
           ]}
         />
 
         <Quiz
-          question="key に Math.random() を使うと何が起きる？"
+          question="key は何のためにある？"
           options={[
             {
-              label: "毎回すべての行が作り直され、入力中の値も state も消える",
+              label: "React が「前回のどれと同じものか」を見分けるため",
               correct: true,
               explanation:
-                "描き直しのたびに key が変わるので、React はすべての行を「知らない行」とみなします。速度も落ちるうえ、入力途中の文字が消えます。",
+                "見分けがつけば、変わったところだけを直せます。中身を全部見比べるより、はるかに速く正確です。",
             },
             {
-              label: "key が必ず一意になるので、いちばん安全な書き方になる",
+              label: "画面に順番を表示するため",
               explanation:
-                "一意にはなりますが、key に求められているのは「一意であること」だけではなく「同じデータなら毎回同じであること」です。",
+                "key は画面に出ません。React が内部で使う目印です。",
             },
             {
-              label: "警告は消えるが、動作は index を使ったときと同じになる",
+              label: "配列を並び替えるため",
               explanation:
-                "index よりさらに悪くなります。index は少なくとも並び順が変わらなければ安定しますが、Math.random() は毎回必ず変わります。",
-            },
-          ]}
-        />
-
-        <Quiz
-          question="子コンポーネントの中で、その行の id を使いたい。どうする？"
-          options={[
-            {
-              label: "key とは別に、id という props をもう一度渡す",
-              correct: true,
-              explanation:
-                "key は React 専用の属性なので子には届きません。中で使いたい値は、別の名前で明示的に渡します。",
-            },
-            {
-              label: "子で props.key として受け取る",
-              explanation:
-                "受け取れません。key は React が要素を照合するために使う特別な属性で、props には含まれないためです。",
-            },
-            {
-              label: "key を付けるのをやめて、id だけを渡す",
-              explanation:
-                "id を渡すこと自体は正しいのですが、key を消すと React が行を照合できなくなり、この章で見たバグが起きます。両方必要です。",
+                "並び替えるのはこちらのコードです。key は結果を見分けるための目印にすぎません。",
             },
           ]}
         />
