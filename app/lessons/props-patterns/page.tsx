@@ -266,6 +266,12 @@ increaseCount, openModal`}
 				/>
 
 				<p>
+					<code>&amp;</code> は<strong>型どうしを合体させる記号</strong>です。
+					Part 0 でやった <code>|</code>（このどれか）とは逆で、
+					<strong>両方の項目を持つ</strong>という意味になります。
+				</p>
+
+				<p>
 					型のほうも、1 つずつ書く必要はありません。
 					<code>ComponentProps&lt;&quot;input&quot;&gt;</code> と書けば
 					<strong>「input タグが受け取れるもの全部」</strong>という意味になります。

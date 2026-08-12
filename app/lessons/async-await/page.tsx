@@ -299,6 +299,15 @@ const data = await response.json();   // 2 回目: 本文を読み終わるの�
 }`}
 					/>
 					<p>
+						<code>throw</code> は
+						<strong>「ここで失敗にする」という命令</strong>です。
+						これを実行すると、その先は飛ばして
+						<strong>いちばん近い <code>catch</code> に移ります</strong>。
+						<code>new Error(&quot;…&quot;)</code> は、
+						そのときに持っていく<strong>理由の札</strong>だと思ってください。
+					</p>
+
+					<p>
 						なので<strong>自分で確かめて、自分で失敗にします</strong>。
 						デモの「わざと失敗させる」がこれです。
 						この 3 行を書き忘れると、

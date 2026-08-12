@@ -149,6 +149,8 @@ useEffect(() => {
 }, []);
 
 // 通信（結果が返る前に消えた場合に備える）
+// AbortController は「あとから通信を取り消すためのリモコン」。
+// signal を fetch に渡しておくと、abort() で取り消せる
 useEffect(() => {
   const controller = new AbortController();
   fetch(url, { signal: controller.signal });

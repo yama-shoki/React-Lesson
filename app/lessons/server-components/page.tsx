@@ -157,6 +157,20 @@ export default async function Page() {
 					実行されるコードはそこにありません。
 				</p>
 
+				<Callout variant="note" title="光らない理由は、じつは 2 つ重なっています">
+					<p>
+						Part 8 で「children として渡したものは描き直されない」を
+						やりました。このデモもその形なので、
+						<strong>サーバー側でなくても光りません</strong>。
+					</p>
+					<p>
+						ですので、<strong>光るかどうかは決め手になりません</strong>。
+						決め手は<strong>数字がそもそも出ていないこと</strong>です。
+						数えるには<strong>ブラウザで動くコードが要ります</strong>。
+						サーバー側の部品には、それが 1 行も届いていません。
+					</p>
+				</Callout>
+
 				<Callout variant="point" title="ブラウザに送られない、の意味">
 					<p>
 						サーバー側の部品は、

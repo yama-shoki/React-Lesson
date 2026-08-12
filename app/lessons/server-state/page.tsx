@@ -111,6 +111,24 @@ const [error, setError] = useState(null);`}
 				/>
 
 				<p>
+					第 2 引数の <code>fetcher</code> は、
+					<strong>取ってくる処理そのもの</strong>です。自分で書きます。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`const fetcher = (url) => fetch(url).then((res) => res.json());`}
+				/>
+
+				<p>
+					「道具を入れたのに、なぜ自分で書くのか」と思うかもしれません。
+					SWR が引き受けるのは
+					<strong>いつ・何回・どう取り直すか</strong>のほうで、
+					<strong>取ってくる手段は使う側が決める</strong>という作りだからです。
+					だから GraphQL でも、別のライブラリでも、そのまま乗せられます。
+				</p>
+
+				<p>
 					<strong>この 1 行に、さっきの state 3 つが全部入っています。</strong>
 					さらに <code>mutate</code>（取り直す）まで付いてきます。
 				</p>

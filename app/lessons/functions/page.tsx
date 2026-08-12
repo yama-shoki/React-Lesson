@@ -229,6 +229,17 @@ const greet = () => { return "こんにちは"; }; // 省略しない形（同�
           しかも画面が描き直されるたびに増えていきます。
         </p>
 
+        <Callout variant="note" title="右のコードについて">
+          <p>
+            このデモには <code>&lt;Button&gt;</code> や <code>useState</code> が
+            出てきますが、<strong>読み方は Part 1 と Part 4 でやります</strong>。
+          </p>
+          <p>
+            いまは<strong>括弧が付いているかどうか</strong>だけを見比べてください。
+            それがこの章の全部です。
+          </p>
+        </Callout>
+
         <Callout variant="note" title="この間違いは、型が教えてくれます">
           <p>
             TypeScript を使っていれば、

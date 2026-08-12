@@ -123,6 +123,28 @@ function Hello({ name }) {
       </LessonSection>
 
       <LessonSection id="spread" {...at(SPREAD, "export const updated")}>
+        <h3>取り出した残りを、まとめて受け取る</h3>
+
+        <p>
+          名前を付けて取り出したあと、
+          <strong>残り全部</strong>をひとつにまとめることもできます。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`const user = { name: "さとう", age: 20, city: "福岡" };
+
+const { name, ...rest } = user;
+// name → "さとう"
+// rest → { age: 20, city: "福岡" }`}
+        />
+
+        <p>
+          点 3 つ（<code>...</code>）は「残り」という意味です。
+          <strong>いくつ残っていても、まとめて 1 つの名前で受け取れます。</strong>
+          Part 2 で、部品を作るときにこれを使います。
+        </p>
+
         <h2>スプレッド構文 — 中身を展開する</h2>
 
         <p>

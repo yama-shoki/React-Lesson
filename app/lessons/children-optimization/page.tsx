@@ -168,8 +168,41 @@ function Counter({ children }) {
 				<p>
 					Counter が描き直されるとき、React が受け取る{" "}
 					<code>children</code> は<strong>前回とまったく同じもの</strong>です。
-					同じものなら描き直す必要がないので、そこで止まります。
 				</p>
+
+				<Callout variant="warn" title="Part 7 で習ったことと矛盾していませんか">
+					<p>
+						Part 7 では
+						<strong>「props が同じでも、親が描き直されれば子も実行される」</strong>
+						と書きました。ここではその逆のことが起きています。
+						引っかかって当然です。
+					</p>
+					<p>
+						じつは React には、
+						<strong>止まり方が 2 種類</strong>あります。
+					</p>
+					<ol>
+						<li>
+							<strong>指示書そのものが前回と同じとき</strong> …{" "}
+							中を見るまでもないので、
+							<strong>その枝ごと処理を打ち切ります</strong>。
+							いま起きているのはこちら
+						</li>
+						<li>
+							<strong>指示書は新しいが、props が同じとき</strong> …{" "}
+							これは<strong>見比べないと分かりません</strong>。
+							だから既定では止まらず、
+							<code>memo</code> で「見比べてくれ」と頼む
+						</li>
+					</ol>
+					<p>
+						Part 7 で言っていたのは 2 のほうです。
+						<code>children</code> として渡すと
+						<strong>そもそも指示書が作り直されない</strong>ので、
+						1 の打ち切りが効きます。
+						<strong>道具を使わずに済むのは、このためです。</strong>
+					</p>
+				</Callout>
 
 				<Callout variant="point" title="判定はいつもこれ">
 					<p>
