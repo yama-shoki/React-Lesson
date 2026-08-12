@@ -59,3 +59,46 @@ if (problems.length > 0) {
 }
 
 console.log("章の参照はすべて実在する章を指しています");
+
+/*
+  ついでに、どこからも読まれていないデモファイルを探す。
+  章を分割・削除したときに取り残されると、コードペインに出ないまま
+  リポジトリに残り続ける。
+*/
+
+const orphans = [];
+
+for (const entry of await readdir(lessons, { withFileTypes: true })) {
+	if (!entry.isDirectory()) continue;
+
+	const demos = path.join(lessons, entry.name, "demos");
+	let files;
+	try {
+		files = await readdir(demos);
+	} catch {
+		continue;
+	}
+
+	const siblings = await Promise.all(
+		[
+			path.join(lessons, entry.name, "page.tsx"),
+			...files.map((f) => path.join(demos, f)),
+		].map(async (f) => ({ f, text: await readFile(f, "utf8").catch(() => "") })),
+	);
+
+	for (const file of files) {
+		const stem = file.replace(/\.[jt]sx?$/, "");
+		const used = siblings.some(
+			({ f, text }) => !f.endsWith(file) && text.includes(stem),
+		);
+		if (!used) orphans.push(`${entry.name}/demos/${file}`);
+	}
+}
+
+if (orphans.length > 0) {
+	console.error(`\nどこからも読まれていないデモが ${orphans.length} 件あります\n`);
+	for (const o of orphans) console.error(`  - ${o}`);
+	process.exit(1);
+}
+
+console.log("取り残されたデモはありません");
