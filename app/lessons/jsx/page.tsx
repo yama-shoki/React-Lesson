@@ -54,7 +54,8 @@ export default async function Page() {
 
         <p>
           JSX はそのままブラウザに届くわけではありません。
-          ビルドのときに、ふつうの JavaScript の関数呼び出しに書き換えられます。
+          <strong>ビルド</strong>（＝書いたコードを、ブラウザが読める形に変換する作業）
+          のときに、ふつうの JavaScript の関数呼び出しに書き換えられます。
         </p>
 
         <StaticCode
@@ -268,7 +269,7 @@ jsx("p", { className: "text", children: "こんにちは" })`}
               label: "ブラウザ側のプロパティ名が element.className だから",
               correct: true,
               explanation:
-                "JSX の属性名は DOM のプロパティ名にそろえてあります。同じ理由で for は htmlFor です。",
+                "JSX の属性名は、ブラウザが持っているプロパティ名にそろえてあります。同じ理由で for は htmlFor です。",
             },
             {
               label: "class が JavaScript の予約語で、属性名にできないから",

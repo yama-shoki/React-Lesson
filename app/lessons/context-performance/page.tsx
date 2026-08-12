@@ -250,7 +250,8 @@ const SetCountContext = createContext(() => {}); // 更新関数`}
 						入れ子が深くなって読みにくくなります。
 					</p>
 					<p>
-						Part 8 と同じで、<strong>実際に遅くなってから分ける</strong>のが基本です。
+						<code>memo</code> の章で挙げた 4 ステップと同じで、
+						<strong>実際に遅くなってから分ける</strong>のが基本です。
 						最初から細かく分ける必要はありません。
 					</p>
 				</Callout>

@@ -45,6 +45,11 @@ export default async function Page() {
 				<p>
 					欲しかったのは最後の 1 回だけでした。
 				</p>
+				<p>
+					なおこの章は、この Part のほかの章と少し毛色が違います。
+					<strong>新しい道具というより、Part 6 でやったことの応用</strong>です。
+					使うライブラリも、中身は数行しかありません。
+				</p>
 			</LessonHeader>
 
 			<LessonSection id="problem" {...at(EAGER, "useEffect(() => {", "}, [keyword]);")}>

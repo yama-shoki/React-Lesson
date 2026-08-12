@@ -76,6 +76,17 @@ export default async function Page() {
 }`}
 				/>
 
+				<Callout variant="note" title="() => void という書き方">
+					<p>
+						<code>()</code> は<strong>引数なし</strong>、
+						<code>void</code> は<strong>戻り値なし</strong>という意味です。
+						つまり<strong>「何も受け取らず、何も返さない関数」</strong>の型。
+					</p>
+					<p>
+						値を返す関数なら <code>{"() => string"}</code> のように書きます。
+					</p>
+				</Callout>
+
 				<p>
 					<code>LikeButton</code> は
 					<strong>「押されたら何が起きるか」を知りません</strong>。
@@ -173,6 +184,14 @@ increaseCount, openModal`}
 					<VariantProp />
 				</DemoCard>
 
+				<Callout variant="note" title="children が出てきましたが">
+					<p>
+						<code>children</code> は<strong>次の章</strong>で正面から扱います。
+						ここでは<strong>「タグで囲んだ中身がそこに入る」</strong>
+						とだけ思ってください。
+					</p>
+				</Callout>
+
 				<h3>省略できるようにする</h3>
 
 				<StaticCode
@@ -250,6 +269,8 @@ increaseCount, openModal`}
 					型のほうも、1 つずつ書く必要はありません。
 					<code>ComponentProps&lt;&quot;input&quot;&gt;</code> と書けば
 					<strong>「input タグが受け取れるもの全部」</strong>という意味になります。
+					<code>&lt;&gt;</code> は Part 0 で出てきた
+					<strong>型に渡す引数</strong>です。
 					打ち間違いはちゃんと止めてくれます。
 				</p>
 
@@ -261,7 +282,8 @@ increaseCount, openModal`}
 						<code>hint</code> には文字列ではなく
 						<strong>JSX を渡しています</strong>。
 						型は <code>ReactNode</code>。
-						「画面に出せるものなら何でも」という意味です。
+						<strong>「画面に出せるものなら何でも」</strong>という意味の型です。
+						文字列でも、数値でも、JSX でも受け取れます。
 					</p>
 					<p>
 						children が 1 つしか使えないのに対して、

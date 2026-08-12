@@ -207,6 +207,7 @@ count = 1; // これは通る`}
 
         <DemoCard
           title="const のオブジェクト"
+          tone="bad"
           sourcePath={OBJECT}
           description="入れ替えていないので、const でも止められない"
         >
@@ -230,6 +231,7 @@ count = 1; // これは通る`}
 
         <DemoCard
           title="const の配列"
+          tone="bad"
           sourcePath={ARRAY}
           description="要素が 3 つに増えている"
         >
@@ -264,7 +266,7 @@ count = 1; // これは通る`}
             {
               label: "中身を含めて、いっさい変更できない",
               explanation:
-                "これがよくある誤解です。中身の書き換えは止められません。完全に凍らせたい場合は Object.freeze という別の仕組みが必要です。",
+                "これがよくある誤解です。中身の書き換えは止められません。（凍らせる仕組みも別にありますが、React では使わないので覚えなくて大丈夫です）",
             },
             {
               label: "数値には使えるが、オブジェクトには使えない",
