@@ -298,9 +298,9 @@ items.map((item) => <li>{item}</li>);`}
 								"専用の API はありません。だから自分で書けます。",
 						},
 						{
-							label: "children を Context 経由で配る仕組み",
+							label: "children を props として親に渡し直す仕組み",
 							explanation:
-								"Context は使っていません。引数として直接渡しているだけです。",
+								"渡し直してはいません。受け取った関数を、その場で呼んでいるだけです。",
 						},
 					]}
 				/>

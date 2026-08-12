@@ -221,7 +221,7 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 				<h2>理解できたか確かめる</h2>
 
 				<Quiz
-					question="memo で包んだ子が、それでも描き直される。考えられる原因は？"
+					question="memo で正しく包んだのに、子が描き直される。原因は？"
 					options={[
 						{
 							label: "オブジェクトや関数を props で渡していて、それが毎回新しく作られている",
@@ -232,7 +232,7 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 						{
 							label: "memo の書き方が間違っている",
 							explanation:
-								"書き方が正しくても起きます。問題は渡している props のほうにあります。",
+								"ここでは正しく包めている前提です。それでも起きます。問題は渡している props のほうにあります。",
 						},
 						{
 							label: "親が state を持っているから",

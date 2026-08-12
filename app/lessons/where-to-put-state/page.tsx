@@ -66,6 +66,22 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 					新しい置き場所を覚えるたびに、新しい書き方を覚え直す必要はありません。
 				</p>
 
+				<Callout variant="note" title="サーバーだけは形が違う">
+					<p>
+						4 つめのサーバーは、この仲間に入りません。
+					</p>
+					<StaticCode
+						lang="ts"
+						code={`const { data, error, isLoading, mutate } = useSWR(key, fetcher);`}
+					/>
+					<p>
+						前の章で見たとおり、
+						<strong>持ち主が自分ではない</strong>からです。
+						読み込み中・失敗・取り直しが付いてくるぶん、
+						受け取るものも増えます。
+					</p>
+				</Callout>
+
 				<DemoCard
 					title="3 つの置き場所を並べる"
 					sourcePath={COMPARE}
@@ -268,7 +284,7 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 				/>
 
 				<Quiz
-					question="4 つの置き場所の書き方が似せてあるのはなぜ？"
+					question="useState / URL / ブラウザ保存の 3 つが、同じ書き方に似せてあるのはなぜ？"
 					options={[
 						{
 							label: "あとから置き場所を移すとき、1 行の書き換えで済むようにするため",
@@ -295,7 +311,8 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 
 				<ul>
 					<li>
-						置き場所は 4 つ。<strong>書き方はどれも同じ形</strong>
+						置き場所は 4 つ。うち<strong>メモリ・URL・ブラウザ保存の 3 つは
+						同じ書き方</strong>（サーバーだけは形が違う）
 					</li>
 					<li>
 						選ぶ順番は、

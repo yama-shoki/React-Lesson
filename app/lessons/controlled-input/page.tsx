@@ -259,7 +259,7 @@ onChange={(e) => setCode(e.target.value.toUpperCase())}`}
                 "state が更新されないため、value が最初の値のまま上書きし続けます。打っても何も起きません。",
             },
             {
-              label: "value に空文字を渡している",
+              label: "state の初期値が空文字になっている",
               explanation:
                 "初期値が空でも、onChange があれば打つたびに更新されます。問題は更新の欠落です。",
             },

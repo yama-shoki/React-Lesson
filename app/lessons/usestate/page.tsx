@@ -260,7 +260,7 @@ export default async function Page() {
             {
               label: "count 変数の中身がその場で 1 になる",
               explanation:
-                "その行の直後では count はまだ古い値のままです。この性質は次の章で詳しく扱います。",
+                "その行の直後では count はまだ古い値のままです。この性質は、このあとの state は「その瞬間の写真」の章で詳しく扱います。",
             },
           ]}
         />

@@ -162,7 +162,11 @@ jsx("p", { className: "text", children: "こんにちは" })`}
 
         <p>
           ブラウザ側がこの名前になっているのは、昔の JavaScript で{" "}
-          <code>class</code> が名前として使えなかった名残です。
+          <code>class</code> を<strong>プロパティ名に使えなかった</strong>名残です。
+          （<code>class</code> は今も特別な単語で、
+          <code>const class = 1</code> とは書けません。
+          ですが <code>obj.class</code> のような
+          <strong>プロパティ名としてなら使えます</strong>）
           いまは使えるのですが、名前だけが残っています。
         </p>
 
@@ -274,7 +278,7 @@ jsx("p", { className: "text", children: "こんにちは" })`}
             {
               label: "class が JavaScript の予約語で、属性名にできないから",
               explanation:
-                "よく言われますが、正確ではありません。class は JavaScript でも特別な意味を持つ単語ですが、いまは名前として使えます。ブラウザ側が className なのは、それが使えなかった時代の名残です。",
+                "JSX の属性名は、予約語でも構文上は問題ありません。className になっているのは、ブラウザ側のプロパティ名に合わせた結果です。",
             },
             {
               label: "CSS のクラスとは別のものを指しているから",
