@@ -74,10 +74,15 @@ export default async function Page() {
 
         <Callout variant="point" title="カードの右上を見てください">
           <p>
-            この章から、デモの右上に <strong>render という数字</strong>が出ます。
-            そのデモが<strong>何回描き直されたか</strong>の回数です。
-            描き直された瞬間は、カード全体が青くふわりと光ります。
-          </p>
+          この章から、デモの見出しの横に <strong>render</strong> という数字が出ます。
+          <strong>そのデモが描き直された回数</strong>です。
+          最初は必ず <strong>render 1</strong> から始まります。
+        </p>
+
+        <p>
+          そして描き直された瞬間、<strong>カードが青くふわりと光ります</strong>。
+          目に見えない再レンダリングを、目に見えるようにするための仕掛けです。
+        </p>
           <p>
             上のデモは、何度押しても<strong>数字が増えず、光りもしません</strong>。
             値は増えているのに、

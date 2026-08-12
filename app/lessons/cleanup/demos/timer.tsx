@@ -1,6 +1,6 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -17,17 +17,11 @@ function Clock() {
     return () => clearInterval(timer);
   }, []);
 
-  return (
-    <p className="rounded-md border p-3 font-mono">
-      表示してから {seconds} 秒
-    </p>
-  );
+  // 毎秒描き直されるのはこの部品。1 秒ごとに光る
+  return <RenderBox title="Clock">表示してから {seconds} 秒</RenderBox>;
 }
 
 export function Timer() {
-  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
-  useTrackDemoRender();
-
   const [isVisible, setIsVisible] = useState(true);
 
   return (

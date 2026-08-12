@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -9,8 +8,6 @@ import { useState } from "react";
 type Status = "idle" | "sending" | "done" | "error";
 
 export function SendForm() {
-  useTrackDemoRender();
-
   const [text, setText] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");

@@ -26,7 +26,7 @@ export function LazyInit() {
       <p className="font-mono text-sm">初期コード: {code}</p>
 
       <Button size="sm" onClick={() => setCount(count + 1)}>
-        描き直す（{count} 回）
+        描き直す
       </Button>
 
       <p className="text-sm text-muted-foreground">

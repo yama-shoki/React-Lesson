@@ -9,7 +9,13 @@ const SECRET_NOTE = "この文字列はサーバー側にあります";
 
 export function ServerPart() {
   return (
-    <div className="rounded-md border p-3 text-sm">
+    <div className="rounded-md border border-dashed p-3 text-sm">
+      <p className="mb-1.5 font-semibold">
+        サーバー側（Server Component）
+        <span className="ml-2 font-normal text-muted-foreground">
+          数えるものがない
+        </span>
+      </p>
       <p>ここはサーバーで作られました。</p>
       <p className="text-muted-foreground">{SECRET_NOTE}</p>
 

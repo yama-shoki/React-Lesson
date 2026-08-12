@@ -74,7 +74,6 @@ export default async function Page() {
         <DemoCard
           title="表示と連動して動くタイマー"
           sourcePath={TIMER}
-          showRenderCount
           description="隠すとタイマーも止まり、表示すると 0 から始まる"
         >
           <Timer />

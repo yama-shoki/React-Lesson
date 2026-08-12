@@ -23,13 +23,19 @@ export function RenderBox({
 	tone?: "neutral" | "highlight";
 	children: React.ReactNode;
 }) {
-	const count = useRef(0);
+	// 数字は 1 から始める。初回マウントぶんは数えないし、光らせない
+	const count = useRef(1);
+	const mountedRef = useRef(false);
 	const labelRef = useRef<HTMLSpanElement>(null);
 	const flashRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		count.current++;
+		if (!mountedRef.current) {
+			if (labelRef.current) labelRef.current.textContent = "render 1";
+			return;
+		}
 
+		count.current++;
 		if (labelRef.current) {
 			labelRef.current.textContent = `render ${count.current}`;
 		}
@@ -48,6 +54,13 @@ export function RenderBox({
 
 		return () => window.clearTimeout(timer);
 	});
+
+	useEffect(() => {
+		mountedRef.current = true;
+		return () => {
+			mountedRef.current = false;
+		};
+	}, []);
 
 	return (
 		<div

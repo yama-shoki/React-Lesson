@@ -1,12 +1,9 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export function DoubleSend() {
-  useTrackDemoRender();
-
   const [sent, setSent] = useState<number[]>([]);
 
   // 送信中かどうかを持っていない。だから何度でも押せてしまう

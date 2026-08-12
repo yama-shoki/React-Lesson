@@ -1,6 +1,6 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -15,21 +15,19 @@ function Panel({
   onIncrease: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-md border p-3">
-      <span className="text-muted-foreground">{label}</span>
-      <span className="font-mono font-semibold tabular-nums">{count}</span>
-      <Button size="sm" onClick={onIncrease}>
-        増やす
-      </Button>
-    </div>
+    <RenderBox title={label}>
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-mono font-semibold tabular-nums">{count}</span>
+        <Button size="sm" onClick={onIncrease}>
+          増やす
+        </Button>
+      </div>
+    </RenderBox>
   );
 }
 
 // 共通の親が値を持つ
 export function LiftedState() {
-  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
-  useTrackDemoRender();
-
   const [count, setCount] = useState(0);
   const increase = () => setCount((current) => current + 1);
 

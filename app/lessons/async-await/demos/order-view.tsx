@@ -1,14 +1,11 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { withAwait, withoutAwait } from "./order";
 
 /** ログを画面に出すだけの入れ物。読者に見せるのは order.ts のほう */
 export function Order() {
-  useTrackDemoRender();
-
   const [log, setLog] = useState<string[]>([]);
   const add = (line: string) => setLog((current) => [...current, line]);
 

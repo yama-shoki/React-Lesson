@@ -86,7 +86,6 @@ export default async function Page() {
 				<DemoCard
 					title="押されたことを、上に伝える"
 					sourcePath={CALLBACK}
-					showRenderCount
 					description="ボタン自身は数え方を知らない"
 				>
 					<CallbackProp />
@@ -169,7 +168,6 @@ increaseCount, openModal`}
 				<DemoCard
 					title="tone で見た目を切り替える"
 					sourcePath={VARIANT}
-					showRenderCount
 					description="同じ部品、3 つの見た目"
 				>
 					<VariantProp />
@@ -238,7 +236,6 @@ increaseCount, openModal`}
 					title="使う側が自由に足せる入力欄"
 					tone="good"
 					sourcePath={SPREAD}
-					showRenderCount
 					description="Field 側は placeholder も maxLength も知らない"
 				>
 					<SpreadProp />

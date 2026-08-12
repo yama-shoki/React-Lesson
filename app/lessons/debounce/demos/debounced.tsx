@@ -8,14 +8,12 @@
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { RenderBox } from "@/components/lesson/render-box";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 export function Debounced() {
-  useTrackDemoRender();
-
   const [keyword, setKeyword] = useState("");
 
   // 打つのが 500ms 止まってから、こちらの値が追いつく
@@ -43,9 +41,10 @@ export function Debounced() {
         {debouncedKeyword || "（空）"}
       </p>
 
-      <p className="text-sm">
+      {/* 検索が走ったときだけ、この箱が光る */}
+      <RenderBox title="落ち着いてから検索">
         検索した回数: <strong>{searchCount}</strong>
-      </p>
+      </RenderBox>
     </div>
   );
 }

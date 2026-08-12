@@ -138,8 +138,7 @@ export default async function Page() {
 				<DemoCard
 					title="サーバーで作ったものを、ブラウザ側の部品に置く"
 					sourcePath={CLIENT}
-					showRenderCount
-					description="押すと外側だけが光る。中の枠は光らない"
+					description="押すと上の枠だけが光る。下の枠は光らない"
 				>
 					<ClientPart>
 						<ServerPart />
@@ -147,8 +146,9 @@ export default async function Page() {
 				</DemoCard>
 
 				<p>
-					ボタンを押すと、<strong>外側のカードだけが光ります</strong>。
-					中の枠は、何度押しても光りません。
+					ボタンを押すと、<strong>上の枠だけが光ります</strong>。
+					下の点線の枠は、何度押しても光りません。
+					<strong>数字すら出ていません。</strong>
 				</p>
 
 				<p>

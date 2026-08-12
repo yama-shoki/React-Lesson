@@ -1,13 +1,10 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export function FixedOrder() {
-  useTrackDemoRender();
-
   // ◯ フックは、いつも関数のいちばん上に並べる。条件を付けない
   const [showNickname, setShowNickname] = useState(false);
   const [nickname, setNickname] = useState("");

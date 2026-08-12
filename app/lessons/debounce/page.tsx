@@ -59,8 +59,7 @@ export default async function Page() {
 					title="打つたびに検索する"
 					tone="bad"
 					sourcePath={EAGER}
-					showRenderCount
-					description="「reactjs」と打ってみる"
+					description="「reactjs」と打つと、1 文字ごとに箱が光る"
 				>
 					<Eager />
 				</DemoCard>
@@ -153,15 +152,16 @@ useEffect(() => {
 					title="落ち着いてから検索する"
 					tone="good"
 					sourcePath={DEBOUNCED}
-					showRenderCount
-					description="同じように「reactjs」と打ってみる"
+					description="打っている間は光らない。手を止めると光る"
 				>
 					<Debounced />
 				</DemoCard>
 
 				<p>
-					<strong>普通に打てば 1 回で済みます。</strong>
-					入力欄の表示は遅れていません。遅れているのは検索だけです。
+					<strong>打っている間、箱は光りません。</strong>
+					手を止めて 500ms たつと、<strong>そこで一度だけ光ります</strong>。
+					入力欄の表示は遅れていないのに、検索だけが遅れている——
+					それがそのまま目に見えます。
 				</p>
 
 				<Callout variant="warn" title="順序の入れ替わりは、これでは消えない">

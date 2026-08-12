@@ -63,7 +63,6 @@ export default async function Page() {
 					title="props で下まで運ぶ"
 					tone="bad"
 					sourcePath={DRILLING}
-					showRenderCount
 					description="間の 2 つは user を使わないのに受け取っている"
 				>
 					<PropDrilling />
@@ -121,7 +120,6 @@ const user = use(UserContext);`}
 					title="Context で受け取る"
 					tone="good"
 					sourcePath={CONTEXT}
-					showRenderCount
 					description="Layout と Sidebar は user を知らない"
 				>
 					<WithContext />

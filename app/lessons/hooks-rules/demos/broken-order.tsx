@@ -7,14 +7,11 @@
 */
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export function BrokenOrder() {
-  useTrackDemoRender();
-
   const [showNickname, setShowNickname] = useState(false);
 
   // ✕ if の中でフックを呼んでいる。呼ばれる回と呼ばれない回ができる

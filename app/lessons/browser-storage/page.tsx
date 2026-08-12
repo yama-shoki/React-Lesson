@@ -65,7 +65,6 @@ const [name, setName] = useLocalStorageState("key-name", { defaultValue: "" });`
 				<DemoCard
 					title="ブラウザに保存される入力"
 					sourcePath={STORAGE}
-					showRenderCount
 					description="入力してからリロードしてみる"
 				>
 					<LocalStorageDemo />

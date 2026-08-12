@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { useEffect, useState } from "react";
 
@@ -40,8 +39,6 @@ function DeviceLabel() {
 }
 
 export function Duplicated() {
-  useTrackDemoRender();
-
   return (
     <div className="flex flex-col gap-2">
       <WidthLabel />

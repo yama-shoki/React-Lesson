@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 
@@ -28,8 +27,6 @@ function Field({ label, hint, className, ...rest }: FieldProps) {
 }
 
 export function SpreadProp() {
-  useTrackDemoRender();
-
   return (
     <div className="flex flex-col gap-3">
       {/* placeholder も maxLength も、Field 側では書いていない */}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { type ReactNode, useState } from "react";
 
@@ -22,8 +21,6 @@ function Panel({ children }: { children: ReactNode }) {
 }
 
 export function PlainChildren() {
-  useTrackDemoRender();
-
   return (
     <Panel>
       {/* ここから isOpen は見えない。「開いています」と書くことができない */}

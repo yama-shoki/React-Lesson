@@ -123,7 +123,6 @@ JSON.parse('{"text":"こんにちは"}')      // → { text: "こんにちは" }
 					title="送って、結果を出す"
 					tone="good"
 					sourcePath={SEND}
-					showRenderCount
 					description="「エラー」という文字を入れると失敗します"
 				>
 					<SendForm />
@@ -160,7 +159,6 @@ JSON.parse('{"text":"こんにちは"}')      // → { text: "こんにちは" }
 					title="止めていないと"
 					tone="bad"
 					sourcePath={DOUBLE}
-					showRenderCount
 					description="連打してみる"
 				>
 					<DoubleSend />

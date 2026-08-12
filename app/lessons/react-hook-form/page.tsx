@@ -62,6 +62,7 @@ export default async function Page() {
 
 				<DemoCard
 					title="useState で作ったフォーム"
+					tone="bad"
 					sourcePath={CONTROLLED}
 					showRenderCount
 					description="名前を打ちながら、右上の数字を見る"

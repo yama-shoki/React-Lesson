@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { MemberRow } from "./member-row";
@@ -16,9 +15,6 @@ const initialMembers: Member[] = [
 const newcomers = ["やまだ", "いとう", "わたなべ", "こばやし"];
 
 export function FixedList() {
-  // このカードが描き直された回数を数えるための 1 行（教材の仕掛け）
-  useTrackDemoRender();
-
   const [members, setMembers] = useState(initialMembers);
 
   const addToTop = () => {

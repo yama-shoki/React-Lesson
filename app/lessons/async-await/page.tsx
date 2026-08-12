@@ -64,7 +64,6 @@ export default async function Page() {
 				<DemoCard
 					title="await があるときと、ないとき"
 					sourcePath={ORDER}
-					showRenderCount
 					description="両方押して、出てくる順番を見比べる"
 				>
 					<Order />
@@ -237,7 +236,6 @@ add("届いた");`}
 				<DemoCard
 					title="実際に取ってくる"
 					sourcePath={FETCH}
-					showRenderCount
 					description="両方のボタンを押してみる"
 				>
 					<FetchDemo />

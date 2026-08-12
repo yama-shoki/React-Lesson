@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { RenderBox } from "@/components/lesson/render-box";
 import { useWindowWidth } from "./use-window-width";
 
@@ -22,8 +21,6 @@ function DeviceLabel() {
 }
 
 export function Extracted() {
-  useTrackDemoRender();
-
   return (
     <div className="flex flex-col gap-2">
       <WidthLabel />

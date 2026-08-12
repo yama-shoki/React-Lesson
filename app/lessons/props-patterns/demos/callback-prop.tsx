@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -21,8 +20,6 @@ function LikeButton({
 }
 
 export function CallbackProp() {
-  useTrackDemoRender();
-
   const [count, setCount] = useState(0);
   const [log, setLog] = useState<string[]>([]);
 

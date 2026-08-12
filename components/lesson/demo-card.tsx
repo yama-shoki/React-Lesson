@@ -8,7 +8,6 @@ import {
 	useContext,
 	useEffect,
 	useRef,
-	useState,
 } from "react";
 import { useCodePane } from "./code-pane-context";
 
@@ -78,35 +77,76 @@ export const DemoCard = ({
 		sourcePath !== undefined &&
 		(pinned === sourcePath || active?.snippetId === sourcePath);
 
-	const countRef = useRef(0);
+	/**
+	 * お手本 (react-dev) に合わせて、数字は 1 から始める。
+	 *
+	 * 初回マウントぶんは数えないし光らせない。ここを数えると
+	 * 「押していないのに render 2」から始まってしまい、
+	 * 「数字が増える = 描き直された」という約束が最初から崩れる。
+	 * （開発時は React が effect を 2 回走らせるので、なおさら目立つ）
+	 */
+	const countRef = useRef(1);
+	const mountedRef = useRef(false);
 	const labelRef = useRef<HTMLSpanElement>(null);
 	const flashRef = useRef<HTMLDivElement>(null);
-	const [flashCount, setFlashCount] = useState(0);
+
+	/** 光らせ待ちの本数。連続で描き直されたときに潰し合わないよう順番に流す */
+	const queueRef = useRef(0);
+	const timerRef = useRef<number | undefined>(undefined);
 
 	useEffect(() => {
-		if (flashCount === 0) return;
-		const element = flashRef.current;
-		if (!element) return;
+		mountedRef.current = true;
+		// StrictMode の作り直しでは片付けが走るので、そこで戻しておく
+		return () => {
+			mountedRef.current = false;
+		};
+	}, []);
 
-		element.classList.remove("react-dev-render-flash");
-		// Restart the animation if it was already active.
-		void element.offsetWidth;
-		element.classList.add("react-dev-render-flash");
+	useEffect(() => {
+		return () => {
+			if (timerRef.current !== undefined) window.clearTimeout(timerRef.current);
+		};
+	}, []);
 
-		// アニメーションが終わりきってから外す（CSS 側の長さと合わせる）
-		const timer = window.setTimeout(() => {
-			element.classList.remove("react-dev-render-flash");
-		}, 900);
-		return () => window.clearTimeout(timer);
-	}, [flashCount]);
+	const pump = useCallback(() => {
+		const step = () => {
+			if (queueRef.current === 0) {
+				timerRef.current = undefined;
+				return;
+			}
+			queueRef.current--;
+
+			const element = flashRef.current;
+			if (element) {
+				element.classList.remove("react-dev-render-flash");
+				// すでに光っている途中なら、いったん止めてから焼き直す
+				void element.offsetWidth;
+				element.classList.add("react-dev-render-flash");
+			}
+
+			// 次の 1 本は少し置いてから。こうしないと「2 回光った」が 1 回に見える
+			timerRef.current = window.setTimeout(step, 300);
+		};
+
+		step();
+	}, []);
 
 	const trackRender = useCallback(() => {
+		if (!mountedRef.current) {
+			// マウント時の報告。数字だけ出して、光らせない
+			if (labelRef.current) labelRef.current.textContent = "render 1";
+			return;
+		}
+
 		countRef.current++;
 		if (labelRef.current) {
 			labelRef.current.textContent = `render ${countRef.current}`;
 		}
-		setFlashCount((current) => current + 1);
-	}, []);
+
+		// 何十回も連鎖したときに延々ストロボしないよう、待ち行列は 3 本まで
+		queueRef.current = Math.min(queueRef.current + 1, 3);
+		if (timerRef.current === undefined) pump();
+	}, [pump]);
 
 	const body = (
 		<div
@@ -123,7 +163,7 @@ export const DemoCard = ({
 			{showRenderCount && (
 				<div
 					ref={flashRef}
-					className="pointer-events-none absolute inset-0 z-10 rounded-xl border border-sky-400 bg-sky-400/15 opacity-0"
+					className="pointer-events-none absolute inset-0 rounded-xl border border-sky-400 bg-sky-400/15 opacity-0"
 				/>
 			)}
 

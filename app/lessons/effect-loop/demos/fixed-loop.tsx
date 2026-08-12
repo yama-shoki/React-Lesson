@@ -17,7 +17,7 @@ export function FixedLoop() {
     // 関数を渡す形なので、count を依存配列に入れる必要がない
     const timer = setInterval(() => {
       setCount((current) => current + 1);
-    }, 200);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, [running]); // running が変わったときだけ動く

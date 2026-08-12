@@ -60,7 +60,6 @@ export default async function Page() {
           title="子がそれぞれ state を持つ"
           tone="bad"
           sourcePath={SEPARATE}
-          showRenderCount
           description="上下で別々の数になる"
         >
           <SeparateState />
@@ -72,12 +71,15 @@ export default async function Page() {
           同じコードから作られていても、置かれた 2 つは別物です。
         </p>
 
-        <Callout variant="note" title="render の数字について">
+        <Callout variant="point" title="片方だけが光ります">
           <p>
-            このデモにはパネルが 2 つ入っているので、
-            右上の数字は<strong>2 つ分を合わせた回数</strong>になります。
-            片方を押したときも数字は増えますが、
-            実際に描き直されているのは<strong>押したほうのパネルだけ</strong>です。
+            どちらかの「増やす」を押してみてください。
+            <strong>押したほうのパネルだけが光ります</strong>。
+          </p>
+          <p>
+            state をそれぞれが持っているので、
+            片方を変えても、もう片方には何も起きません。
+            <strong>だから値も共有されません。</strong>
           </p>
         </Callout>
 
@@ -106,7 +108,6 @@ export default async function Page() {
           title="親が state を持つ"
           tone="good"
           sourcePath={LIFTED}
-          showRenderCount
           description="どちらを押しても、両方が変わる"
         >
           <LiftedState />

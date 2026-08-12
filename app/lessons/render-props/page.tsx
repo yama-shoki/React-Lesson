@@ -63,7 +63,6 @@ export default async function Page() {
 				<DemoCard
 					title="children で中身を受け取る"
 					sourcePath={PLAIN}
-					showRenderCount
 					description="中身から開閉の状態は見えない"
 				>
 					<PlainChildren />
@@ -188,7 +187,6 @@ items.map((item) => <li>{item}</li>);`}
 					title="children を関数にする"
 					tone="good"
 					sourcePath={FAAC}
-					showRenderCount
 					description="中身が開閉の状態を使えるようになった"
 				>
 					<Faac />

@@ -1,14 +1,11 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { loadMembers } from "./fetch-members";
 
 /** 結果を画面に出すだけの入れ物。読者に見せるのは fetch-members.ts のほう */
 export function FetchDemo() {
-  useTrackDemoRender();
-
   const [result, setResult] = useState("まだ取りに行っていません");
 
   const load = async (path: string) => {

@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { cn } from "@/lib/utils";
 
 // 見た目の種類を、決まった言葉に絞る
@@ -38,8 +37,6 @@ function Notice({
 }
 
 export function VariantProp() {
-  useTrackDemoRender();
-
   return (
     <div className="flex flex-col gap-2">
       {/* tone を省くと info になる */}

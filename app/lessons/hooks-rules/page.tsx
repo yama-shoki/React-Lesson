@@ -103,7 +103,6 @@ if (showNickname) {
 					title="if の中でフックを呼ぶ"
 					tone="bad"
 					sourcePath={BROKEN}
-					showRenderCount
 					description="ボタンを押すと、その場で壊れます"
 				>
 					<BrokenOrder />
@@ -203,7 +202,6 @@ if (showNickname) {
 					title="フックを上に並べる"
 					tone="good"
 					sourcePath={FIXED}
-					showRenderCount
 					description="今度は壊れません。しかも入力が残ります"
 				>
 					<FixedOrder />

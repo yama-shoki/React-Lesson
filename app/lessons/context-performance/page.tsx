@@ -62,7 +62,6 @@ export default async function Page() {
 					title="count と name を同じ Context に入れる"
 					tone="bad"
 					sourcePath={LARGE}
-					showRenderCount
 					description="count を押すと、name の部品まで光る"
 				>
 					<LargeContextDemo />
@@ -156,7 +155,6 @@ const NameContext = createContext(...);`}
 					title="Context を 2 つに分ける"
 					tone="good"
 					sourcePath={SPLIT}
-					showRenderCount
 					description="count を押しても、name の部品は光らない"
 				>
 					<SplitContextDemo />

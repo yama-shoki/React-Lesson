@@ -8,13 +8,11 @@
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { RenderBox } from "@/components/lesson/render-box";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
 export function Eager() {
-  useTrackDemoRender();
-
   const [keyword, setKeyword] = useState("");
   const [searchCount, setSearchCount] = useState(0);
 
@@ -33,9 +31,10 @@ export function Eager() {
         onChange={(event) => setKeyword(event.target.value)}
       />
 
-      <p className="text-sm">
+      {/* 検索が走ったときだけ、この箱が光る */}
+      <RenderBox title="打つたびに検索">
         検索した回数: <strong>{searchCount}</strong>
-      </p>
+      </RenderBox>
     </div>
   );
 }

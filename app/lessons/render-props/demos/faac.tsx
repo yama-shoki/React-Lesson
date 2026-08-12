@@ -1,6 +1,5 @@
 "use client";
 
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { type ReactNode, useState } from "react";
 
@@ -27,8 +26,6 @@ function Panel({ children }: PanelProps) {
 }
 
 export function Faac() {
-  useTrackDemoRender();
-
   return (
     <Panel>
       {/* 関数で受け取ると、親の状態が引数で降りてくる */}
