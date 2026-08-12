@@ -166,7 +166,7 @@ export default async function Page() {
         />
 
         <p>
-          Part 0 でやった「関数を値として渡す」が、ここで効いてきます。
+          Part 0 でやった「関数を値として扱う」が、ここで効いてきます。
           <code>onIncrease</code> に渡しているのは関数で、
           子はそれを<strong>いつ呼ぶかを決めるだけ</strong>です。
         </p>

@@ -44,7 +44,7 @@ export default async function Page() {
           <strong>渡すのは関数</strong>で、呼ぶタイミングは React が決めます。
         </p>
         <p>
-          Part 0 でやった「関数を値として渡す」が、そのまま実物になります。
+          Part 0 でやった「関数を値として扱う」が、そのまま実物になります。
         </p>
       	<Callout variant="note" title="デモに出てくる useState について">
 					<p>

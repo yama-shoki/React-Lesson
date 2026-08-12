@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "check:highlights": "bun scripts/check-highlights.mjs",
-    "verify": "bun run lint && bun run check:highlights && bun run build"
+    "verify": "bun run lint && bun run check:highlights && bun run check:references && bun run build",
+    "check:references": "bun scripts/check-references.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

@@ -241,7 +241,7 @@ setUser({
       </LessonSection>
 
       <LessonSection id="metaphor" {...at(NEW, "setItems((current) => [...current")}>
-        <h3>Part 0 の「箱」の話に戻ります</h3>
+        <h3>Part 0 でやった、箱の話に戻ります</h3>
 
         <p>
           ずいぶん前の章になりますが、
