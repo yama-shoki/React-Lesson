@@ -10,8 +10,17 @@
 
 import { RenderBox } from "@/components/lesson/render-box";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
+
+// 検索の回数が変わったときだけ描き直される
+const SearchBox = memo(function SearchBox({ count }: { count: number }) {
+  return (
+    <RenderBox title="落ち着いてから検索">
+      検索した回数: <strong>{count}</strong>
+    </RenderBox>
+  );
+});
 
 export function Debounced() {
   const [keyword, setKeyword] = useState("");
@@ -41,10 +50,8 @@ export function Debounced() {
         {debouncedKeyword || "（空）"}
       </p>
 
-      {/* 検索が走ったときだけ、この箱が光る */}
-      <RenderBox title="落ち着いてから検索">
-        検索した回数: <strong>{searchCount}</strong>
-      </RenderBox>
+      {/* 検索が走ったときだけ光らせたいので、打鍵の巻き添えを memo で切る */}
+      <SearchBox count={searchCount} />
     </div>
   );
 }
