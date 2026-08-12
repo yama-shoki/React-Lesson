@@ -66,9 +66,7 @@ export default async function Page() {
         <Callout variant="point" title="key はコンポーネントの同一性そのもの">
           <p>
             逆から言うと、<strong>key が変わると React はそれを別のコンポーネントとみなし、state ごと作り直します</strong>。
-            これは知っておくと便利な性質で、
-            「このフォームを初期状態に戻したい」というときに、
-            わざと key を変えて作り直させる、という書き方もできます。
+            この性質は、Part 4 の「useState の応用」で道具として使います。
           </p>
         </Callout>
       </LessonSection>

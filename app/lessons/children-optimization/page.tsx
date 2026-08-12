@@ -188,6 +188,12 @@ function Counter({ children }) {
 				<h2>どういうときに効くか</h2>
 
 				<p>
+					Part 7 で <strong>state を使う場所まで下ろした</strong>のと同じ発想です。
+					違うのは、<strong>重い表示を入力と同じ階層から動かせない</strong>ときにも
+					使えることです。
+				</p>
+
+				<p>
 					この形が効くのは、
 					<strong>状態が頻繁に変わる場所と、重い表示が同じ階層にいるとき</strong>です。
 				</p>

@@ -189,7 +189,8 @@ export default async function Page() {
 					</li>
 					<li>
 						<strong>片付けるために覚えておく</strong> …{" "}
-						タイマーの番号（Part 6 のクリーンアップで使います）
+						タイマーの番号。effect の中で始めて中で止めるなら変数で足りますが、
+						別の場所から止めたいときは ref に入れます
 					</li>
 					<li>
 						<strong>前回の値を覚えておく</strong> …{" "}

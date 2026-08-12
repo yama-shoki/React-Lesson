@@ -331,7 +331,7 @@ dispatch({ type: "reset" });`}
 
 				<Callout variant="note" title="Context と組み合わせる">
 					<p>
-						次の Part で Context をやります。
+						Part 9 で Context をやります。
 						<code>useReducer</code> の <code>dispatch</code> は
 						<strong>毎回同じものが返ってきます</strong>。
 						これが Context で配るときに効いてきます

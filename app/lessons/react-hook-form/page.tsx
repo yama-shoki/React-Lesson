@@ -245,6 +245,8 @@ export default async function Page() {
 				<p>
 					<code>handleSubmit</code> が検査を済ませてから呼ぶので、
 					<strong>この中では値が正しいことが保証されています</strong>。
+					（Part 5 で出てきた <code>preventDefault</code> も、
+					こちらでやってくれます）
 					<code>values</code> には型も付いています。
 				</p>
 			</LessonSection>

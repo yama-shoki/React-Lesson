@@ -204,45 +204,17 @@ export default async function Page() {
       </LessonSection>
 
       <LessonSection id="rules" {...at(STATE, "const [count, setCount]")}>
-        <h3>useState の決まりごと</h3>
+        <h3>フックと呼ばれるもの</h3>
 
         <p>
           <code>useState</code> のような <code>use</code>{" "}
           で始まる関数を<strong>フック</strong>と呼びます。
-          フックには、守らなければいけない決まりが 2 つあります。
         </p>
 
-        <StaticCode
-          code={`// ○ コンポーネントの一番上に書く
-function Counter() {
-  const [count, setCount] = useState(0);
-  ...
-}
-
-// ✕ 条件の中に書いてはいけない
-function Counter() {
-  if (isReady) {
-    const [count, setCount] = useState(0);
-  }
-  ...
-}`}
-        />
-
-        <ul>
-          <li>
-            <strong>コンポーネントの一番上で呼ぶ</strong>。
-            if や for、関数の中に入れない
-          </li>
-          <li>
-            <strong>呼べるのはコンポーネントの中だけ</strong>。
-            ふつうの関数の中では使えない
-          </li>
-        </ul>
-
         <p>
-          React は<strong>呼ばれた順番</strong>で state を管理しているため、
-          実行のたびに順番が変わると対応づけが崩れてしまうからです。
-          この決まりも lint が見張ってくれます。
+          フックには<strong>守らないといけない決まりが 2 つ</strong>あります。
+          破ると直しにくい壊れ方をするので、
+          <strong>次の章でまとめて扱います</strong>。
         </p>
       </LessonSection>
 

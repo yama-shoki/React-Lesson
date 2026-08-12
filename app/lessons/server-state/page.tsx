@@ -66,7 +66,10 @@ export default async function Page() {
 					<ManualFetch />
 				</DemoCard>
 
-				<p>動きます。ですが、state が 3 つ必要になりました。</p>
+				<p>
+					Part 8 の Suspense で一度出した形です。
+					動きます。ですが、state が 3 つ必要になりました。
+				</p>
 
 				<StaticCode
 					lang="ts"

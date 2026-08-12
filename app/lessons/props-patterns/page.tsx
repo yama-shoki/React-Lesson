@@ -281,13 +281,8 @@ increaseCount, openModal`}
 					<p>
 						<code>hint</code> には文字列ではなく
 						<strong>JSX を渡しています</strong>。
-						型は <code>ReactNode</code>。
-						<strong>「画面に出せるものなら何でも」</strong>という意味の型です。
-						文字列でも、数値でも、JSX でも受け取れます。
-					</p>
-					<p>
-						children が 1 つしか使えないのに対して、
-						<strong>この形なら「差し込み口」を何個でも作れます</strong>。
+						型は <code>ReactNode</code> です
+						（この型については次の章で扱います）。
 					</p>
 				</Callout>
 			</LessonSection>
