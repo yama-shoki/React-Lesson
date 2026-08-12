@@ -93,6 +93,10 @@ export default async function Page() {
 				</DemoCard>
 
 				<Callout variant="point" title="値は下へ、知らせは上へ">
+					<p>
+						<strong>使う側（外側）を「上」、部品（内側）を「下」</strong>
+						と呼びます。木の枝のように、外から中へ枝分かれしていくイメージです。
+					</p>
 					<ul>
 						<li>
 							<strong>下へ</strong> … <code>count</code>（表示する値）

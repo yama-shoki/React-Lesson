@@ -4,25 +4,33 @@
   自分で面倒を見る必要がある。
 */
 
-let count = 0;
+export const mountCounter = (root: HTMLElement, forgetRender: boolean) => {
+  let count = 0;
 
-const label = document.querySelector("#count");
-const increment = document.querySelector("#increment");
-const reset = document.querySelector("#reset");
+  const label = root.querySelector("#count");
+  const increment = root.querySelector("#increment");
+  const reset = root.querySelector("#reset");
 
-// 値を変えるたびに、表示の更新を自分で呼ぶ
-const render = () => {
-  if (label) label.textContent = String(count);
+  // 値を変えるたびに、表示の更新を自分で呼ぶ
+  const render = () => {
+    if (label) label.textContent = String(count);
+  };
+
+  increment?.addEventListener("click", () => {
+    count = count + 1;
+    render(); // ← これを忘れると、値は増えているのに画面が変わらない
+  });
+
+  reset?.addEventListener("click", () => {
+    count = 0;
+
+    // 「書き忘れ」を再現するスイッチ。実際のコードでは、
+    // ただ render() を書き忘れただけ、という形で起きる
+    if (!forgetRender) render();
+  });
+
+  render(); // 最初の表示も自分で行う
+
+  // いまの値を外から見るための窓口（教材用）
+  return () => count;
 };
-
-increment?.addEventListener("click", () => {
-  count = count + 1;
-  render(); // ← これを忘れると、値は増えているのに画面が変わらない
-});
-
-reset?.addEventListener("click", () => {
-  count = 0;
-  render(); // ← ここでも忘れてはいけない
-});
-
-render(); // 最初の表示も自分で行う

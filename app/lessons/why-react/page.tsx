@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { ReactCounter } from "./demos/react-counter";
+import { VanillaCounter } from "./demos/vanilla-counter-view";
 
 const SLUG = "why-react";
 
@@ -54,8 +55,16 @@ export default async function Page() {
           それだけのカウンターを素の JavaScript で書くと、右のようになります。
         </p>
 
+        <DemoCard
+          title="素の JavaScript で作ったカウンター"
+          sourcePath={VANILLA}
+          description="下のチェックを入れてから、リセットを押してみる"
+        >
+          <VanillaCounter />
+        </DemoCard>
+
         <p>
-          注目してほしいのは <code>render()</code> という行です。
+          動きます。注目してほしいのは <code>render()</code> という行です。
           <strong>値を変えたあと、毎回これを呼んでいます。</strong>
         </p>
 
@@ -94,6 +103,16 @@ export default async function Page() {
         </p>
 
         <Callout variant="warn" title="いちばんつらいバグ">
+          <p>
+            デモの<strong>チェックを入れてからリセットを押す</strong>と、
+            それが起きます。画面の数字は変わりません。
+          </p>
+          <p>
+            ですが「いまの値を確かめる」を押すと、
+            <strong>変数のほうは 0 になっています</strong>。
+            <code>render()</code> を 1 行書き忘れただけで、
+            <strong>値と画面がずれた</strong>わけです。
+          </p>
           <p>
             「値は正しいのに、画面だけが古い」というバグは、
             原因が見た目に現れないので探すのが非常に大変です。

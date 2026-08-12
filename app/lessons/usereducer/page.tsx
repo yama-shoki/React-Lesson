@@ -333,7 +333,9 @@ dispatch({ type: "reset" });`}
 					<p>
 						次の Part で Context をやります。
 						<code>useReducer</code> の <code>dispatch</code> は
-						<strong>作り直されない</strong>ので、Context で配るのに向いています。
+						<strong>毎回同じものが返ってきます</strong>。
+						これが Context で配るときに効いてきます
+						（なぜ嬉しいのかは Part 8 で扱います）。
 					</p>
 					<p>
 						「状態は Context A、dispatch は Context B」と分けて配るのは、

@@ -278,7 +278,7 @@ const [status, setStatus] = useState<Status>("idle");`}
 						<strong>それは 1 つの union にできないか</strong>を疑ってください。
 					</p>
 					<p>
-						Part 9 で使う SWR も、まさにこの形で状態を返してきます。
+						Part 9 で使うデータ取得のライブラリも、まさにこの形で状態を返してきます。
 					</p>
 				</Callout>
 			</LessonSection>

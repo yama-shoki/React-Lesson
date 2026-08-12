@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { LoginView } from "./demos/login-view";
+import { TwoStates } from "./demos/two-states";
 import { StateToUiFigure } from "./figures/state-to-ui";
 
 const SLUG = "declarative-ui";
@@ -20,9 +21,13 @@ export const metadata: Metadata = {
 
 const SOURCES = [
   { path: "lessons/declarative-ui/demos/login-view.tsx", label: "login-view.tsx" },
+  {
+    path: "lessons/declarative-ui/demos/two-states.tsx",
+    label: "two-states.tsx",
+  },
 ] as const;
 
-const [LOGIN] = SOURCES.map((source) => source.path);
+const [LOGIN, TWO] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -191,6 +196,64 @@ function logout() {
       </LessonSection>
 
       <LessonSection id="quiz" {...at(LOGIN)}>
+        <h2>状態が 2 つになると、差が開く</h2>
+
+        <p>
+          状態が 1 つのうちは、手順で書いてもそれほど困りません。
+          <strong>2 つになると、はっきり差が出ます。</strong>
+        </p>
+
+        <p>
+          「ログイン中かどうか」に加えて「未読があるかどうか」が増えたとします。
+          手順で書くなら、<strong>組み合わせの数だけ書くことになります</strong>。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// 2 × 2 = 4 通り。それぞれで 3 か所を書き換える
+function update() {
+  if (isLoggedIn && hasUnread) { /* 3 か所 */ }
+  else if (isLoggedIn)         { /* 3 か所 */ }
+  else if (hasUnread)          { /* 3 か所 */ }
+  else                         { /* 3 か所 */ }
+}`}
+        />
+
+        <p>
+          状態が 3 つになれば 8 通り、4 つなら 16 通り。
+          <strong>倍々に増えていきます。</strong>
+        </p>
+
+        <p>宣言的に書けば、増えるのは状態のほうだけです。</p>
+
+        <DemoCard
+          title="状態を 2 つにしてみる"
+          tone="good"
+          sourcePath={TWO}
+          showRenderCount
+          description="2 つのチェックを自由に組み合わせてみる"
+        >
+          <TwoStates />
+        </DemoCard>
+
+        <p>
+          <strong>4 通りぶんの手順は、どこにも書いていません。</strong>
+          書いてあるのは「この状態なら、こう出す」という
+          <strong>対応関係だけ</strong>です。組み合わせは React が計算します。
+        </p>
+
+        <Callout variant="point" title="これが「山」の正体">
+          <p>
+            宣言的 UI が難しく感じるのは、考え方が難しいからではありません。
+            <strong>これまでの癖と逆だから</strong>です。
+          </p>
+          <p>
+            「画面をどう変えるか」を考えるのをやめて、
+            <strong>「どんな状態がありうるか」を考える</strong>。
+            ここが切り替われば、あとは全部これの繰り返しです。
+          </p>
+        </Callout>
+
         <h2>理解できたか確かめる</h2>
 
         <Quiz

@@ -85,6 +85,11 @@ export default async function Page() {
         <h2>&amp;&amp; と || は「値を返す」</h2>
 
         <p>
+          （<strong>演算子</strong>とは、<code>+</code> や{" "}
+          <code>&amp;&amp;</code> のような<strong>記号のこと</strong>です）
+        </p>
+
+        <p>
           ここが本題です。<code>&amp;&amp;</code> と <code>||</code> は、
           <strong>true か false を返すのではありません</strong>。
           左右どちらかの<strong>値そのもの</strong>を返します。

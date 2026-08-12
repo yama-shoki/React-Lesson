@@ -350,9 +350,9 @@ const data = await response.json();   // 2 回目: 本文を読み終わるの�
 								"失敗に備えるなら書きますが、await を使うための条件ではありません。",
 						},
 						{
-							label: "戻り値の型を Promise と書く",
+							label: "呼ぶ側にも async を付ける",
 							explanation:
-								"async を付ければ自動的にそうなります。自分で書く必要はありません。",
+								"呼ぶ側が await したいなら必要になりますが、await を「使う」ための条件ではありません。",
 						},
 					]}
 				/>

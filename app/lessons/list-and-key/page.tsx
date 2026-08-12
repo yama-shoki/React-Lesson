@@ -151,7 +151,7 @@ See https://react.dev/link/warning-keys for more information.`}
         <p>
           配列には最初から通し番号があります。<code>map</code> の 2
           番目の引数で受け取れる index です。これを key
-          にすれば一意になりますし、警告も消えます。
+          にすれば重複しない（一意）になりますし、警告も消えます。
           いちばん手軽な方法に見えます。
         </p>
 
@@ -285,7 +285,7 @@ See https://react.dev/link/warning-keys for more information.`}
 
         <ul>
           <li>チェックを入れたはずの行と、別の行にチェックが付く</li>
-          <li>開いていたアコーディオンが、別の項目で開いたままになる</li>
+          <li>開いていたアコーディオン（開閉するリスト）が、別の項目で開いたままになる</li>
           <li>アニメーションが途中から始まる、あるいは動かない</li>
         </ul>
 

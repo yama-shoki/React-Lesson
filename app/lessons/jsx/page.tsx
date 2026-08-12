@@ -167,6 +167,13 @@ jsx("p", { className: "text", children: "こんにちは" })`}
 
         <h3>属性はキャメルケース</h3>
 
+        <p>
+          <strong>キャメルケース</strong>とは、
+          <code>onChange</code> のように
+          <strong>単語の切れ目を大文字にする書き方</strong>のことです。
+          らくだ（camel）のこぶに見えることからこの名前が付いています。
+        </p>
+
         <StaticCode
           code={`<input onChange={...} maxLength={10} tabIndex={0} />`}
         />

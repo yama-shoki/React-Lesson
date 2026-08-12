@@ -166,6 +166,23 @@ count = 1; // これは通る`}
       <LessonSection id="not-frozen" {...at(OBJECT, "user.name =")}>
         <h2>const が守るのは「名札」だけ</h2>
 
+        <Callout variant="point" title="箱と名札の関係">
+          <ul>
+            <li>
+              <strong>箱</strong> … 実際のデータ。中身は入れ替えられる
+            </li>
+            <li>
+              <strong>名札</strong> … その箱に付けた名前（＝変数名）
+            </li>
+          </ul>
+          <p>
+            <code>const</code> が固定するのは
+            <strong>名札の貼り替えだけ</strong>です。
+            <strong>箱の中身までは守りません。</strong>
+            この区別が、次の話の全部です。
+          </p>
+        </Callout>
+
         <p>
           ここが、この章でいちばん大事なところです。
         </p>
