@@ -201,7 +201,7 @@ export default async function Page() {
 
 				<ul>
 					<li>
-						<strong>打っても右上の数字が増えません</strong>
+						<strong>打っても数字が増えません</strong>
 						（エラーが出たときだけ増えます）
 					</li>
 					<li>
@@ -214,6 +214,18 @@ export default async function Page() {
 					</li>
 					<li>送信中はボタンが「送信中…」になり、押せなくなります</li>
 				</ul>
+
+				<Callout variant="note" title="読み込み直後の数字について">
+					<p>
+						こちらのカードは、触る前から <strong>render 2</strong> です。
+						React Hook Form が、起動のときに一度だけ描き直すためです。
+					</p>
+					<p>
+						見てほしいのは<strong>そこから増えないこと</strong>です。
+						上のフォームは 4 文字打つと 1 → 5 になりますが、
+						こちらは<strong>何文字打っても 2 のまま</strong>です。
+					</p>
+				</Callout>
 
 				<p>
 					最後の 2 つは <code>mode: &quot;onTouched&quot;</code> と{" "}

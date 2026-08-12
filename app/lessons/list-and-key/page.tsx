@@ -169,7 +169,6 @@ See https://react.dev/link/warning-keys for more information.`}
           title="key に index を使ったリスト"
           tone="bad"
           sourcePath={BROKEN}
-          showRenderCount
           description="さとうに書いたはずのメモが、やまだの行に残ってしまう"
         >
           <BrokenList />
@@ -248,7 +247,6 @@ See https://react.dev/link/warning-keys for more information.`}
           title="key に id を使ったリスト"
           tone="good"
           sourcePath={FIXED}
-          showRenderCount
           description="さっきと同じ手順で試してみてください"
         >
           <FixedList />

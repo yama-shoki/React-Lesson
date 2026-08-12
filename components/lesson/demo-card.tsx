@@ -112,6 +112,8 @@ export const DemoCard = ({
 		const step = () => {
 			if (queueRef.current === 0) {
 				timerRef.current = undefined;
+				// 光り終わったら印を外しておく（付けっぱなしにしない）
+				flashRef.current?.classList.remove("react-dev-render-flash");
 				return;
 			}
 			queueRef.current--;
@@ -125,7 +127,7 @@ export const DemoCard = ({
 			}
 
 			// 次の 1 本は少し置いてから。こうしないと「2 回光った」が 1 回に見える
-			timerRef.current = window.setTimeout(step, 300);
+			timerRef.current = window.setTimeout(step, queueRef.current > 0 ? 300 : 900);
 		};
 
 		step();
