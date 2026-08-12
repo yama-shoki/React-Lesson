@@ -102,9 +102,16 @@ export default async function Page() {
 
         <Callout variant="warn" title="気づけるかどうかは、書き方しだい">
           <p>
-            素の JavaScript で書いていると、この間違いは
-            <strong>エラーにならず、ただ何も表示されません</strong>。
+            この間違いは<strong>画面を止めません</strong>。
+            ただ何も表示されないだけです。
             「作ったはずの部品が出ない」ときは、まず頭文字を確認してください。
+          </p>
+          <p>
+            とはいえ<strong>ヒントは出ています</strong>。開発中は、
+            ブラウザのコンソールに
+            <code>The tag &lt;greeting&gt; is unrecognized in this browser.</code>
+            と警告が出ます。画面だけ見ていると気づけないので、
+            <strong>困ったらコンソールを開く</strong>癖をつけてください。
           </p>
           <p>
             この教材のように <strong>TypeScript</strong> で書いていれば、
@@ -204,12 +211,12 @@ export default async function Page() {
               label: "名前が小文字で始まっていないか",
               correct: true,
               explanation:
-                "小文字だと HTML タグとして扱われ、意味のない要素が作られるだけなので何も表示されません。TypeScript を使っていれば赤線で気づけます。",
+                "小文字だと HTML タグとして扱われ、意味のない要素が作られるだけなので何も表示されません。TypeScript なら赤線が出ますし、開発中はコンソールにも警告が出ます。",
             },
             {
               label: "return（結果を返す命令）を書き忘れていないか",
               explanation:
-                "これも無言で消える原因になります（いまの React は、何も返さなくてもエラーを出しません）。ただし return 忘れはコードを見ればすぐ気づけるのに対し、頭文字は見落としやすいので、先に疑うならこちらです。",
+                "これも画面から消える原因になります（いまの React は、何も返さなくてもエラーを出しません）。ただし return 忘れはコードを見ればすぐ気づけるのに対し、頭文字は見落としやすいので、先に疑うならこちらです。",
             },
             {
               label: "ファイル名が間違っていないか",

@@ -11,7 +11,7 @@ export function JsxExpression() {
       {/* 計算もできる。式なら何でもよい */}
       <li className="rounded-md border p-2.5">{price * 1.1} 円（税込）</li>
 
-      {/* メソッドの呼び出しも式 */}
+      {/* プロパティの参照も式 */}
       <li className="rounded-md border p-2.5">{name.length} 文字</li>
 
       {/* 条件による出し分けも、三項演算子なら式として書ける */}

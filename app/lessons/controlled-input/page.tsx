@@ -217,7 +217,7 @@ onChange={(e) => setCode(e.target.value.toUpperCase())}`}
         />
 
         <p>
-          チェックボックスだけ <code>value</code> ではなく{" "}
+          チェックボックスとラジオボタンは <code>value</code> ではなく{" "}
           <code>checked</code> を使います。
           受け取る側も <code>e.target.checked</code> になります。
           それ以外の考え方は同じです。
@@ -266,7 +266,7 @@ onChange={(e) => setCode(e.target.value.toUpperCase())}`}
             {
               label: "onChange の型が間違っている",
               explanation:
-                "型の間違いはビルド時にエラーになります。無言で打てなくなるのは onChange 自体がない場合です。",
+                "型の間違いはビルド時にエラーになります。onChange 自体がない場合は、ビルドは通るのに打てなくなります（開発中はコンソールに警告が出ます）。",
             },
           ]}
         />

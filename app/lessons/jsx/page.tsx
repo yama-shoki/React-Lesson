@@ -91,7 +91,7 @@ jsx("p", { className: "text", children: "こんにちは" })`}
         <DemoCard
           title="いろいろな式を埋め込む"
           sourcePath={EXPRESSION}
-          description="変数・計算・メソッド呼び出し・条件"
+          description="変数・計算・プロパティ・条件"
         >
           <JsxExpression />
         </DemoCard>

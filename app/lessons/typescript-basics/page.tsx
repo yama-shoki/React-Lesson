@@ -153,9 +153,16 @@ const user: { name: string; age: number } = { name: "さとう", age: 20 };`}
 
         <p>
           <code>member.nickname ?? member.name</code> の <code>??</code> は前の章でやったものです。
-          TypeScript は「nickname は undefined かもしれない」と知っているので、
-          この対処を書かずに使おうとすると警告してくれます。
+          TypeScript は「nickname は undefined かもしれない」と知っています。
+          なので <code>nickname.length</code> のように
+          <strong>文字列として扱おうとすると警告してくれます</strong>。
           <strong>型が、書き忘れを防いでくれている</strong>わけです。
+        </p>
+
+        <p>
+          ただし<strong>画面にそのまま出すだけなら通ってしまいます</strong>。
+          何も出ない、という形で気づくことになります。
+          <code>??</code> は自分で書く必要があります。
         </p>
       </LessonSection>
 

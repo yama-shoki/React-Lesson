@@ -215,7 +215,7 @@ JSON.parse('{"text":"こんにちは"}')      // → { text: "こんにちは" }
 setMessages([...messages, newMessage]);
 
 // ◯ サーバーに取り直させる
-mutate("/api/messages");`}
+mutate();`}
 				/>
 
 				<p>
@@ -244,6 +244,9 @@ const send = async () => {
 					<p>
 						<code>mutate</code> は前の章で
 						「取り直す」として出てきたものです。
+						<code>useSWR</code> から受け取ったほうは
+						<strong>引数なしで呼びます</strong>
+						（キーはもう分かっているからです）。
 						<strong>送信のあとに呼ぶ</strong>のが、いちばん多い使い方になります。
 					</p>
 				</Callout>

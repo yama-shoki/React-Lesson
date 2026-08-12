@@ -1,5 +1,6 @@
 import { Callout } from "@/components/lesson/callout";
 import { DemoCard } from "@/components/lesson/demo-card";
+import { DemoErrorBoundary } from "@/components/lesson/demo-error-boundary";
 import { LessonFooter } from "@/components/lesson/lesson-footer";
 import { LessonHeader } from "@/components/lesson/lesson-header";
 import { LessonSection } from "@/components/lesson/lesson-section";
@@ -105,18 +106,15 @@ if (showNickname) {
 					sourcePath={BROKEN}
 					description="ボタンを押すと、その場で壊れます"
 				>
-					<BrokenOrder />
+					<DemoErrorBoundary>
+						<BrokenOrder />
+					</DemoErrorBoundary>
 				</DemoCard>
 
 				<p>
 					<strong>押した瞬間にエラーになります。</strong>
-					React はこう言ってきます。
+					React が言ってきた内容が、そのまま箱の中に出ます。
 				</p>
-
-				<StaticCode
-					lang="bash"
-					code={`Rendered more hooks than during the previous render.`}
-				/>
 
 				<p>
 					「前回より多くのフックが呼ばれました」。

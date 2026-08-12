@@ -191,7 +191,7 @@ export default async function Page() {
 					lang="ts"
 					code={`// ✕ ブラウザ側の中で、サーバー側の部品を import する
 "use client";
-import { ServerPart } from "./server-part";   // これはできない`}
+import { ServerPart } from "./server-part";   // エラーは出ない。だが巻き込まれる`}
 				/>
 
 				<p>
@@ -236,7 +236,7 @@ import { ServerPart } from "./server-part";   // これはできない`}
 
 				<p>
 					いま読んでいるこのページ自体が Server Component です。
-					<strong>本文もクイズも見出しも、サーバーで作られています。</strong>
+					<strong>本文も見出しも、サーバーで作られています。</strong>
 				</p>
 
 				<p>
@@ -336,7 +336,7 @@ import { ServerPart } from "./server-part";   // これはできない`}
 						{
 							label: 'ブラウザ側のファイルで import する',
 							explanation:
-								"できません。\"use client\" の中で読み込んだものは、すべてブラウザ側になります。",
+								"エラーにはなりません。ですが \"use client\" の中で読み込んだものは、すべてブラウザ側になります。黙って巻き込まれるぶん、かえって気づきにくい間違いです。",
 						},
 						{
 							label: "サーバー側の部品にも \"use client\" を書く",

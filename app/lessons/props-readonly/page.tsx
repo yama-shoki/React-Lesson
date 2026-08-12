@@ -40,8 +40,11 @@ export default async function Page() {
           <strong>「受け取った値を書き換えればいいのでは」</strong>と。
         </p>
         <p>
-          これはうまくいきません。しかも<strong>実行時には何も起きません</strong>。
+          これはうまくいきません。しかも
+          <strong>実行時には何も起きません</strong>。
           例外も出ず、画面も変わらず、ただ押しても無反応なだけです。
+          （デモのように、受け取った値を分割代入で取り出している場合の話です。
+          あとで書くとおり、<code>props</code> ごと書き換えると別の結果になります）
           （気づけるのは、あとで見るとおり <strong>lint</strong>——書いている最中に間違いを指摘してくれる道具——が止めてくれるからです）
         </p>
         <p>
@@ -130,6 +133,13 @@ export default async function Page() {
           <p>
             右のコードで警告を黙らせる 1 行が入っているのは、
             この教材で<strong>あえて間違った状態を動かして見せている</strong>からです。
+          </p>
+          <p>
+            もうひとつ。<code>props.count = 1</code> のように
+            <strong><code>props</code> そのものを書き換えた場合</strong>は、
+            開発中は <code>TypeError</code> で止まります。
+            React が開発ビルドでは props を凍らせているためです。
+            本番ビルドでは凍らせないので、こちらも黙って無視されます。
           </p>
           <p>
             つまり<strong>「実行しても何も起きない」けれど「書いた時点で怒られる」</strong>。
@@ -236,7 +246,7 @@ export default async function Page() {
             {
               label: "React が props の書き換えを禁止していて、実行時にエラーになるから",
               explanation:
-                "実行時にはエラーになりません。書き換え自体は成立してしまいます。止めてくれるのは lint であって、React ではありません。",
+                "分割代入で取り出した変数を書き換えた場合、実行時にはエラーになりません。止めてくれるのは lint です。（props ごと書き換えた場合は、開発中だけ TypeError で止まります）",
             },
             {
               label: "書き換えた値が親に届かないから",

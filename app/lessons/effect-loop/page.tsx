@@ -184,11 +184,16 @@ const items = [1, 2, 3];            // 毎回新しい配列`}
 					<StaticCode
 						lang="bash"
 						code={`The 'options' object makes the dependencies of useEffect Hook
-change on every render.`}
+(at line 27) change on every render. Move it inside the useEffect
+callback. Alternatively, wrap the initialization of 'options' in
+its own useMemo() Hook.`}
 					/>
 					<p>
 						「<code>options</code> のせいで、毎回依存が変わっている」と、
 						<strong>原因そのものを名指ししてくれます</strong>。
+						しかも直し方まで 2 つ添えてあります
+						（effect の中に移すか、<code>useMemo</code> で包むか）。
+						後者は Part 8 で扱います。
 						この警告が出たら、まずこの章のことを思い出してください。
 					</p>
 				</Callout>
