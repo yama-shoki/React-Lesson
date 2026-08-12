@@ -318,13 +318,7 @@ export const curriculum: Part[] = [
 			{
 				slug: "rendering",
 				title: "再レンダリングとは何か",
-				summary: "画面が描き直されるまでに起きていること",
-				ready: true,
-			},
-			{
-				slug: "render-triggers",
-				title: "何が再レンダリングを起こすか",
-				summary: "props が変わったから、ではない",
+				summary: "何が描き直しを起こし、どこまで広がるのか",
 				ready: true,
 			},
 		],
