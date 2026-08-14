@@ -5,7 +5,7 @@ import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { type ReactNode, useState } from "react";
 
-// さっきとまったく同じ子
+// さっきと同じ構造の子（文言だけ、見分けがつくように変えてある）
 function Heavy() {
   return (
     <RenderBox title="重い子" tone="highlight">

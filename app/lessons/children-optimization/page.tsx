@@ -77,7 +77,7 @@ export default async function Page() {
 
 				<p>
 					同じものを、<strong>子を外側で作ってから渡す</strong>形に書き換えます。
-					子のコードには一切手を触れません。
+					子の中身には手を触れません（表示する文言だけ、どちらの形か分かるように変えてあります）。
 				</p>
 
 				<StaticCode
@@ -117,7 +117,7 @@ function Counter({ children }) {
 				<p>
 					<strong>子が光らなくなりました。</strong>
 					<code>memo</code> は使っていません。
-					子のコードも変えていません。
+					子の中身も変えていません。
 				</p>
 			</LessonSection>
 

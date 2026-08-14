@@ -96,13 +96,13 @@ export default async function Page() {
 
 				<StaticCode
 					lang="ts"
-					code={`function RenderCounter() {
+					code={`function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <button onClick={() => setCount((current) => current + 1)}>
+    <p onClick={() => setCount((current) => current + 1)}>
       {count}
-    </button>
+    </p>
   );
 }`}
 				/>
@@ -141,14 +141,14 @@ export default async function Page() {
 
 				<StaticCode
 					lang="ts"
-					code={`前回: { type: "button", props: { children: 0 } }
-今回: { type: "button", props: { children: 1 } }
+					code={`前回: { type: "p", props: { children: 0 } }
+今回: { type: "p", props: { children: 1 } }
          ↑ タグは同じ。中の文字だけ違う`}
 				/>
 
 				<p>
 					<strong>違うのは文字だけなので、文字だけ書き換えます。</strong>
-					button 自体は作り直しません。だからボタンを押していても
+					要素そのものは作り直しません。だからボタンを押していても
 					フォーカスが外れませんし、入力欄の中身も消えません。
 				</p>
 
