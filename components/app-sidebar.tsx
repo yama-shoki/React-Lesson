@@ -13,11 +13,23 @@ import {
 } from "@/components/ui/sidebar";
 import { buttonVariants } from "@/components/ui/button";
 import { curriculum } from "@/lib/curriculum";
+import { cn } from "@/lib/utils";
 import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 export function AppSidebar() {
+  /**
+   * 59 章あるので、開いた直後は現在地が画面外にあることが多い。
+   * リロードや URL 直開きのたびに探させないよう、1 回だけ寄せる。
+   */
+  const currentRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    currentRef.current?.scrollIntoView({ block: "center" });
+  }, []);
+
   const pathname = usePathname();
 
   return (
@@ -81,12 +93,22 @@ export function AppSidebar() {
                     );
                   }
 
+                  const isCurrent = pathname === href;
+
                   return (
                     <SidebarMenuItem key={lesson.slug}>
                       {/* Base UI 版の shadcn では asChild ではなく render で要素を差し替える */}
                       <SidebarMenuButton
                         render={<Link href={href} />}
-                        isActive={pathname === href}
+                        isActive={isCurrent}
+                        aria-current={isCurrent ? "page" : undefined}
+                        ref={isCurrent ? currentRef : undefined}
+                        className={cn(
+                          // 既定の active 色は背景の明度差が小さく、hover と見分けが
+                          // つかない。左の縦線と文字色で「いまここ」を明示する
+                          isCurrent &&
+                            "border-l-2 border-foreground bg-muted font-medium text-foreground",
+                        )}
                       >
                         <span className="truncate">{lesson.title}</span>
                       </SidebarMenuButton>

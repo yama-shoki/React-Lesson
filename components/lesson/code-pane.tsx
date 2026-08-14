@@ -169,7 +169,17 @@ export const InlineCode = ({
       <p className="mb-1.5 font-mono text-xs text-muted-foreground">
         {snippet.label}
       </p>
-      <CodeBlock snippet={snippet} lines={lines} className="max-h-[70dvh]" />
+      {/*
+        狭い画面では枠が 70dvh で切られる。光っている行が枠の外だと
+        「解説と光った行の対応」という仕掛けそのものが効かないので、
+        右ペインと同じように該当行まで寄せる
+      */}
+      <CodeBlock
+        snippet={snippet}
+        lines={lines}
+        scrollToHighlight
+        className="max-h-[70dvh]"
+      />
     </div>
   );
 };

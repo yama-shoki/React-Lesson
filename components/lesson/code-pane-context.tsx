@@ -95,13 +95,22 @@ export const CodePaneProvider = ({
 		// 解説と関係のないコードが選ばれたまま残るほうが混乱するため
 		setPinned(null);
 
-		setActive((current) =>
-			current?.snippetId === code.snippetId &&
-			current.lines?.[0] === code.lines?.[0] &&
-			current.lines?.[1] === code.lines?.[1]
-				? current
-				: code,
-		);
+		setActive((current) => {
+			if (
+				current?.snippetId === code.snippetId &&
+				current.lines?.[0] === code.lines?.[0] &&
+				current.lines?.[1] === code.lines?.[1]
+			) {
+				return current;
+			}
+
+			// 同じファイルのまま行指定だけ消える節（クイズ・まとめ）では、
+			// 直前の注目行を残す。ここで先頭に戻すと、クイズを解こうとした
+			// 瞬間に根拠のコードが視界から消えてしまう
+			if (current?.snippetId === code.snippetId && !code.lines) return current;
+
+			return code;
+		});
 	}, []);
 
 	/**

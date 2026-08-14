@@ -1,15 +1,15 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { Button } from "@/components/ui/button";
+import { useRef, useState } from "react";
+
 /*
   「ref を画面に出すとどうなるか」を見せるためのファイル。
   lint は「描き直しの最中に ref を読むな」と正しく止めてくる。
   止めてくれること自体がこの章の教材なので、ここだけ黙らせている。
 */
 /* eslint-disable react-hooks/refs */
-
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
 
 export function RefVsState() {
   useTrackDemoRender();

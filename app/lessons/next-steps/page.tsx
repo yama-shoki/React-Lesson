@@ -44,7 +44,7 @@ export default async function Page() {
         <h2>結局、覚えることは少ない</h2>
 
         <p>
-          57 章ありましたが、<strong>芯は 5 つだけ</strong>です。
+          59 章ありましたが、<strong>芯は 5 つだけ</strong>です。
           これだけ持って帰れば足ります。
         </p>
 

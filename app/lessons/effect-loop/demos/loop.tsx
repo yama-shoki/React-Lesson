@@ -1,14 +1,14 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+
 /*
   わざと無限ループになる書き方を見せている。
   本来 lint に止められるので、このファイルだけ黙らせている。
 */
 /* eslint-disable react-hooks/set-state-in-effect */
-
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 
 // 教材用の安全装置。これがなければ、ブラウザが固まるまで止まらない
 const LIMIT = 50;

@@ -59,7 +59,10 @@ export const Quiz = ({
                     !option.correct &&
                     isSelected &&
                     "border-red-500/60 bg-red-500/[0.06]",
-                  answered && !option.correct && !isSelected && "opacity-50"
+                  answered &&
+                    !option.correct &&
+                    !isSelected &&
+                    "border-border/60"
                 )}
               >
                 <span
@@ -84,9 +87,21 @@ export const Quiz = ({
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="block leading-relaxed">{option.label}</span>
+                  <span
+                    className={cn(
+                      "block leading-relaxed",
+                      // 選ばなかった誤答は、ラベルだけ控えめにする。
+                      // 解説は「なぜ違うのか」を読ませたいので薄くしない
+                      answered &&
+                        !option.correct &&
+                        !isSelected &&
+                        "text-muted-foreground",
+                    )}
+                  >
+                    {option.label}
+                  </span>
                   {answered && (
-                    <span className="mt-1.5 block text-[0.813rem] leading-relaxed text-muted-foreground">
+                    <span className="mt-1.5 block text-[0.813rem] leading-relaxed text-foreground/75">
                       {option.explanation}
                     </span>
                   )}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -14,6 +15,8 @@ import { type Filter, type Todo, filterLabels, filterTodos } from "./types";
 let nextId = 4;
 
 export function TodoApp() {
+  useTrackDemoRender();
+
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: "牛乳を買う", done: false },
     { id: 2, text: "React の教材を読む", done: true },

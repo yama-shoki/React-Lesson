@@ -1,5 +1,9 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+
 /*
   自分で書くとこうなる、という例。
   lint はこの書き方を「描き直しが連鎖する」として止めてくる。
@@ -7,10 +11,6 @@
   このファイルだけ黙らせている。
 */
 /* eslint-disable react-hooks/set-state-in-effect */
-
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 
 export function ManualFetch() {
   useTrackDemoRender();

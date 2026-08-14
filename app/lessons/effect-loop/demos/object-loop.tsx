@@ -1,5 +1,9 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+
 /*
   この章の題材そのもの。lint は「options を useMemo で包め」と言ってくるが、
   ここでは「包まないと何が起きるか」を見せたいので、わざと従っていない。
@@ -7,10 +11,6 @@
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 
 const LIMIT = 50;
 

@@ -1,13 +1,13 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
+import { Button } from "@/components/ui/button";
+
 /*
   この書き方は React のルール違反なので、本来は lint に止められる。
   「なぜ動かないのか」を実際に動かして見せるために、この 1 ファイルだけ黙らせている。
 */
 /* eslint-disable react-hooks/immutability */
-
-import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { Button } from "@/components/ui/button";
 
 export function PlainVariable() {
   // このカードが描き直された回数を数えるための 1 行。

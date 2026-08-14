@@ -8,12 +8,15 @@
   「チェック」だけが動かない。この一貫しなさが、いちばん厄介なところ。
 */
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import type { Todo } from "./types";
 
 export function BrokenTodo() {
+  useTrackDemoRender();
+
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: "牛乳を買う", done: false },
     { id: 2, text: "歯医者を予約する", done: false },

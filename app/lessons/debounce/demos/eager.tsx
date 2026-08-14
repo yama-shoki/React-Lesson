@@ -1,5 +1,9 @@
 "use client";
 
+import { RenderBox } from "@/components/lesson/render-box";
+import { Input } from "@/components/ui/input";
+import { memo, useEffect, useState } from "react";
+
 /*
   本来ここは「API を呼んで、返ってきた結果を state に入れる」処理。
   デモでは通信の代わりに回数だけ数えている。
@@ -7,10 +11,6 @@
   実物では await を挟むので、この形自体は現実のコードに近い。
 */
 /* eslint-disable react-hooks/set-state-in-effect */
-
-import { RenderBox } from "@/components/lesson/render-box";
-import { Input } from "@/components/ui/input";
-import { memo, useEffect, useState } from "react";
 
 // 検索の回数が変わったときだけ描き直される
 const SearchBox = memo(function SearchBox({ count }: { count: number }) {

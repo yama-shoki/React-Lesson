@@ -200,7 +200,9 @@ export const DemoCard = ({
 							aria-label="このデモのコードを見る"
 							title="このデモのコードを見る"
 							className={cn(
-								"focus-ring ml-auto shrink-0 rounded-md border p-1 transition-colors",
+								// 押した結果が出るのは右ペイン。狭い画面では右ペインが無く、
+								// コードはすぐ下に出ているので、ボタン自体を出さない
+								"focus-ring ml-auto hidden shrink-0 rounded-md border p-1 transition-colors lg:inline-flex",
 								isPinned
 									? "border-[var(--connection)] text-[var(--connection)]"
 									: "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground",

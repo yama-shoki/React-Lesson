@@ -1,13 +1,13 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+
 /*
   素直に書いた検索。動きはします。
   ですが、通信でよく起きる 3 つの問題がそのまま出ます。
 */
 /* eslint-disable react-hooks/set-state-in-effect */
-
-import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
 
 type Result = { id: number; name: string };
 

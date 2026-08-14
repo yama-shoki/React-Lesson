@@ -1,12 +1,12 @@
 "use client";
 
-/* eslint-disable react-hooks/set-state-in-effect */
-
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { PokemonCard } from "./pokemon-card";
 import type { Pokemon } from "./types";
+
+/* eslint-disable react-hooks/set-state-in-effect */
 
 /** とりうる状態を並べる。真偽値を増やさない */
 type Status = "idle" | "loading" | "done" | "error";

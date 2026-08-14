@@ -316,8 +316,16 @@ return () => controller.abort();`}
         </ul>
 
         <p>
-          Part 9 の SWR は、<strong>この 4 つを最初から持っています</strong>。
+          Part 9 の SWR は、
+          <strong>このうち上の 3 つを最初から持っています</strong>。
           「1 行で state 3 つぶん」と書いたのは、こういうことでした。
+        </p>
+
+        <p>
+          <strong>間引きだけは、SWR にもありません。</strong>
+          打つたびに呼ぶかどうかは使う側の判断なので、
+          そこは自分で <code>useDebounce</code> を足します
+          （この章のデモもそうしています）。
         </p>
 
         <p>
