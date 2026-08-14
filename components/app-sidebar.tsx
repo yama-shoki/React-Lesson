@@ -103,12 +103,16 @@ export function AppSidebar() {
                         isActive={isCurrent}
                         aria-current={isCurrent ? "page" : undefined}
                         ref={isCurrent ? currentRef : undefined}
-                        className={cn(
-                          // 既定の active 色は背景の明度差が小さく、hover と見分けが
-                          // つかない。左の縦線と文字色で「いまここ」を明示する
-                          isCurrent &&
-                            "border-l-2 border-foreground bg-muted font-medium text-foreground",
-                        )}
+                        className={cn(isCurrent && "font-medium text-foreground")}
+                        // 既定の active 色は背景との明度差が小さく、hover と
+                        // 見分けがつかない。コードの注目行と同じ青を敷いて、
+                        // 「いま読んでいるところ」を 1 つの色で統一する。
+                        // クラスだと既定のスタイルに負けるので、ここは style で当てる
+                        style={
+                          isCurrent
+                            ? { backgroundColor: "var(--code-line-active)" }
+                            : undefined
+                        }
                       >
                         <span className="truncate">{lesson.title}</span>
                       </SidebarMenuButton>

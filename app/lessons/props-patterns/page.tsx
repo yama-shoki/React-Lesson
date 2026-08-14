@@ -145,18 +145,7 @@ increaseCount, openModal`}
 					同じボタンを別の場面で使い回せなくなります。
 				</p>
 
-				<Callout variant="warn" title="括弧を付けない">
-					<StaticCode
-						lang="ts"
-						code={`<LikeButton onLike={handleLike} />     // ◯ 関数を渡す
-<LikeButton onLike={handleLike()} />   // ✕ 呼んだ結果を渡す`}
-					/>
-					<p>
-						Part 0 の「関数を値として扱う」でやった話です。
-						<strong>括弧は「今すぐ実行しろ」の合図</strong>でした。
-					</p>
-				</Callout>
-			</LessonSection>
+</LessonSection>
 
 			<LessonSection id="variant" {...at(VARIANT, "type Tone =")}>
 				<h2>2. 見た目の種類を、決まった言葉で受け取る</h2>

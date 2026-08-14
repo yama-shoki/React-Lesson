@@ -46,7 +46,8 @@ export default async function Page() {
     <LessonShell snippets={snippets}>
       <LessonHeader slug={SLUG}>
         <p>
-          仕事で React を書くとき、<strong>ほぼ必ず外の API と話します</strong>。
+          仕事で React を書くとき、
+          <strong>ほぼ必ず外の API からデータを取ってきます</strong>。
           そして通信は、ここまでのどの話よりも
           <strong>思いどおりにならないもの</strong>です。
         </p>

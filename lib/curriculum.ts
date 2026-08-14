@@ -79,7 +79,7 @@ export const curriculum: Part[] = [
 	},
 	{
 		label: "Part 1",
-		title: "React の世界観",
+		title: "React の考え方",
 		summary:
 			"React は「DOM を操作するライブラリ」ではない。ここの発想の切り替えが最初の山になる。",
 		lessons: [
@@ -450,9 +450,9 @@ export const curriculum: Part[] = [
 	},
 	{
 		label: "Part 11",
-		title: "作りながら総合する",
+		title: "まとめて作る",
 		summary:
-			"ここまでの道具を、実際の画面 1 つにまとめる。新しい道具は出てこない。",
+			"ここまでに出てきたものだけで、動く画面を 2 つ作る。新しい道具は使わない。",
 		lessons: [
 			{
 				slug: "todo-app",
@@ -462,14 +462,14 @@ export const curriculum: Part[] = [
 			},
 			{
 				slug: "pokemon-search",
-				title: "API と話す画面を作る",
+				title: "API を使う画面を作る",
 				summary: "本物の API を日本語で検索する。通信の 3 つの厄介ごとを潰す",
 				ready: true,
 			},
 			{
 				slug: "next-steps",
-				title: "ここから先へ",
-				summary: "覚えることは 5 つだけ。次に何を作り、どう調べるか",
+				title: "次にやること",
+				summary: "覚えることは 5 つだけ。次に何を作るか、詰まったらどうするか",
 				ready: true,
 			},
 		],

@@ -171,28 +171,7 @@ export default async function Page() {
 					</p>
 				</Callout>
 
-				<Callout variant="point" title="ブラウザに送られない、の意味">
-					<p>
-						サーバー側の部品は、
-						<strong>その JavaScript がブラウザに送られません</strong>。
-					</p>
-					<ul>
-						<li>
-							読み込むファイルが減るので、
-							<strong>ページが軽くなります</strong>
-						</li>
-						<li>
-							データベースの接続情報や API キーを直接書けます。
-							<strong>ブラウザには渡らないので、見られません</strong>
-						</li>
-					</ul>
-					<p>
-						逆に、送られないということは
-						<strong>ブラウザで実行できない</strong>ということです。
-						だから <code>useState</code> も <code>onClick</code> も使えません。
-					</p>
-				</Callout>
-			</LessonSection>
+</LessonSection>
 
 			<LessonSection id="compose" {...at(CLIENT, "{ children }: { children: ReactNode }")}>
 				<h2>組み合わせ方の決まり</h2>

@@ -336,21 +336,20 @@ React Hooks must be called in the exact same order in every component render.`}
 
 				<ul>
 					<li>
-						フックは<strong>関数のいちばん上で、無条件に呼ぶ</strong>
-					</li>
-					<li>
-						呼ぶのは<strong>コンポーネントか、他のフックの中だけ</strong>
-					</li>
-					<li>
-						React が見ているのは<strong>変数名ではなく、呼ばれた順番</strong>
+						React が見ているのは<strong>変数名ではなく、呼ばれた順番</strong>。
+						だから毎回同じ順で呼ぶ必要がある
 					</li>
 					<li>
 						出し分けたいときは、
 						<strong>呼ぶかどうかではなく、表示するかどうかを分ける</strong>
 					</li>
 					<li>
+						<code>useState</code> は箱を用意するだけ。
+						<strong>使わない回があっても気にしなくていい</strong>
+					</li>
+					<li>
 						<code>use</code> で始まる名前にすると、
-						<strong>lint が見張ってくれる</strong>
+						<strong>lint が決まりを見張ってくれる</strong>
 					</li>
 				</ul>
 			</LessonSection>

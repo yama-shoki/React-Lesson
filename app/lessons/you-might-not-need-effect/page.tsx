@@ -235,15 +235,7 @@ useEffect(() => {
           </p>
         </Callout>
 
-        <Callout variant="point" title="迷ったときの問い">
-          <p>
-            <strong>「これは React の外側と何かをやり取りしているか？」</strong>
-          </p>
-          <p>
-            答えが「していない」なら、useEffect ではない書き方があります。
-          </p>
-        </Callout>
-      </LessonSection>
+</LessonSection>
 
       <LessonSection id="quiz" {...at(CALCULATE)}>
         <h2>理解できたか確かめる</h2>

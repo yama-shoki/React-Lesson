@@ -213,17 +213,7 @@ add("届いた");`}
 					</p>
 				</Callout>
 
-				<Callout variant="note" title="止まっているのはこの関数だけ">
-					<p>
-						<code>await</code> で止まっているように見えますが、
-						<strong>ブラウザ全体は止まっていません</strong>。
-					</p>
-					<p>
-						止まっているのは<strong>この関数の続きだけ</strong>で、
-						その間もボタンは押せますし、画面もスクロールできます。
-					</p>
-				</Callout>
-			</LessonSection>
+</LessonSection>
 
 			<LessonSection id="fetch" {...at(FETCH, "const response = await fetch(path);")}>
 				<h2>サーバーからデータを取ってくる</h2>

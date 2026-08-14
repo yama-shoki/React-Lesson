@@ -247,27 +247,6 @@ export default async function Page() {
 					]}
 				/>
 
-				<Quiz
-					question="親が再レンダリングするとき、子はどうなりますか？"
-					options={[
-						{
-							label: "子の関数ももう一度実行される",
-							correct: true,
-							explanation:
-								"React は親の結果だけでなく、子の結果も再計算します。props が変わっていなくても実行されます。",
-						},
-						{
-							label: "子は前の結果をそのまま使い続ける",
-							explanation:
-								"React は子の結果を再確認するため、子の関数をもう一度呼びます。",
-						},
-						{
-							label: "親が更新されると、子の画面は必ず消える",
-							explanation:
-								"子の画面は消えません。再レンダリングは表示を再計算するだけです。",
-						},
-					]}
-				/>
 			</LessonSection>
 
 			<LessonSection
@@ -336,16 +315,7 @@ function Parent() {
 					それでも親が更新されれば、子の関数は再び呼ばれます。
 				</p>
 
-				<Callout variant="warn" title="props が変わることだけが原因ではない">
-					<p>
-						親が再レンダリングされたとき、React は子の結果を再び計算します。
-					</p>
-					<p>
-						そのとき props が同じかどうかは、React が次に決めることです。 props
-						が同じでも、子の関数は実行されます。
-					</p>
-				</Callout>
-			</LessonSection>
+</LessonSection>
 
 			<LessonSection id="placement" {...at(UP, "const [keyword, setKeyword]")}>
 				<h2>だから「state をどこに置くか」が効いてくる</h2>

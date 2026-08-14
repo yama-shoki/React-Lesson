@@ -204,18 +204,7 @@ function Counter({ children }) {
 					</p>
 				</Callout>
 
-				<Callout variant="point" title="判定はいつもこれ">
-					<p>
-						<strong>同じものかどうか。</strong>
-					</p>
-					<p>
-						Part 4 の「オブジェクトと配列の更新」 の state 更新、前の章の <code>memo</code>、
-						そしてこの <code>children</code>。
-						すべて同じ判定でつながっています。
-						React は中身を見比べません。
-					</p>
-				</Callout>
-			</LessonSection>
+</LessonSection>
 
 			<LessonSection id="usage" {...at(SPLIT, "function Counter({ children }")}>
 				<h2>どういうときに効くか</h2>

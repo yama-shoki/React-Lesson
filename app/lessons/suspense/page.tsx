@@ -214,26 +214,14 @@ const members = await getMembers();`}
 					それぞれ別々に包みます。早く終わったほうから順に出てきます。
 				</p>
 
-				<Callout variant="point" title="では、失敗は誰が受け持つのか">
-					<p>
-						「読み込み中は Suspense が外側で受け持つ」なら、
-						<strong>失敗したときは？</strong>と思ったはずです。
-					</p>
-					<p>
-						そちらにも受け皿があります。<strong>エラー境界</strong>と呼ばれるもので、
-						Next.js なら <code>error.tsx</code> というファイルを置くと、
-						その範囲で起きた失敗をそこで受け止めてくれます。
-					</p>
-					<StaticCode
-						lang="bash"
-						code={`app/lessons/error.tsx   ← この下で失敗が起きたら、これが出る`}
-					/>
-					<p>
-						<strong>待ちの外側が Suspense、失敗の外側がエラー境界。</strong>
-						対になっています。この教材では扱いませんが、
-						組みになっていることだけ覚えておいてください。
-					</p>
-				</Callout>
+					<Callout variant="point" title="では、失敗は誰が受け持つのか">
+						<p>
+							待ちの外側が <code>Suspense</code> なら、
+							<strong>失敗の外側はエラー境界</strong>です。
+							Next.js なら <code>error.tsx</code> を置くと、
+							その範囲の失敗をそこで受け止めてくれます。
+						</p>
+					</Callout>
 
 				<Callout variant="note" title="Next.js の loading.tsx">
 					<p>

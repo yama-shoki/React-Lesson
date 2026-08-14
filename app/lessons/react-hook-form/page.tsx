@@ -107,12 +107,6 @@ export default async function Page() {
 					です。
 				</p>
 
-				<p>
-					<strong><code>value</code> は返していません。</strong>
-					ここが肝心なところです。
-					value を返さない＝React が値を持たない、ということだからです。
-				</p>
-
 				<Callout variant="point" title="値を state に持たない">
 					<p>
 						React Hook Form は、

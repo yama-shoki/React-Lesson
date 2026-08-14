@@ -240,36 +240,6 @@ setUser({
         </p>
       </LessonSection>
 
-      <LessonSection id="metaphor" {...at(NEW, "setItems((current) => [...current")}>
-        <h3>Part 0 でやった、箱の話に戻ります</h3>
-
-        <p>
-          ずいぶん前の章になりますが、
-          <strong>箱と名札</strong>の話をしました。ここで効いてきます。
-        </p>
-
-        <ul>
-          <li>
-            <code>push</code> … <strong>同じ箱に、物を入れる</strong>。
-            箱そのものは前と同じもの
-          </li>
-          <li>
-            <code>[...items, x]</code> …{" "}
-            <strong>新しい箱を用意して、中身を移し替える</strong>
-          </li>
-        </ul>
-
-        <p>
-          React が見ているのは<strong>箱が別物になったかどうか</strong>だけです。
-          中を開けて 1 つずつ見比べたりはしません。
-        </p>
-
-        <p>
-          だから <code>push</code> では気づいてもらえず、
-          新しく作れば必ず気づいてもらえます。
-        </p>
-      </LessonSection>
-
       <LessonSection id="quiz" {...at(NEW)}>
         <h2>理解できたか確かめる</h2>
 
