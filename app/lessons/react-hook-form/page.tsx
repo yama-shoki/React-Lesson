@@ -222,9 +222,9 @@ export default async function Page() {
 				</Callout>
 
 				<p>
-					最後の 2 つは <code>mode: &quot;onTouched&quot;</code> と{" "}
-					<code>isSubmitting</code> のおかげです（一度エラーを出したあと
-					打つたびに再判定するのは、既定でそうなっています）。
+					3 つめ（打ち直すと消える）は、何も書かなくても既定でそうなります。
+					4 つめは <code>isSubmitting</code> のおかげ、
+					最初にエラーを出す時機は <code>mode: &quot;onTouched&quot;</code> です。
 					Part 5 で自分で組み立てた「いつエラーを出すか」の作法が、
 					<strong>設定 1 つで手に入っています</strong>。
 				</p>

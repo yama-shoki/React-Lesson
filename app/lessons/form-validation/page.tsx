@@ -192,6 +192,55 @@ const showError = touched && error !== null;`}
         </p>
       </LessonSection>
 
+      <LessonSection id="form-tag" {...at(VALIDATION, "const validateEmail")}>
+        <h3>本物のフォームは form で囲む</h3>
+
+        <p>
+          この Part のデモは、話を絞るために
+          <code>&lt;input&gt;</code> と <code>&lt;button&gt;</code> だけで作っています。
+          実際のフォームでは <code>&lt;form&gt;</code> で囲みます。
+        </p>
+
+        <StaticCode
+          code={`<form onSubmit={handleSubmit}>
+  <input ... />
+  <button type="submit">送信</button>
+</form>`}
+        />
+
+        <ul>
+          <li>
+            <strong>Enter キーでも送信できるようになります</strong>
+            （囲まないと効きません）
+          </li>
+          <li>
+            送信の処理は <code>onSubmit</code> に書きます。
+            ボタンの <code>onClick</code> ではありません
+          </li>
+        </ul>
+
+        <Callout variant="warn" title="preventDefault を忘れない">
+          <StaticCode
+            lang="ts"
+            code={`const handleSubmit = (event) => {
+  event.preventDefault();   // ← これがないとページが再読み込みされる
+  ...
+};`}
+          />
+          <p>
+            <code>&lt;form&gt;</code> は、そのままだと
+            <strong>ページを読み込み直そうとします</strong>。
+            HTML の元からの動きです。
+            Part 3 で出てきた <code>preventDefault</code> で止めます。
+          </p>
+          <p>
+            Part 10 の React Hook Form では、
+            この <code>preventDefault</code> も向こうがやってくれます。
+          </p>
+        </Callout>
+
+      </LessonSection>
+
       <LessonSection id="quiz" {...at(VALIDATION)}>
         <h2>理解できたか確かめる</h2>
 
@@ -241,52 +290,6 @@ const showError = touched && error !== null;`}
       </LessonSection>
 
       <LessonSection id="summary" {...at(VALIDATION)}>
-        <h3>本物のフォームは form で囲む</h3>
-
-        <p>
-          この Part のデモは、話を絞るために
-          <code>&lt;input&gt;</code> と <code>&lt;button&gt;</code> だけで作っています。
-          実際のフォームでは <code>&lt;form&gt;</code> で囲みます。
-        </p>
-
-        <StaticCode
-          code={`<form onSubmit={handleSubmit}>
-  <input ... />
-  <button type="submit">送信</button>
-</form>`}
-        />
-
-        <ul>
-          <li>
-            <strong>Enter キーでも送信できるようになります</strong>
-            （囲まないと効きません）
-          </li>
-          <li>
-            送信の処理は <code>onSubmit</code> に書きます。
-            ボタンの <code>onClick</code> ではありません
-          </li>
-        </ul>
-
-        <Callout variant="warn" title="preventDefault を忘れない">
-          <StaticCode
-            lang="ts"
-            code={`const handleSubmit = (event) => {
-  event.preventDefault();   // ← これがないとページが再読み込みされる
-  ...
-};`}
-          />
-          <p>
-            <code>&lt;form&gt;</code> は、そのままだと
-            <strong>ページを読み込み直そうとします</strong>。
-            HTML の元からの動きです。
-            Part 3 で出てきた <code>preventDefault</code> で止めます。
-          </p>
-          <p>
-            Part 10 の React Hook Form では、
-            この <code>preventDefault</code> も向こうがやってくれます。
-          </p>
-        </Callout>
-
         <h2>この章のまとめ</h2>
 
         <ul>

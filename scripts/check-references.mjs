@@ -102,3 +102,56 @@ if (orphans.length > 0) {
 }
 
 console.log("取り残されたデモはありません");
+
+
+/*
+  章の構成が「本文 → クイズ → まとめ」の順になっているか。
+
+  節の移動・分割を繰り返した結果、クイズが本文より前に来ていたり、
+  まとめの節の中に解説が入り込んでいたりした章が実際にあった。
+  読み口が章によって変わるのは、59 章ある教材では効いてくる。
+*/
+
+const orderProblems = [];
+
+for (const entry of await readdir(lessons, { withFileTypes: true })) {
+	if (!entry.isDirectory()) continue;
+
+	let source;
+	try {
+		source = await readFile(
+			path.join(lessons, entry.name, "page.tsx"),
+			"utf8",
+		);
+	} catch {
+		continue;
+	}
+
+	const quiz = source.indexOf('id="quiz"');
+	const summary = source.indexOf('id="summary"');
+	if (quiz === -1 || summary === -1) continue;
+
+	if (quiz > summary) {
+		orderProblems.push(`${entry.name}: まとめがクイズより前にある`);
+	}
+
+	// クイズ節とまとめ節に、見出し h2 が 2 つ以上ある = 別の節が紛れ込んでいる
+	for (const [name, at] of [["quiz", quiz], ["summary", summary]]) {
+		const next = source.indexOf("<LessonSection", at);
+		const end = next === -1 ? source.length : next;
+		const headings = source.slice(at, end).match(/<h2>/g)?.length ?? 0;
+		if (headings > 1) {
+			orderProblems.push(
+				`${entry.name}: ${name} の節に見出しが ${headings} 個ある`,
+			);
+		}
+	}
+}
+
+if (orderProblems.length > 0) {
+	console.error(`\n章の構成が崩れている箇所が ${orderProblems.length} 件あります\n`);
+	for (const p of orderProblems) console.error(`  - ${p}`);
+	process.exit(1);
+}
+
+console.log("章の構成（本文 → クイズ → まとめ）は揃っています");

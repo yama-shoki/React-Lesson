@@ -195,7 +195,7 @@ function logout() {
         </Callout>
       </LessonSection>
 
-      <LessonSection id="quiz" {...at(LOGIN)}>
+      <LessonSection id="two-states" {...at(TWO, "const [isLoggedIn, setIsLoggedIn]")}>
         <h2>状態が 2 つになると、差が開く</h2>
 
         <p>
@@ -254,6 +254,9 @@ function update() {
           </p>
         </Callout>
 
+      </LessonSection>
+
+      <LessonSection id="quiz" {...at(LOGIN)}>
         <h2>理解できたか確かめる</h2>
 
         <Quiz

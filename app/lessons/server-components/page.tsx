@@ -53,7 +53,7 @@ export default async function Page() {
 				<p>
 					この Part では「データをどこに置くか」を扱いますが、
 					その前にこの土台をはっきりさせておきます。
-					<strong>ここを飛ばすと、このあとの 4 章がぼやけます。</strong>
+					<strong>ここを飛ばすと、このあとの章がぼやけます。</strong>
 				</p>
 			</LessonHeader>
 

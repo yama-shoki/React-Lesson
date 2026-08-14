@@ -175,16 +175,16 @@ export default async function Page() {
 
         <StaticCode
           lang="ts"
-          code={`const numbers = [1, 2, 3, 4, 5];
+          code={`const scores = [1, 2, 3, 4, 5];
 
 // 条件に合うものだけ残す
-numbers.filter((n) => n > 2); // [3, 4, 5]
+scores.filter((n) => n > 2); // [3, 4, 5]
 
 // 条件に合う最初の 1 つを探す
-numbers.find((n) => n > 2); // 3
+scores.find((n) => n > 2); // 3
 
 // ひとつの値にまとめる
-numbers.reduce((sum, n) => sum + n, 0); // 15`}
+scores.reduce((sum, n) => sum + n, 0); // 15`}
         />
 
         <p>

@@ -73,7 +73,7 @@ export default async function Page() {
 				</Callout>
 
 				<p>
-					1 つめを言い換えると、
+					この決まりを言い換えると、
 					<strong>「毎回、同じフックが、同じ順番で呼ばれる」</strong>ようにしろ、
 					ということです。
 				</p>

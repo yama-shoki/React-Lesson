@@ -58,7 +58,7 @@ const [name, setName] = useLocalStorageState("key-name", { defaultValue: "" });`
 				/>
 
 				<p>
-					この章で 3 つめですが、<strong>また同じ形です</strong>。
+					この Part で 3 つめですが、<strong>また同じ形です</strong>。
 					これは偶然ではありません。あとでまとめて扱います。
 				</p>
 

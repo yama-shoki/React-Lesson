@@ -78,7 +78,7 @@ export default async function Page() {
 				</DemoCard>
 
 				<p>
-					左のデモでボタンを押すと、カードの見出しの横にある数字が増えます。
+					上のデモでボタンを押すと、カードの見出しの横にある数字が増えます。
 					これは<strong>このコンポーネントの関数が、
 					もう一度実行された回数</strong>です。
 				</p>
@@ -168,85 +168,6 @@ export default async function Page() {
 						だから「再レンダリング＝遅い」とは限りません。
 					</p>
 				</Callout>
-			</LessonSection>
-
-			<LessonSection
-				id="quiz"
-				{...at(
-					COUNTER,
-					"const [count, setCount] = useState(0);",
-					"useTrackDemoRender();",
-				)}
-			>
-				<h2>理解できたか確かめる</h2>
-
-				<Quiz
-					question="再レンダリングとは何ですか？"
-					options={[
-						{
-							label: "コンポーネントの関数がもう一度実行されること",
-							correct: true,
-							explanation:
-								"React では、state が変わるとコンポーネントの関数が再び実行されます。これが再レンダリングです。",
-						},
-						{
-							label: "画面全体が一から書き直されること",
-							explanation:
-								"関数は再び実行されますが、React は変わったところだけを実際の画面に更新します。全部を作り直すわけではありません。",
-						},
-						{
-							label: "button 要素が一回クリックされること",
-							explanation:
-								"クリックはきっかけのひとつにすぎません。再レンダリングは関数の実行を指します。",
-						},
-					]}
-				/>
-
-				<Quiz
-					question="setCount を呼んだとき、React は何をしますか？"
-					options={[
-						{
-							label: "コンポーネントの関数をもう一度実行し、新しい UI を作る",
-							correct: true,
-							explanation:
-								"setCount は画面を直接書き換えるのではなく、React に再レンダリングを頼むための関数です。",
-						},
-						{
-							label: "画面の該当部分だけを直接書き換える",
-							explanation:
-								"React は最初に関数を実行して新しい JSX を作り、それから差分だけを反映します。",
-						},
-						{
-							label: "値が変わったあと、ブラウザが自動で refresh する",
-							explanation:
-								"React はブラウザのリロードを使いません。レンダリングは JavaScript の関数実行と差分更新です。",
-						},
-					]}
-				/>
-
-
-				<Quiz
-					question="子コンポーネントの props が同じでも再レンダリングされるのはどちらの場合？"
-					options={[
-						{
-							label: "親が再レンダリングされたとき",
-							correct: true,
-							explanation:
-								"親が再レンダリングされると、React は子も再び実行します。props が同じでもです。",
-						},
-						{
-							label: "props が変わったときだけ",
-							explanation:
-								"props が同じでも子の関数は実行されるので、props は条件ではありません。React が props を見るのは、そのあとの話です。",
-						},
-						{
-							label: "子に state があるときだけ",
-							explanation:
-								"子に state があっても、親が再レンダリングされれば子も再レンダリングされます。",
-						},
-					]}
-				/>
-
 			</LessonSection>
 
 			<LessonSection
@@ -389,6 +310,83 @@ function SearchBox() {
 				</Callout>
 			</LessonSection>
 
+			<LessonSection
+				id="quiz"
+				{...at(
+					COUNTER,
+					"const [count, setCount] = useState(0);",
+					"useTrackDemoRender();",
+				)}
+			>
+				<h2>理解できたか確かめる</h2>
+
+				<Quiz
+					question="再レンダリングとは何ですか？"
+					options={[
+						{
+							label: "コンポーネントの関数がもう一度実行されること",
+							correct: true,
+							explanation:
+								"React では、state が変わるとコンポーネントの関数が再び実行されます。これが再レンダリングです。",
+						},
+						{
+							label: "画面全体が一から書き直されること",
+							explanation:
+								"関数は再び実行されますが、React は変わったところだけを実際の画面に更新します。全部を作り直すわけではありません。",
+						},
+						{
+							label: "button 要素が一回クリックされること",
+							explanation:
+								"クリックはきっかけのひとつにすぎません。再レンダリングは関数の実行を指します。",
+						},
+					]}
+				/>
+
+				<Quiz
+					question="setCount を呼んだとき、React は何をしますか？"
+					options={[
+						{
+							label: "コンポーネントの関数をもう一度実行し、新しい UI を作る",
+							correct: true,
+							explanation:
+								"setCount は画面を直接書き換えるのではなく、React に再レンダリングを頼むための関数です。",
+						},
+						{
+							label: "画面の該当部分だけを直接書き換える",
+							explanation:
+								"React は最初に関数を実行して新しい JSX を作り、それから差分だけを反映します。",
+						},
+						{
+							label: "値が変わったあと、ブラウザが自動で refresh する",
+							explanation:
+								"React はブラウザのリロードを使いません。レンダリングは JavaScript の関数実行と差分更新です。",
+						},
+					]}
+				/>
+
+				<Quiz
+					question="子コンポーネントの props が同じでも再レンダリングされるのはどちらの場合？"
+					options={[
+						{
+							label: "親が再レンダリングされたとき",
+							correct: true,
+							explanation:
+								"親が再レンダリングされると、React は子も再び実行します。props が同じでもです。",
+						},
+						{
+							label: "props が変わったときだけ",
+							explanation:
+								"props が同じでも子の関数は実行されるので、props は条件ではありません。React が props を見るのは、そのあとの話です。",
+						},
+						{
+							label: "子に state があるときだけ",
+							explanation:
+								"子に state があっても、親が再レンダリングされれば子も再レンダリングされます。",
+						},
+					]}
+				/>
+
+			</LessonSection>
 
 			<LessonSection
 				id="summary"

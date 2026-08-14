@@ -76,7 +76,7 @@ export default async function Page() {
         />
 
         <p>
-          2 段以上になったら、次に出てくる早期 return に切り替えます。
+          2 段以上になったら、あとで出てくる早期 return に切り替えます。
         </p>
       </LessonSection>
 

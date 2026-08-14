@@ -161,7 +161,7 @@ export default async function Page() {
       </LessonSection>
 
       <LessonSection id="update" {...at(APP, "const toggle = (id: number)")}>
-        <h2>4 つの操作を、全部同じ形で書く</h2>
+        <h2>作る・変える・消すを、全部同じ形で書く</h2>
 
         <p>
           ここがこの章の芯です。
@@ -435,8 +435,8 @@ const remaining = todos.filter((todo) => !todo.done).length;`}
             画面より先に<strong>データの形（型）を決める</strong>
           </li>
           <li>
-            <strong>CRUD の 4 つとも、新しい配列を作って渡す</strong>。
-            元のものは触らない
+            <strong>作る・変える・消すは、どれも新しい配列を作って渡す</strong>。
+            元のものは触らない（読むのは並べるだけなので、更新は要らない）
           </li>
           <li>
             共有するものは<strong>共通の親へ</strong>、

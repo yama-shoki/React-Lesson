@@ -38,8 +38,7 @@ export default async function Page() {
         </p>
         <p>
           この章は<strong>そのあとに必ず出てくる疑問</strong>を片づけます。
-          「index を使ってはいけないの？」「id がないときは？」
-          「key って props じゃないの？」
+          「index を使ってはいけないの？」「key って props じゃないの？」
         </p>
         <p>読み流して、必要になったときに思い出せれば十分です。</p>
       </LessonHeader>

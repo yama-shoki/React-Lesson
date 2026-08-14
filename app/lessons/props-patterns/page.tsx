@@ -168,7 +168,7 @@ increaseCount, openModal`}
 				<DemoCard
 					title="tone で見た目を切り替える"
 					sourcePath={VARIANT}
-					description="同じ部品、3 つの見た目"
+					description="同じ部品で、色も余白も変えられる"
 				>
 					<VariantProp />
 				</DemoCard>

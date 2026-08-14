@@ -283,7 +283,6 @@ export default async function Page() {
             <code>setCount</code> は画面を書き換えるのではなく、
             <strong>コンポーネントを実行し直させる</strong>
           </li>
-          <li>フックはコンポーネントの一番上で、条件の外で呼ぶ</li>
         </ul>
       </LessonSection>
 
