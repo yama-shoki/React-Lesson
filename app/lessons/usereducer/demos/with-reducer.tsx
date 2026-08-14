@@ -48,6 +48,7 @@ export function WithReducer() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="名前"
+        aria-label="名前"
         value={form.name}
         onChange={(event) =>
           dispatch({ type: "changed_name", value: event.target.value })
@@ -55,6 +56,7 @@ export function WithReducer() {
       />
       <Input
         placeholder="メールアドレス"
+        aria-label="メールアドレス"
         value={form.email}
         onChange={(event) =>
           dispatch({ type: "changed_email", value: event.target.value })

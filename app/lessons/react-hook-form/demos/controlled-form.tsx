@@ -17,16 +17,19 @@ export function ControlledForm() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="名前"
+        aria-label="名前"
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
       <Input
         placeholder="メールアドレス"
+        aria-label="メールアドレス"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
       />
       <Input
         placeholder="年齢"
+        aria-label="年齢"
         value={age}
         onChange={(event) => setAge(event.target.value)}
       />

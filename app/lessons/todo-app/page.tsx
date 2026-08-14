@@ -288,7 +288,7 @@ const remaining = todos.filter((todo) => !todo.done).length;`}
 
         <p>
           <strong>追加は、できてしまいます。</strong>
-          ところが<strong>チェックを押しても、何も起きません</strong>。
+          ところが<strong>チェックを押しても、打ち消し線が付きません</strong>。
           しかも残り件数は、追加すると増えるのに、チェックしても減りません。
         </p>
 

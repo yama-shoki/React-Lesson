@@ -50,9 +50,15 @@ export function TwoStates() {
             : "ログインすると内容が表示されます"}
         </p>
 
+        {/*
+          ここは表示だけの飾り。直前の「うまくいかない例」には
+          見た目がそっくりで押すと動くボタンがあるので、
+          押せないことが見て分かるようにしておく。
+        */}
         <button
           type="button"
-          className="self-start rounded-md border px-3 py-1.5"
+          disabled
+          className="self-start rounded-md border px-3 py-1.5 opacity-50"
         >
           {isLoggedIn ? "ログアウトする" : "ログインする"}
         </button>

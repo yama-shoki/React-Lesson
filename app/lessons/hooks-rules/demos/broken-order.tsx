@@ -22,6 +22,7 @@ export function BrokenOrder() {
       <div className="flex flex-col gap-3">
         <Input
           placeholder="ニックネーム"
+          aria-label="ニックネーム"
           value={nickname}
           onChange={(event) => setNickname(event.target.value)}
         />

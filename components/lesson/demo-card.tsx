@@ -35,8 +35,8 @@ const toneStyles: Record<Tone, string> = {
 
 const toneLabel: Record<Tone, { text: string; className: string } | null> = {
 	neutral: null,
-	bad: { text: "うまくいかない例", className: "text-amber-600" },
-	good: { text: "直した例", className: "text-emerald-600" },
+	bad: { text: "うまくいかない例", className: "text-amber-700 dark:text-amber-400" },
+	good: { text: "直した例", className: "text-emerald-700 dark:text-emerald-400" },
 };
 
 /**

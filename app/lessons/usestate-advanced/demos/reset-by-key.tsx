@@ -14,6 +14,7 @@ function CommentBox({ target }: { target: string }) {
       <p className="text-sm">{target} への感想</p>
       <Input
         placeholder="書いてみる"
+        aria-label="書いてみる"
         value={text}
         onChange={(event) => setText(event.target.value)}
       />

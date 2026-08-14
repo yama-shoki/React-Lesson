@@ -58,7 +58,7 @@ export default async function Page() {
         <DemoCard
           title="素の JavaScript で作ったカウンター"
           sourcePath={VANILLA}
-          description="下のチェックを入れてから、リセットを押してみる"
+          description="下のチェックを入れる → 増やすを数回押す → リセットを押す"
         >
           <VanillaCounter />
         </DemoCard>
@@ -104,8 +104,9 @@ export default async function Page() {
 
         <Callout variant="warn" title="いちばんつらいバグ">
           <p>
-            デモの<strong>チェックを入れてからリセットを押す</strong>と、
-            それが起きます。画面の数字は変わりません。
+            デモの<strong>チェックを入れてから、数回「増やす」を押し、
+            そのあとリセットを押す</strong>と、それが起きます。
+            画面の数字は、押す前のまま変わりません。
           </p>
           <p>
             ですが「いまの値を確かめる」を押すと、

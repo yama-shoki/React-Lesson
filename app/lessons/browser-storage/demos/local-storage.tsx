@@ -14,6 +14,7 @@ export function LocalStorageDemo() {
     <div className="flex flex-col gap-4">
       <Input
         placeholder="名前を入力してみる"
+        aria-label="名前を入力してみる"
         value={name}
         onChange={(event) => setName(event.target.value)}
       />

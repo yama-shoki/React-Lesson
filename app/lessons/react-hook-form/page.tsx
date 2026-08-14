@@ -196,7 +196,8 @@ export default async function Page() {
 				<ul>
 					<li>
 						<strong>打っても数字が増えません</strong>
-						（エラーが出たときだけ増えます）
+						（エラーが出たときだけ増えます）。 なおこちらは、開いた時点で
+						react-hook-form の準備のぶん <code>render 2</code> から始まります
 					</li>
 					<li>
 						空のまま送信すると、

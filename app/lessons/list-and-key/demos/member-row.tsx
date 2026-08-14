@@ -12,7 +12,7 @@ export function MemberRow({ name }: { name: string }) {
   return (
     <div className="flex items-center gap-3 rounded-md border px-3 py-2">
       <span className="w-16 shrink-0 font-medium">{name}</span>
-      <Input placeholder="メモを書いてみる" className="h-8" />
+      <Input placeholder="メモを書いてみる" className="h-8" aria-label="メモを書いてみる" />
     </div>
   );
 }

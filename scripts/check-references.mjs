@@ -68,8 +68,23 @@ console.log("章の参照はすべて実在する章を指しています");
 
 const orphans = [];
 
+/*
+  章を消したときに demos/ だけ残ることがある。
+  page.tsx が無いディレクトリは、開いても 404 にしかならない残骸。
+*/
+const pageless = [];
+
 for (const entry of await readdir(lessons, { withFileTypes: true })) {
 	if (!entry.isDirectory()) continue;
+
+	const hasPage = await readFile(
+		path.join(lessons, entry.name, "page.tsx"),
+		"utf8",
+	).then(
+		() => true,
+		() => false,
+	);
+	if (!hasPage) pageless.push(entry.name);
 
 	const demos = path.join(lessons, entry.name, "demos");
 	let files;
@@ -93,6 +108,12 @@ for (const entry of await readdir(lessons, { withFileTypes: true })) {
 		);
 		if (!used) orphans.push(`${entry.name}/demos/${file}`);
 	}
+}
+
+if (pageless.length > 0) {
+	console.error(`\npage.tsx が無い章ディレクトリが ${pageless.length} 件あります\n`);
+	for (const p of pageless) console.error(`  - app/lessons/${p}/`);
+	process.exit(1);
 }
 
 if (orphans.length > 0) {

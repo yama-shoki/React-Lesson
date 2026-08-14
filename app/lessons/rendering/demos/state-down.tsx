@@ -26,6 +26,7 @@ function SearchBox() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="ここに打つ"
+        aria-label="ここに打つ"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

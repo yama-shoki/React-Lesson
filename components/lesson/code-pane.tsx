@@ -3,8 +3,7 @@
 import type { Snippet } from "@/lib/code";
 import { cn } from "@/lib/utils";
 import { Maximize2, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { CodeBlock } from "./code-block";
 import { useCodePane } from "./code-pane-context";
 
@@ -66,16 +65,20 @@ export const CodePane = () => {
   const current =
     snippets.find((snippet) => snippet.id === active?.snippetId) ?? snippets[0];
 
-  // 拡大表示は Esc で閉じられるようにしておく
+  /*
+    拡大表示はブラウザ標準の <dialog> に任せる。
+    showModal() を呼ぶと、フォーカスを中に入れる・背後を操作できなくする・
+    Esc で閉じる・閉じたら元のボタンにフォーカスを戻す、が全部付いてくる。
+    自前で書くと、Tab が背後の見えない要素に進んでしまう。
+  */
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
   useEffect(() => {
-    if (!expanded) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setExpanded(false);
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    if (expanded && !dialog.open) dialog.showModal();
+    else if (!expanded && dialog.open) dialog.close();
   }, [expanded]);
 
   if (!current) return null;
@@ -114,14 +117,17 @@ export const CodePane = () => {
       </div>
 
       {/*
-        拡大パネルは body の直下に出す。
-        この場所のまま fixed にすると、サイドバーやヘッダーの下に潜り込んでしまう
-        （祖先の配置やぼかしが fixed の基準を作ってしまうため）。
+        <dialog> は開くと最前面（top layer）に出るので、
+        サイドバーやヘッダーの下に潜り込む心配がない。
       */}
-      {expanded &&
-        typeof document !== "undefined" &&
-        createPortal(
-          <div className="fixed inset-0 z-[100] flex flex-col gap-2 bg-background p-4 md:p-8">
+      <dialog
+        ref={dialogRef}
+        onClose={() => setExpanded(false)}
+        aria-label="コードの拡大表示"
+        className="m-0 h-full max-h-none w-full max-w-none flex-col gap-2 bg-background p-4 text-foreground backdrop:bg-black/50 open:flex md:p-8"
+      >
+        {expanded && (
+          <>
             {/* 画面幅いっぱいに広げるとコードが左端に貼り付いて読みにくいので、中央に収める */}
             <div className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-2">
               <div className="flex items-start gap-2">
@@ -141,9 +147,9 @@ export const CodePane = () => {
             <p className="text-center text-xs text-muted-foreground">
               Esc で閉じる
             </p>
-          </div>,
-          document.body
+          </>
         )}
+      </dialog>
     </>
   );
 };

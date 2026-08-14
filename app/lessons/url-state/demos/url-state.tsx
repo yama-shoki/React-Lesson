@@ -19,6 +19,7 @@ export function UrlState() {
     <div className="flex flex-col gap-4">
       <Input
         placeholder="果物を絞り込む"
+        aria-label="果物を絞り込む"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

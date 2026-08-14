@@ -66,6 +66,7 @@ export function PokemonSearch() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="ポケモンの名前（例: ピ、リザ、ミュウ）"
+        aria-label="ポケモンの名前（例: ピ、リザ、ミュウ）"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

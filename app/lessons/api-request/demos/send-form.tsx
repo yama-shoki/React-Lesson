@@ -44,6 +44,7 @@ export function SendForm() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="ひとこと（「エラー」と入れると失敗します）"
+        aria-label="ひとこと（「エラー」と入れると失敗します）"
         value={text}
         onChange={(event) => setText(event.target.value)}
       />

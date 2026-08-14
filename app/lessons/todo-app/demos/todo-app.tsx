@@ -60,6 +60,7 @@ export function TodoApp() {
       <div className="flex gap-2">
         <Input
           placeholder="やることを書く"
+          aria-label="やることを書く"
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={(event) => event.key === "Enter" && add()}

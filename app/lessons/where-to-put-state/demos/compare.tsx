@@ -20,25 +20,25 @@ export function Compare() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
+      <label className="flex flex-col gap-1.5">
         <span className="text-muted-foreground">useState（メモリ）</span>
         <Input
           value={inMemory}
           onChange={(event) => setInMemory(event.target.value)}
           placeholder="何か入力"
         />
-      </div>
+      </label>
 
-      <div className="flex flex-col gap-1.5">
+      <label className="flex flex-col gap-1.5">
         <span className="text-muted-foreground">useQueryState（URL）</span>
         <Input
           value={inUrl}
           onChange={(event) => setInUrl(event.target.value)}
           placeholder="何か入力"
         />
-      </div>
+      </label>
 
-      <div className="flex flex-col gap-1.5">
+      <label className="flex flex-col gap-1.5">
         <span className="text-muted-foreground">
           useLocalStorageState（ブラウザ）
         </span>
@@ -47,7 +47,7 @@ export function Compare() {
           onChange={(event) => setInStorage(event.target.value)}
           placeholder="何か入力"
         />
-      </div>
+      </label>
 
       <Button
         size="sm"

@@ -18,6 +18,7 @@ export function Controlled() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="名前を入力"
+        aria-label="名前を入力"
         // 表示する値は React が持っているものにする
         value={name}
         // 入力があったら、React 側の値を更新する

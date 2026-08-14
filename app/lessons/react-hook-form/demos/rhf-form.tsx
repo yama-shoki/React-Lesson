@@ -45,14 +45,14 @@ export function RhfForm() {
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
       <div className="flex flex-col gap-1">
         {/* value も onChange も書かない。register が繋いでくれる */}
-        <Input placeholder="名前" {...register("name")} />
+        <Input placeholder="名前" {...register("name")} aria-label="名前" />
         {errors.name && (
           <p className="text-sm text-red-600">{errors.name.message}</p>
         )}
       </div>
 
       <div className="flex flex-col gap-1">
-        <Input placeholder="メールアドレス" {...register("email")} />
+        <Input placeholder="メールアドレス" {...register("email")} aria-label="メールアドレス" />
         {errors.email && (
           <p className="text-sm text-red-600">{errors.email.message}</p>
         )}
@@ -62,6 +62,7 @@ export function RhfForm() {
         <Input
           type="number"
           placeholder="年齢"
+          aria-label="年齢"
           // 入力欄の値は文字列なので、数値に変換してから検査に渡す
           {...register("age", { valueAsNumber: true })}
         />

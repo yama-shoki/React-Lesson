@@ -47,11 +47,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        {/*
+          キーボードだけで読む人のための逃げ道。
+          サイドバーには 59 章ぶんのリンクが並ぶので、これが無いと
+          本文に着くまで毎回 Tab を 60 回以上押すことになる。
+          ふだんは見えず、Tab で来たときだけ画面の左上に出る。
+        */}
+        <a
+          href="#main"
+          className="focus-ring sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
+        >
+          本文へスキップ
+        </a>
         {/* URL を状態の置き場所として使う章があるので、全体を包んでおく */}
         <NuqsAdapter>
           <SidebarProvider>
           <AppSidebar />
-          <main className="relative min-w-0 flex-1">
+          {/* tabIndex を付けないと、飛んだ先でフォーカスが乗らず次の Tab がサイドバーに戻る */}
+          <main id="main" tabIndex={-1} className="relative min-w-0 flex-1">
             {/*
               いま読んでいる章を常に画面上部に出しておく。
               長い章を読み進めても、自分がどこにいるか見失わないようにするため。

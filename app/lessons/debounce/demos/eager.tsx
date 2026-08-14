@@ -36,6 +36,7 @@ export function Eager() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="検索してみる"
+        aria-label="検索してみる"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

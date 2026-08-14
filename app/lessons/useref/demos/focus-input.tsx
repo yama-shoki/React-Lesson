@@ -14,7 +14,7 @@ export function FocusInput() {
   return (
     <div className="flex flex-col gap-3">
       {/* ref を渡すと、React が実物の要素を入れておいてくれる */}
-      <Input ref={inputRef} placeholder="ここに入力" />
+      <Input ref={inputRef} placeholder="ここに入力" aria-label="ここに入力" />
 
       <Button
         size="sm"

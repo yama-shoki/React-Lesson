@@ -29,6 +29,7 @@ export function Validation() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="メールアドレス"
+        aria-label="メールアドレス"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
         // 入力欄から離れた時点で「触った」とみなす

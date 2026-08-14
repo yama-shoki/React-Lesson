@@ -11,7 +11,7 @@ export function Uncontrolled() {
   return (
     <div className="flex flex-col gap-3">
       {/* 値を React に渡していない。入力欄が自分で値を持っている */}
-      <Input placeholder="名前を入力" />
+      <Input placeholder="名前を入力" aria-label="名前を入力" />
 
       <div className="flex items-center gap-2">
         <Button size="sm" disabled>

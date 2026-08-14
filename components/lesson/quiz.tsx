@@ -84,6 +84,21 @@ export const Quiz = ({
                   ) : (
                     String.fromCharCode(65 + index)
                   )}
+                  {/*
+                    正誤は枠の色とアイコンだけで示している。
+                    アイコンは読み上げの対象外なので、答えたあとは
+                    A・B の文字も消えて手がかりがゼロになってしまう。
+                    見た目は変えずに、読み上げ用の言葉だけ添えておく。
+                  */}
+                  {answered && (
+                    <span className="sr-only">
+                      {option.correct
+                        ? "正解の選択肢。"
+                        : isSelected
+                          ? "あなたが選んだ、不正解の選択肢。"
+                          : "不正解の選択肢。"}
+                    </span>
+                  )}
                 </span>
 
                 <span className="min-w-0 flex-1">
@@ -111,6 +126,13 @@ export const Quiz = ({
           );
         })}
       </ul>
+
+      {/* 答えた瞬間に、結果をひとこと読み上げる */}
+      {answered && (
+        <p role="status" className="sr-only">
+          {options[selected].correct ? "正解です。" : "不正解です。"}
+        </p>
+      )}
 
       {answered && (
         <button

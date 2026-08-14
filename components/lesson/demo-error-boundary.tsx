@@ -29,7 +29,7 @@ export class DemoErrorBoundary extends Component<
 
 		return (
 			<div className="flex flex-col gap-3">
-				<p className="font-semibold text-amber-600">
+				<p className="font-semibold text-amber-700 dark:text-amber-400">
 					デモが壊れました。React はこう言っています:
 				</p>
 

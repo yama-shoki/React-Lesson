@@ -28,6 +28,7 @@ export function NoMemo() {
 
       <Input
         placeholder="ここに文字を打ってみる（計算とは無関係）"
+        aria-label="ここに文字を打ってみる（計算とは無関係）"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

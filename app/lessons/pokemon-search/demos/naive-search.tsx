@@ -34,6 +34,7 @@ export function NaiveSearch() {
     <div className="flex flex-col gap-3">
       <Input
         placeholder="ポケモンの名前（例: ピ）"
+        aria-label="ポケモンの名前（例: ピ）"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />

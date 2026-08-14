@@ -66,7 +66,9 @@
 	--destructive: oklch(0.577 0.245 27.325);
 	--border: oklch(0.922 0 0);
 	--input: oklch(0.922 0 0);
-	--ring: oklch(0.708 0 0);
+	/* フォーカスの枠は、教材が対応づけに使っている青と同じにする。
+	   既定のグレーは白背景に 1.5:1 しかなく、どこに居るのか見えない */
+	--ring: var(--connection);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -80,7 +82,7 @@
 	--sidebar-accent: oklch(0.97 0 0);
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
-	--sidebar-ring: oklch(0.708 0 0);
+	--sidebar-ring: var(--connection);
 }
 
 .dark {
@@ -101,7 +103,7 @@
 	--destructive: oklch(0.704 0.191 22.216);
 	--border: oklch(1 0 0 / 10%);
 	--input: oklch(1 0 0 / 15%);
-	--ring: oklch(0.556 0 0);
+	--ring: var(--connection);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -114,7 +116,7 @@
 	--sidebar-accent: oklch(0.269 0 0);
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
-	--sidebar-ring: oklch(0.556 0 0);
+	--sidebar-ring: var(--connection);
 }
 
 @layer base {
@@ -170,6 +172,18 @@
 	100% {
 		opacity: 0;
 		box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+	}
+}
+
+/*
+  動きを減らす設定にしている人には、明滅させない。
+  代わりに、描き直されている間だけ枠を光らせたままにする。
+  「どこが反応したか」は伝わるし、回数は横のバッジの数字でも分かる。
+*/
+@media (prefers-reduced-motion: reduce) {
+	.react-dev-render-flash {
+		animation: none;
+		opacity: 1;
 	}
 }
 
@@ -325,6 +339,15 @@
 .focus-ring:focus-visible {
 	outline: 2px solid var(--ring);
 	outline-offset: 2px;
+}
+
+/*
+  shadcn の既定はフォーカスの輪を 50% の透明度で描くが、
+  それだと白地に 2.2:1 ほどしか出ず、WCAG が求める 3:1 に届かない。
+  薄めずにそのまま使う。
+*/
+*:focus-visible {
+	--tw-ring-color: var(--ring);
 }
 
 /* shiki のデュアルテーマ。ダークモードは CSS 側で切り替える */

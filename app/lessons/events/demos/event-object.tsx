@@ -18,7 +18,7 @@ export function EventObject() {
 
   return (
     <div className="flex flex-col gap-3">
-      <Input placeholder="何か入力してみる" onChange={handleChange} />
+      <Input placeholder="何か入力してみる" onChange={handleChange} aria-label="何か入力してみる" />
       <p className="rounded-md border p-3">
         {text === "" ? "まだ入力されていません" : `${text.length} 文字: ${text}`}
       </p>
