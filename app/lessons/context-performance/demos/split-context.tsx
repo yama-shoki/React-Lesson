@@ -2,7 +2,7 @@
 
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
-import { createContext, type ReactNode, use, useState } from "react";
+import { createContext, type ReactNode, use, useMemo, useState } from "react";
 
 // 置き場所を関心ごとに分ける
 const CountContext = createContext<{
@@ -17,12 +17,15 @@ const NameContext = createContext<{
 
 function CountProvider({ children }: { children: ReactNode }) {
   const [count, setCount] = useState(0);
-  return <CountContext value={{ count, setCount }}>{children}</CountContext>;
+  // count が変わったときだけ、新しい value を作る
+  const value = useMemo(() => ({ count, setCount }), [count]);
+  return <CountContext value={value}>{children}</CountContext>;
 }
 
 function NameProvider({ children }: { children: ReactNode }) {
   const [name, setName] = useState("さとう");
-  return <NameContext value={{ name, setName }}>{children}</NameContext>;
+  const value = useMemo(() => ({ name, setName }), [name]);
+  return <NameContext value={value}>{children}</NameContext>;
 }
 
 // count の置き場所だけを見る

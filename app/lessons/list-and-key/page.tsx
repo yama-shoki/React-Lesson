@@ -280,8 +280,6 @@ See https://react.dev/link/warning-keys for more information.`}
 
         
 
-        
-
         <Quiz
           question="index を key にすると、なぜメモの内容が別の行に付いてしまう？"
           options={[

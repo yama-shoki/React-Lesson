@@ -154,7 +154,7 @@ export default async function Page() {
       <LessonSection id="quiz" {...at(FIXED, "key={member.id}")}>
         <h2>理解できたか確かめる</h2>
 
-<Quiz
+        <Quiz
           question="index を key にしても問題が起きないのは、次のうちどれ？"
           options={[
             {
@@ -175,7 +175,7 @@ export default async function Page() {
             },
           ]}
         />
-<Quiz
+        <Quiz
           question="key に Math.random() を使うと何が起きる？"
           options={[
             {

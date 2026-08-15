@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 /*
   素直に書いた検索。動きはします。
   ですが、通信でよく起きる 3 つの問題がそのまま出ます。
+
+  下の lint 抑制は「取ってきた結果を state に置く」ため。
+  外から返ってきた値の置き場所は state しかないので、ここは例外にあたる。
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 

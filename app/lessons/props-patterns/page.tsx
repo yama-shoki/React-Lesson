@@ -145,7 +145,7 @@ increaseCount, openModal`}
 					同じボタンを別の場面で使い回せなくなります。
 				</p>
 
-</LessonSection>
+			</LessonSection>
 
 			<LessonSection id="variant" {...at(VARIANT, "type Tone =")}>
 				<h2>2. 見た目の種類を、決まった言葉で受け取る</h2>

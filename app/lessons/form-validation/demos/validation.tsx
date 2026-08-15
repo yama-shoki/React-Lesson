@@ -35,9 +35,14 @@ export function Validation() {
         // 入力欄から離れた時点で「触った」とみなす
         onBlur={() => setTouched(true)}
         aria-invalid={showError}
+        aria-describedby={showError ? "email-error" : undefined}
       />
 
-      {showError && <p className="text-sm text-red-600">{error}</p>}
+      {showError && (
+        <p id="email-error" role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
       <Button size="sm" disabled={error !== null}>
         送信

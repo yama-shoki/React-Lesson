@@ -192,7 +192,8 @@ useEffect(() => {
         />
 
         <p>
-          これは Part 3 でやった <code>key</code> で解決できます。
+          これは Part 4「useState の応用」でやった <code>key</code>{" "}
+          で解決できます。
         </p>
 
         <StaticCode
@@ -234,8 +235,7 @@ useEffect(() => {
             見た目より難しいためです。Part 9 で扱います。
           </p>
         </Callout>
-
-</LessonSection>
+      </LessonSection>
 
       <LessonSection id="quiz" {...at(CALCULATE)}>
         <h2>理解できたか確かめる</h2>

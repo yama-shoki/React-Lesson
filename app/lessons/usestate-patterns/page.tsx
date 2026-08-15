@@ -331,8 +331,6 @@ const [status, setStatus] = useState<Status>("idle");`}
 				/>
 
 				
-
-				
 			</LessonSection>
 
 			<LessonSection id="summary" {...at(TOGGLE, "const [isOpen, setIsOpen]")}>

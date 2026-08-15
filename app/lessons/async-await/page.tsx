@@ -213,7 +213,7 @@ add("届いた");`}
 					</p>
 				</Callout>
 
-</LessonSection>
+			</LessonSection>
 
 			<LessonSection id="fetch" {...at(FETCH, "const response = await fetch(path);")}>
 				<h2>サーバーからデータを取ってくる</h2>

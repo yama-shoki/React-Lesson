@@ -171,7 +171,7 @@ export default async function Page() {
 					</p>
 				</Callout>
 
-</LessonSection>
+			</LessonSection>
 
 			<LessonSection id="compose" {...at(CLIENT, "{ children }: { children: ReactNode }")}>
 				<h2>組み合わせ方の決まり</h2>

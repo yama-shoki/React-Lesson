@@ -4,7 +4,13 @@ import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Button } from "@/components/ui/button";
 import useSWR from "swr";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+// 404 や 500 でも fetch は成功扱いになる。
+// ここで throw しておかないと、失敗が error に入ってこない
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("取得に失敗しました");
+  return response.json();
+};
 
 export function WithSwr() {
   useTrackDemoRender();
@@ -18,7 +24,7 @@ export function WithSwr() {
   return (
     <div className="flex flex-col gap-3">
       {isLoading && <p className="text-muted-foreground">読み込み中…</p>}
-      {error && <p className="text-red-600">取得に失敗しました</p>}
+      {error && <p className="text-destructive">取得に失敗しました</p>}
 
       {data && (
         <ul className="flex flex-wrap gap-2">

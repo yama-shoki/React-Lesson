@@ -47,14 +47,14 @@ export function RhfForm() {
         {/* value も onChange も書かない。register が繋いでくれる */}
         <Input placeholder="名前" {...register("name")} aria-label="名前" />
         {errors.name && (
-          <p className="text-sm text-red-600">{errors.name.message}</p>
+          <p className="text-sm text-destructive">{errors.name.message}</p>
         )}
       </div>
 
       <div className="flex flex-col gap-1">
         <Input placeholder="メールアドレス" {...register("email")} aria-label="メールアドレス" />
         {errors.email && (
-          <p className="text-sm text-red-600">{errors.email.message}</p>
+          <p className="text-sm text-destructive">{errors.email.message}</p>
         )}
       </div>
 
@@ -67,7 +67,7 @@ export function RhfForm() {
           {...register("age", { valueAsNumber: true })}
         />
         {errors.age && (
-          <p className="text-sm text-red-600">{errors.age.message}</p>
+          <p className="text-sm text-destructive">{errors.age.message}</p>
         )}
       </div>
 

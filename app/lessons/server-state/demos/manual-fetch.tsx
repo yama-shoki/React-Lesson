@@ -33,7 +33,7 @@ export function ManualFetch() {
   return (
     <div className="flex flex-col gap-3">
       {isLoading && <p className="text-muted-foreground">読み込み中…</p>}
-      {error && <p className="text-red-600">{error}</p>}
+      {error && <p className="text-destructive">{error}</p>}
 
       {!isLoading && !error && (
         <ul className="flex flex-wrap gap-2">

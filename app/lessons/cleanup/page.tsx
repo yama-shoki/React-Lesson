@@ -185,14 +185,25 @@ useEffect(() => {
           <strong>古いものが残ったまま新しいものが増える、ということが起きません。</strong>
         </p>
 
-        <Callout variant="note" title="開発中に 2 回実行されるのは">
+        <Callout variant="note" title="開発中に 2 回実行されるのは（StrictMode）">
           <p>
-            開発中、effect が 2 回実行されることがあります。これは不具合ではありません。
+            開発中、effect が 2 回実行されます。これは不具合ではありません。
+            <strong>StrictMode</strong> という開発用の仕組みが働いています。
           </p>
           <p>
             React が<strong>わざと</strong>「実行 → 後片付け → もう一度実行」を試して、
             <strong>後片付けが正しく書けているかを確かめている</strong>ためです。
             2 回動いて困るなら、後片付けが足りていない合図になります。
+          </p>
+          <p>
+            <strong>本番では 1 回だけ</strong>です。
+            開発中にだけ現れるので、
+            「本番でも 2 回動くのでは」と心配しなくて大丈夫です。
+          </p>
+          <p>
+            この名前は覚えておいてください。
+            記事やエラー文で <code>StrictMode</code> を見かけたとき、
+            この話だと分かります。
           </p>
         </Callout>
       </LessonSection>

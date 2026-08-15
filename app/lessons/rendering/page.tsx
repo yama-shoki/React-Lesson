@@ -53,6 +53,16 @@ export default async function Page() {
 					<strong>目で見える形</strong>にします。
 				</p>
 				<p>
+					きっかけは、いまのところ 2 つです。
+					<strong>自分の state が変わったとき</strong>と、
+					<strong>親がもう一度描き直されたとき</strong>。
+					（3 つめは Part 9 の「Context」で出てきます）
+				</p>
+				<p>
+					大切なのは、<strong>props が変わったから</strong>ではないことです。
+					親が描き直されれば、props を受け取っていない子も描き直されます。
+				</p>
+				<p>
 					React では、コンポーネントの関数が実行されることを
 					<strong>再レンダリング</strong>と呼びます。
 					これが起きても、画面のすべてが一から作り直されるわけではありません。
@@ -236,7 +246,16 @@ function Parent() {
 					それでも親が更新されれば、子の関数は再び呼ばれます。
 				</p>
 
-</LessonSection>
+				<Callout variant="warn" title="props が変わることだけが原因ではない">
+					<p>
+						親が再レンダリングされたとき、React は子の結果を再び計算します。
+					</p>
+					<p>
+						そのとき props が同じかどうかは、React が次に決めることです。
+						props が同じでも、子の関数は実行されます。
+					</p>
+				</Callout>
+			</LessonSection>
 
 			<LessonSection id="placement" {...at(UP, "const [keyword, setKeyword]")}>
 				<h2>だから「state をどこに置くか」が効いてくる</h2>
@@ -343,23 +362,23 @@ function SearchBox() {
 				/>
 
 				<Quiz
-					question="setCount を呼んだとき、React は何をしますか？"
+					question="ページの一番上に置いた検索キーワードの state を、検索欄の中に移しました。何が変わりますか？"
 					options={[
 						{
-							label: "コンポーネントの関数をもう一度実行し、新しい UI を作る",
+							label: "打つたびに描き直される範囲が、検索欄の中だけに狭まる",
 							correct: true,
 							explanation:
-								"setCount は画面を直接書き換えるのではなく、React に再レンダリングを頼むための関数です。",
+								"描き直しは state を持つ場所から下へ広がります。state を下げれば、広がる範囲もそのぶん狭くなります。これが「使う場所の近くに置く」の効き目です。",
 						},
 						{
-							label: "画面の該当部分だけを直接書き換える",
+							label: "描き直しの回数が減る",
 							explanation:
-								"React は最初に関数を実行して新しい JSX を作り、それから差分だけを反映します。",
+								"回数は変わりません。打った回数だけ描き直されます。変わるのは回数ではなく、1 回あたりに巻き込まれる範囲です。",
 						},
 						{
-							label: "値が変わったあと、ブラウザが自動で refresh する",
+							label: "何も変わらない。React が賢く判断してくれる",
 							explanation:
-								"React はブラウザのリロードを使いません。レンダリングは JavaScript の関数実行と差分更新です。",
+								"React は「この値を使っていないから飛ばそう」とは考えません。親が描き直されれば、子は props を受け取っていなくても描き直されます。だから置き場所が効いてきます。",
 						},
 					]}
 				/>
@@ -410,6 +429,17 @@ function SearchBox() {
 					<li>
 						だから<strong>再レンダリング＝遅い、ではありません</strong>。
 						関数の実行と、画面の書き換えは別の段階
+					</li>
+					<li>
+						きっかけは<strong>自分の state か、親が描き直されたか</strong>。
+						props が変わったから、ではない
+					</li>
+					<li>
+						つまり<strong>描き直しは、上から下へ広がります</strong>
+					</li>
+					<li>
+						だから<strong>state は、使う場所のなるべく近くに置く</strong>。
+						それだけで広がる範囲が狭まる
 					</li>
 				</ul>
 			</LessonSection>

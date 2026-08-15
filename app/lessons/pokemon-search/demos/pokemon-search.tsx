@@ -6,6 +6,13 @@ import { useDebounce } from "use-debounce";
 import { PokemonCard } from "./pokemon-card";
 import type { Pokemon } from "./types";
 
+/*
+  この lint は「effect の中で setState するな」と言う。ふだんは正しい
+  （Part 6「その useEffect は要らない」でやったとおり）。
+  ただし外の世界から返ってきた値を受け取る場面は例外で、
+  取ってきた結果をどこかに置く手段が state しかない。
+  この章は、その例外をあえて手で書いてみる章。
+*/
 /* eslint-disable react-hooks/set-state-in-effect */
 
 /** とりうる状態を並べる。真偽値を増やさない */
@@ -75,7 +82,7 @@ export function PokemonSearch() {
         <p className="text-sm text-muted-foreground">探しています…</p>
       )}
 
-      {status === "error" && <p className="text-sm text-red-600">{message}</p>}
+      {status === "error" && <p className="text-sm text-destructive">{message}</p>}
 
       {status === "done" && results.length === 0 && (
         <p className="text-sm text-muted-foreground">

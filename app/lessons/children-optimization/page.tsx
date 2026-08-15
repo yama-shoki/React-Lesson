@@ -204,7 +204,7 @@ function Counter({ children }) {
 					</p>
 				</Callout>
 
-</LessonSection>
+			</LessonSection>
 
 			<LessonSection id="usage" {...at(SPLIT, "function Counter({ children }")}>
 				<h2>どういうときに効くか</h2>

@@ -167,6 +167,63 @@ const NameContext = createContext(...);`}
 				</p>
 			</LessonSection>
 
+			<LessonSection id="stabilize" {...at(SPLIT, "const value = useMemo")}>
+				<h3>分けただけでは、まだ半分</h3>
+
+				<p>
+					ここまでで<strong>原因 1</strong>（項目単位で購読できない）は消えました。
+					ですが<strong>原因 2</strong> はまだ残っています。
+					<code>value</code> に <code>{"{ count, setCount }"}</code>{" "}
+					と直接書くと、
+					Provider が描き直されるたびに新しいオブジェクトになります。
+				</p>
+
+				<p>
+					これを止める道具は、Part 8 でもう手に入れています。
+					<strong><code>useMemo</code></strong> です。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// ✕ 描き直されるたびに、新しいオブジェクト
+return <CountContext value={{ count, setCount }}>{children}</CountContext>;
+
+// ○ count が変わったときだけ、新しいオブジェクト
+const value = useMemo(() => ({ count, setCount }), [count]);
+return <CountContext value={value}>{children}</CountContext>;`}
+				/>
+
+				<p>
+					いまのデモでは、<code>count</code> が変われば
+					どのみち購読側は描き直されるので、
+					<strong>この 1 行で見た目が変わるわけではありません</strong>。
+					効いてくるのは、
+					<strong>Provider が別の理由で描き直されたとき</strong>です。
+				</p>
+
+				<p>
+					たとえば Provider に別の state が増えたとき。
+					<code>value</code> を包んでいなければ、
+					<code>count</code> は 1 ミリも変わっていないのに
+					<code>count</code> を使う部品が全部描き直されます。
+					包んであれば、何も起きません。
+				</p>
+
+				<Callout variant="point" title="Provider を書くときの型">
+					<p>
+						<strong>Context を分ける</strong>（原因 1）と、
+						<strong>value を <code>useMemo</code> で包む</strong>（原因 2）。
+						この 2 つはセットです。
+						どちらか片方だけでは、狙いどおりには止まりません。
+					</p>
+					<p>
+						なお <code>setCount</code> のような更新関数は、
+						React が<strong>毎回同じものを渡すと保証している</strong>ので、
+						依存配列に入れる必要はありません。
+					</p>
+				</Callout>
+			</LessonSection>
+
 			<LessonSection id="children-trick" {...at(SPLIT, "{children}")}>
 				<h3>Provider が children を受け取っている理由</h3>
 
@@ -178,7 +235,8 @@ const NameContext = createContext(...);`}
 					lang="ts"
 					code={`function CountProvider({ children }: { children: ReactNode }) {
   const [count, setCount] = useState(0);
-  return <CountContext value={{ count, setCount }}>{children}</CountContext>;
+  const value = useMemo(() => ({ count, setCount }), [count]);
+  return <CountContext value={value}>{children}</CountContext>;
 }`}
 				/>
 

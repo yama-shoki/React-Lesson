@@ -67,6 +67,7 @@ const [keyword, setKeyword] = useQueryState("keyword", { defaultValue: "" });`}
 				<DemoCard
 					title="URL に置いた検索条件"
 					sourcePath={URL_STATE}
+					showRenderCount
 					description="打つたびにアドレス欄が変わる"
 				>
 					{/* URL を読む部品は Suspense で包む必要がある（この章の最後で説明） */}

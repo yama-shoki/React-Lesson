@@ -57,7 +57,7 @@ export function SendForm() {
       {message && (
         <p
           className={
-            status === "error" ? "text-sm text-red-600" : "text-sm text-green-700"
+            status === "error" ? "text-sm text-destructive" : "text-sm text-emerald-700 dark:text-emerald-400"
           }
         >
           {message}

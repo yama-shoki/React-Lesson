@@ -1,6 +1,3 @@
-"use client";
-
-
 const members = [
   { id: 1, name: "さとう" },
   { id: 2, name: "すずき" },

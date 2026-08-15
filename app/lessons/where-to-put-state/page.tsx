@@ -85,6 +85,7 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 				<DemoCard
 					title="3 つの置き場所を並べる"
 					sourcePath={COMPARE}
+					showRenderCount
 					description="全部に入力してから、再読み込みしてみる"
 				>
 					<Suspense fallback={<p className="text-muted-foreground">読み込み中…</p>}>

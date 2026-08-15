@@ -208,7 +208,7 @@ useState(buildInitialCode);`}
 					question="key を変えると子コンポーネントの state が消えるのはなぜ？"
 					options={[
 						{
-							label: "React が別のコンポーネントだと 判断して、作り直すから",
+							label: "React が別のコンポーネントだと判断して、作り直すから",
 							correct: true,
 							explanation:
 								"key は「同じものか別のものか」の目印です。別物と判断された部品は、state ごと作り直されます。",
