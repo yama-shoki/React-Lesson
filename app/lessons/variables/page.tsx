@@ -11,6 +11,7 @@ import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { ConstArray } from "./demos/const-array-view";
 import { ConstObject } from "./demos/const-object-view";
+import { NewObject } from "./demos/new-object-view";
 import { ConstBoxFigure } from "./figures/const-box";
 
 const SLUG = "variables";
@@ -26,9 +27,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/variables/demos/const-object.ts", label: "const-object.ts" },
   { path: "lessons/variables/demos/const-array.ts", label: "const-array.ts" },
+  { path: "lessons/variables/demos/new-object.ts", label: "new-object.ts" },
 ] as const;
 
-const [OBJECT, ARRAY] = SOURCES.map((source) => source.path);
+const [OBJECT, ARRAY, NEW_OBJECT] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -237,6 +239,39 @@ count = 1; // これは通る`}
         >
           <ConstArray />
         </DemoCard>
+
+      </LessonSection>
+
+      <LessonSection id="new" {...at(NEW_OBJECT, "export const updated")}>
+        <h3>ではどうするか：書き換えずに、新しく作る</h3>
+
+        <p>
+          中身を書き換えられてしまうなら、<strong>書き換えないようにします</strong>。
+          変えたいときは、
+          <strong>新しいオブジェクトを作って、そちらを使う</strong>という考え方です。
+        </p>
+
+        <DemoCard
+          title="新しく作ったほう"
+          tone="good"
+          sourcePath={NEW_OBJECT}
+          description="元のデータは無傷のまま"
+        >
+          <NewObject />
+        </DemoCard>
+
+        <p>
+          元の <code>user</code> は最後まで書き換えていません。
+          変えたいところだけ新しい値にして、
+          残りは元から写した<strong>別のオブジェクト</strong>を作りました。
+        </p>
+
+        <p>
+          いまは「そういう書き方もある」で十分です。
+          この写す作業をもっと短く書く方法は
+          <strong>分割代入とスプレッド構文</strong>の章で、
+          なぜ React でこの書き方が必要なのかは <strong>Part 4</strong> で扱います。
+        </p>
 
         <Callout variant="warn" title="React でいちばん多いバグの原因">
           <p>

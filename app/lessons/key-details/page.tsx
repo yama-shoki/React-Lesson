@@ -8,6 +8,9 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { DemoCard } from "@/components/lesson/demo-card";
+import { RandomKey } from "./demos/random-key";
+import { StableKey } from "./demos/stable-key";
 
 const SLUG = "key-details";
 
@@ -19,9 +22,11 @@ const SOURCES = [
   { path: "lessons/list-and-key/demos/member-row.tsx", label: "member-row.tsx" },
   { path: "lessons/list-and-key/demos/broken-list.tsx", label: "broken-list.tsx" },
   { path: "lessons/list-and-key/demos/fixed-list.tsx", label: "fixed-list.tsx" },
+  { path: "lessons/key-details/demos/random-key.tsx", label: "random-key.tsx" },
+  { path: "lessons/key-details/demos/stable-key.tsx", label: "stable-key.tsx" },
 ] as const;
 
-const [ROW, BROKEN, FIXED] = SOURCES.map((source) => source.path);
+const [ROW, BROKEN, FIXED, RANDOM, STABLE] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -143,6 +148,38 @@ export default async function Page() {
           は毎回「全部が知らない行だ」と判断します。
           つまり<strong>毎回すべての行が作り直されます</strong>。
           遅くなるうえに、入力中の文字も state も毎回消えます。
+        </p>
+
+        <DemoCard
+          title="key に Math.random() を使ったリスト"
+          tone="bad"
+          sourcePath={RANDOM}
+          description="メモ欄に打ってから、ボタンを押す"
+        >
+          <RandomKey />
+        </DemoCard>
+
+        <p>
+          <strong>打った文字が消えました。</strong>
+          リストの中身は 1 つも変えていません。
+          ただ描き直しただけです。
+          それでも key が毎回違うので、React は全部を別物とみなし、
+          <strong>行ごと作り直しています</strong>。
+        </p>
+
+        <DemoCard
+          title="key に id を使ったリスト"
+          tone="good"
+          sourcePath={STABLE}
+          description="同じように、メモ欄に打ってからボタンを押す"
+        >
+          <StableKey />
+        </DemoCard>
+
+        <p>
+          こちらは<strong>打った文字が残ります</strong>。
+          key が変わっていないので、React は同じ行だと判断し、
+          作り直さずにそのまま使います。
         </p>
 
         <p>

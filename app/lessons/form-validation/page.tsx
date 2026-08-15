@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { StaleError } from "./demos/stale-error";
 import { Validation } from "./demos/validation";
 
 const SLUG = "form-validation";
@@ -18,10 +19,11 @@ export const metadata: Metadata = {
 };
 
 const SOURCES = [
+  { path: "lessons/form-validation/demos/stale-error.tsx", label: "stale-error.tsx" },
   { path: "lessons/form-validation/demos/validation.tsx", label: "validation.tsx" },
 ] as const;
 
-const [VALIDATION] = SOURCES.map((source) => source.path);
+const [STALE, VALIDATION] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -109,8 +111,37 @@ const error = validateEmail(email);`}
 
         <p>
           state にしてしまうと、入力のたびに
-          <code>setError</code> を呼ぶ必要が出てきて、
-          呼び忘れれば<strong>直したのにエラーが消えない</strong>という状態になります。
+          <code>setError</code> を呼ぶ必要が出てきます。
+          呼び忘れると、こうなります。
+        </p>
+
+        <DemoCard
+          title="エラーを state で持った版"
+          tone="bad"
+          sourcePath={STALE}
+          description="空のまま「確認する」→ 正しく直す → エラーはどうなる？"
+        >
+          <StaleError />
+        </DemoCard>
+
+        <p>
+          手順は 3 つです。
+          何も入れずに「確認する」を押し、エラーを出す。
+          次に <code>taro@example.com</code> のように正しく入力する。
+          それだけです。
+        </p>
+
+        <p>
+          <strong>エラーが出たままです。</strong>
+          入力はもう正しいのに、表示だけが古い。
+          <code>error</code> という state が、
+          <strong>入力とは別に、勝手に古い値を持ち続けている</strong>からです。
+        </p>
+
+        <p>
+          このあとのデモ（計算で出している版）では、
+          同じ操作をしてもエラーはすぐ消えます。
+          <strong>表示するものが、常に今の入力から計算されている</strong>ためです。
         </p>
       </LessonSection>
 

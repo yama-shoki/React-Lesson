@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { JsxExpression } from "./demos/jsx-expression";
+import { JsxObject } from "./demos/jsx-object";
 import { JsxValue } from "./demos/jsx-value";
 
 const SLUG = "jsx";
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/jsx/demos/jsx-expression.tsx", label: "jsx-expression.tsx" },
   { path: "lessons/jsx/demos/jsx-value.tsx", label: "jsx-value.tsx" },
+  { path: "lessons/jsx/demos/jsx-object.tsx", label: "jsx-object.tsx" },
 ] as const;
 
-const [EXPRESSION, VALUE] = SOURCES.map((source) => source.path);
+const [EXPRESSION, VALUE, OBJECT] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -116,6 +118,42 @@ jsx("p", { className: "text", children: "こんにちは" })`}
           だから React では、条件分岐に三項演算子や{" "}
           <code>&amp;&amp;</code> を使い、繰り返しに <code>map</code> を使います。
           <strong>どちらも式だからです。</strong>
+        </p>
+
+        <h3>式なら何でも書ける、わけではない</h3>
+
+        <p>
+          値になるものは書ける、と言いました。
+          では<strong>オブジェクトはどうでしょうか</strong>。
+          オブジェクトも値です。書けそうに見えます。
+        </p>
+
+        <DemoCard
+          title="オブジェクトをそのまま置いてみる"
+          tone="bad"
+          sourcePath={OBJECT}
+          description="ボタンを押すと、その箱の中だけが壊れます"
+        >
+          <JsxObject />
+        </DemoCard>
+
+        <p>
+          <strong>壊れます。</strong>
+          React が受け取れるのは、
+          <strong>文字・数値・JSX・それらの配列</strong>までです。
+          オブジェクトを渡されても、
+          どう文字にすればいいのか React には決められません。
+        </p>
+
+        <StaticCode
+          code={`{user}        // ✕ オブジェクトは表示できない
+{user.name}   // ○ 中の文字列を取り出す`}
+        />
+
+        <p>
+          初心者がよく出すエラーです。
+          <strong>Objects are not valid as a React child</strong> と出たら、
+          「オブジェクトのまま置いていないか」を疑ってください。
         </p>
       </LessonSection>
 
