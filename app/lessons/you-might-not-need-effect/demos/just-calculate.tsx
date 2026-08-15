@@ -20,7 +20,7 @@ export function JustCalculate() {
         <p className="text-muted-foreground">{items.join(", ")}</p>
       </div>
 
-      <Button size="sm" onClick={() => setItems([...items, "みかん"])}>
+      <Button size="sm" onClick={() => setItems((current) => [...current, "みかん"])}>
         追加する
       </Button>
     </div>

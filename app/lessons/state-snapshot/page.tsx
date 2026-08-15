@@ -177,6 +177,19 @@ setCount(count + 1); // setCount(0 + 1) → やっぱり 1 にして`}
         <p>
           迷ったら関数を渡す形にしておけば、まず間違いません。
         </p>
+
+        <Callout variant="note" title="ここから先の書き方について">
+          <p>
+            ここまでの章では、読みやすさを優先して
+            <code>setCount(count + 1)</code> の形で書いてきました。
+            まだ関数を渡す形を説明していなかったためです。
+          </p>
+          <p>
+            <strong>この章から先のデモは、関数を渡す形に揃えてあります。</strong>
+            見比べたときに書き方が混ざっていると、
+            それ自体が「何か違いがあるのか」というノイズになるためです。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="async" {...at(SNAPSHOT, "setCount(count + 1);")}>

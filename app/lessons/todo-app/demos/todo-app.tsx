@@ -30,25 +30,29 @@ export function TodoApp() {
     const text = draft.trim();
     if (!text) return;
 
-    setTodos([...todos, { id: nextId++, text, done: false }]);
+    setTodos((current) => [...current, { id: nextId++, text, done: false }]);
     setDraft("");
   };
 
   // U: 済み / 未済みを切り替える。該当の 1 件だけ差し替える
   const toggle = (id: number) => {
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo)),
+    setTodos((current) =>
+      current.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo,
+      ),
     );
   };
 
   // U: 文言を書き換える
   const edit = (id: number, text: string) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)));
+    setTodos((current) =>
+      current.map((todo) => (todo.id === id ? { ...todo, text } : todo)),
+    );
   };
 
   // D: 消す。残すものだけを集める
   const remove = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((current) => current.filter((todo) => todo.id !== id));
   };
 
   // 絞り込んだ結果と残り件数は state にしない。毎回そこから計算する

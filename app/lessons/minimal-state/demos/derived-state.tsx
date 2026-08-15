@@ -24,7 +24,7 @@ export function DerivedState() {
       </div>
 
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => setItems([...items, "りんご"])}>
+        <Button size="sm" onClick={() => setItems((current) => [...current, "りんご"])}>
           増やす
         </Button>
         <Button size="sm" variant="outline" onClick={() => setItems([])}>

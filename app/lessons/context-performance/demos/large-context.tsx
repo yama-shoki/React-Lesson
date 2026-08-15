@@ -6,9 +6,9 @@ import { createContext, type ReactNode, use, useState } from "react";
 
 type Store = {
   count: number;
-  setCount: (value: number) => void;
+  setCount: (update: (current: number) => number) => void;
   name: string;
-  setName: (value: string) => void;
+  setName: (update: (current: string) => string) => void;
 };
 
 // count も name も、ひとつの置き場所にまとめている
@@ -38,17 +38,18 @@ function NameDisplay() {
 }
 
 function Controls() {
-  const { count, setCount, name, setName } = use(LargeContext);
+  // 更新するだけなので、値そのものは受け取らない
+  const { setCount, setName } = use(LargeContext);
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button size="sm" onClick={() => setCount(count + 1)}>
+      <Button size="sm" onClick={() => setCount((current) => current + 1)}>
         count を増やす
       </Button>
       <Button
         size="sm"
         variant="outline"
-        onClick={() => setName(name === "さとう" ? "すずき" : "さとう")}
+        onClick={() => setName((current) => (current === "さとう" ? "すずき" : "さとう"))}
       >
         name を変える
       </Button>

@@ -7,12 +7,12 @@ import { createContext, type ReactNode, use, useMemo, useState } from "react";
 // 置き場所を関心ごとに分ける
 const CountContext = createContext<{
   count: number;
-  setCount: (value: number) => void;
+  setCount: (update: (current: number) => number) => void;
 }>({ count: 0, setCount: () => {} });
 
 const NameContext = createContext<{
   name: string;
-  setName: (value: string) => void;
+  setName: (update: (current: string) => string) => void;
 }>({ name: "", setName: () => {} });
 
 function CountProvider({ children }: { children: ReactNode }) {
@@ -49,18 +49,19 @@ function NameDisplay() {
 }
 
 function Controls() {
-  const { count, setCount } = use(CountContext);
-  const { name, setName } = use(NameContext);
+  // 更新するだけなので、値そのものは受け取らない
+  const { setCount } = use(CountContext);
+  const { setName } = use(NameContext);
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button size="sm" onClick={() => setCount(count + 1)}>
+      <Button size="sm" onClick={() => setCount((current) => current + 1)}>
         count を増やす
       </Button>
       <Button
         size="sm"
         variant="outline"
-        onClick={() => setName(name === "さとう" ? "すずき" : "さとう")}
+        onClick={() => setName((current) => (current === "さとう" ? "すずき" : "さとう"))}
       >
         name を変える
       </Button>

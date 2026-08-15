@@ -135,7 +135,7 @@ items.push("みかん");
 setItems(items);
 
 // ○ 新しい配列を作って渡す
-setItems([...items, "みかん"]);`}
+setItems((current) => [...current, "みかん"]);`}
         />
 
         <DemoCard
@@ -176,7 +176,7 @@ map  filter  slice  concat  スプレッド構文`}
         <StaticCode
           lang="ts"
           code={`// 末尾に足す
-setItems([...items, newItem]);
+setItems((current) => [...current, newItem]);
 
 // 先頭に足す
 setItems([newItem, ...items]);
@@ -208,7 +208,7 @@ user.name = "すずき";
 setUser(user);
 
 // ○ 新しいオブジェクトを作る
-setUser({ ...user, name: "すずき" });`}
+setUser((current) => ({ ...current, name: "すずき" }));`}
         />
 
         <Callout variant="warn" title="入れ子になっている場合">

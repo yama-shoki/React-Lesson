@@ -171,13 +171,15 @@ export default async function Page() {
         <StaticCode
           lang="ts"
           code={`// 作る … 後ろに足した新しい配列
-setTodos([...todos, newTodo]);
+setTodos((current) => [...current, newTodo]);
 
 // 変える … 該当の 1 件だけ差し替えた新しい配列
-setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+setTodos((current) =>
+  current.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+);
 
 // 消す … 残すものだけ集めた新しい配列
-setTodos(todos.filter((t) => t.id !== id));`}
+setTodos((current) => current.filter((t) => t.id !== id));`}
         />
 
         <p>

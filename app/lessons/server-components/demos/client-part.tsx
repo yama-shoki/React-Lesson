@@ -11,7 +11,7 @@ export function ClientPart({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col gap-3">
       <RenderBox title="ブラウザ側（Client Component）" tone="highlight">
-        <Button size="sm" onClick={() => setCount(count + 1)}>
+        <Button size="sm" onClick={() => setCount((current) => current + 1)}>
           押した回数: {count}
         </Button>
       </RenderBox>

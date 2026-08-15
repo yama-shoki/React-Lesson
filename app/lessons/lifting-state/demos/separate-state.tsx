@@ -12,7 +12,7 @@ function Panel({ label }: { label: string }) {
     <RenderBox title={label}>
       <div className="flex items-center justify-between gap-3">
         <span className="font-mono font-semibold tabular-nums">{count}</span>
-        <Button size="sm" onClick={() => setCount(count + 1)}>
+        <Button size="sm" onClick={() => setCount((current) => current + 1)}>
           増やす
         </Button>
       </div>

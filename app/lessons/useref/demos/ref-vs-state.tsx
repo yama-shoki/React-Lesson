@@ -22,7 +22,7 @@ export function RefVsState() {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => setStateCount(stateCount + 1)}>
+        <Button size="sm" onClick={() => setStateCount((current) => current + 1)}>
           state を増やす
         </Button>
         <Button
