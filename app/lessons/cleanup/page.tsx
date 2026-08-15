@@ -9,6 +9,8 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { LeakingTimer } from "./demos/leaking-timer";
+import { Race } from "./demos/race";
 import { Timer } from "./demos/timer";
 
 const SLUG = "cleanup";
@@ -18,10 +20,12 @@ export const metadata: Metadata = {
 };
 
 const SOURCES = [
+  { path: "lessons/cleanup/demos/leaking-timer.tsx", label: "leaking-timer.tsx" },
   { path: "lessons/cleanup/demos/timer.tsx", label: "timer.tsx" },
+  { path: "lessons/cleanup/demos/race.tsx", label: "race.tsx" },
 ] as const;
 
-const [TIMER] = SOURCES.map((source) => source.path);
+const [LEAKING, TIMER, RACE] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -95,6 +99,27 @@ export default async function Page() {
           画面から消えても、<strong>タイマーは動き続けます</strong>。
         </p>
 
+        <DemoCard
+          title="後片付けを書かなかった時計"
+          tone="bad"
+          sourcePath={LEAKING}
+          description="「隠す」「表示する」を何度か往復してから、数えてみる"
+        >
+          <LeakingTimer />
+        </DemoCard>
+
+        <p>
+          隠しても、<strong>タイマーは止まっていません</strong>。
+          そして往復するたびに<strong>新しいタイマーが増えます</strong>。
+          「動いているタイマーを数える」を押すと、いま動いている本数が出ます。
+        </p>
+
+        <p>
+          もう一度表示したときに秒数が 0 から始まるので、
+          <strong>画面の上では何も壊れていないように見えます</strong>。
+          これがこの不具合のいやなところです。
+        </p>
+
         <ul>
           <li>
             <strong>裏で動き続ける</strong> …
@@ -126,6 +151,110 @@ export default async function Page() {
             <code>addEventListener</code> には{" "}
             <code>removeEventListener</code>。
             片方を書いた時点で、もう片方も書いてしまうのが安全です。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="race" {...at(RACE, "let ignore = false")}>
+        <h2>後片付けは、通信でも要る</h2>
+
+        <p>
+          後片付けはタイマーだけの話ではありません。
+          <strong>通信でこそ効いてきます</strong>。
+        </p>
+
+        <p>
+          こういう画面を考えます。
+          ボタンで表示する人を切り替えると、その人のデータを取りにいく。
+          素直に書くと、こうなります。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`useEffect(() => {
+  fetch(\`/api/profile?id=\${id}\`)
+    .then((response) => response.json())
+    .then((data) => setProfile(data));
+}, [id]);`}
+        />
+
+        <p>
+          動いているように見えます。ですが、
+          <strong>通信にかかる時間は毎回ちがいます</strong>。
+          先に頼んだほうが先に返ってくるとはかぎりません。
+        </p>
+
+        <DemoCard
+          title="1 番 → 2 番と続けて切り替える"
+          sourcePath={RACE}
+          description="1 番だけ、わざと返事が遅くなるようにしてあります"
+        >
+          <Race />
+        </DemoCard>
+
+        <p>
+          ボタンを押すと、1 番を選んだ直後に 2 番へ切り替わります。
+          上の箱は、いったん 2 番（すずき）を表示したあと、
+          <strong>あとから届いた 1 番（さとう）に上書きされます</strong>。
+          選んでいるのは 2 番なのに、画面には 1 番が出ている状態です。
+        </p>
+
+        <Callout variant="warn" title="順番が入れ替わる">
+          <p>
+            これは<strong>競合状態</strong>と呼ばれます。
+            速い返事が先に着き、
+            <strong>遅い返事があとから上書きしてしまう</strong>ことで起きます。
+          </p>
+          <p>
+            通信が速い開発環境では<strong>ほとんど再現しません</strong>。
+            そして本番の遅い回線でだけ、
+            「たまに違う人が出る」という形で現れます。
+          </p>
+        </Callout>
+
+        <h3>直し方は、後片付けと同じ</h3>
+
+        <p>
+          新しい effect が始まる前に、
+          <strong>古い effect の結果を無効にしておきます</strong>。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`useEffect(() => {
+  // この effect が「まだ有効か」の目印
+  let ignore = false;
+
+  fetch(\`/api/profile?id=\${id}\`)
+    .then((response) => response.json())
+    .then((data) => {
+      // 古くなっていたら、返ってきた結果を捨てる
+      if (!ignore) setProfile(data);
+    });
+
+  return () => {
+    ignore = true;
+  };
+}, [id]);`}
+        />
+
+        <p>
+          <code>id</code> が変わると、React はまず後片付けを呼びます。
+          そこで <code>ignore</code> を立てておけば、
+          あとから届いた古い返事は<strong>捨てられます</strong>。
+          下の箱が上書きされないのは、これが理由です。
+        </p>
+
+        <Callout variant="note" title="通信そのものを取り消したいときは">
+          <p>
+            <code>ignore</code> は<strong>結果を捨てるだけ</strong>で、
+            通信自体は最後まで走ります。
+            通信そのものを止めたいときは <code>AbortController</code> を使います
+            （次の節のコード例にあります）。
+          </p>
+          <p>
+            ふだんは <code>ignore</code>{" "}
+            で十分です。<strong>画面が嘘をつかないこと</strong>が目的なので。
           </p>
         </Callout>
       </LessonSection>

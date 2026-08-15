@@ -11,6 +11,7 @@ import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { FalsyList } from "./demos/falsy-view";
 import { Operators } from "./demos/operators-view";
+import { ZeroView } from "./demos/zero-view";
 
 const SLUG = "truthy-falsy";
 
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/truthy-falsy/demos/falsy.ts", label: "falsy.ts" },
   { path: "lessons/truthy-falsy/demos/operators.ts", label: "operators.ts" },
+  { path: "lessons/truthy-falsy/demos/zero-view.tsx", label: "zero-view.tsx" },
 ] as const;
 
-const [FALSY, OPERATORS] = SOURCES.map((source) => source.path);
+const [FALSY, OPERATORS, ZERO] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -161,6 +163,22 @@ export default async function Page() {
 // ○ 比較して true / false にしてから渡す
 {items.length > 0 && <p>{items.length} 件あります</p>}`}
         />
+
+        <DemoCard
+          title="0 が出るところを見る"
+          sourcePath={ZERO}
+          description="「1 つ減らす」を押して、件数を 0 まで減らしてみる"
+        >
+          <ZeroView />
+        </DemoCard>
+
+        <p>
+          件数が 1 以上のあいだは、2 つの箱は同じに見えます。
+          <strong>0 にした瞬間だけ</strong>、上の箱に
+          <strong>0 という文字が残ります</strong>。
+          この章の最初に書いた「画面に 0 だけがぽつんと表示される」は、
+          これのことです。
+        </p>
 
         <p>
           <code>false</code> は React が画面に出さないと決めている値なので、

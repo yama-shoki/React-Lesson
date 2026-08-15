@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { StaleDeps } from "./demos/stale-deps";
 import { TitleSync } from "./demos/title-sync";
 
 const SLUG = "useeffect";
@@ -19,9 +20,10 @@ export const metadata: Metadata = {
 
 const SOURCES = [
   { path: "lessons/useeffect/demos/title-sync.tsx", label: "title-sync.tsx" },
+  { path: "lessons/useeffect/demos/stale-deps.tsx", label: "stale-deps.tsx" },
 ] as const;
 
-const [TITLE] = SOURCES.map((source) => source.path);
+const [TITLE, STALE] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -112,6 +114,47 @@ export default async function Page() {
           code={`useEffect(fn, [count]); // count が変わったときだけ
 useEffect(fn, []);      // 最初の 1 回だけ
 useEffect(fn);          // 毎回（ほとんど使わない）`}
+        />
+
+        <p>
+          書き忘れると何が起きるのか、実際に見てみます。
+          下の 2 つは、どちらも
+          <strong>「count が変わったら記録する」</strong>つもりで書いたものです。
+        </p>
+
+        <DemoCard
+          title="依存配列を書き忘れた効果"
+          tone="bad"
+          sourcePath={STALE}
+          description="count を何度か増やしてみる"
+        >
+          <StaleDeps />
+        </DemoCard>
+
+        <p>
+          上の箱は<strong>0 のまま動きません</strong>。
+          依存配列が空なので、effect は最初の 1 回しか実行されず、
+          そのとき見えていた <code>count</code> の値（0）で止まっています。
+        </p>
+
+        <p>
+          <strong>エラーは出ません。</strong>
+          画面はふつうに動いていて、
+          記録された値だけが静かに古いままです。
+          これが「書き忘れ」のいやなところです。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// ✕ count を使っているのに、依存配列に書いていない
+useEffect(() => {
+  setRecorded(count);
+}, []);
+
+// ○ 使っている値は、すべて書く
+useEffect(() => {
+  setRecorded(count);
+}, [count]);`}
         />
 
         <Callout variant="warn" title="依存配列は省略しない">
