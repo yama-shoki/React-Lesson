@@ -15,12 +15,20 @@ export const CodeBlock = ({
   snippet,
   lines,
   scrollToHighlight,
+  connectionTarget,
   className,
 }: {
   snippet: Snippet;
   lines?: readonly [number, number];
   /** 右ペインでは注目行まで自動で送る。本文中に置くときは動かさない */
   scrollToHighlight?: boolean;
+  /**
+   * デモカードから伸びる線の行き先にする。右ペインだけに付ける。
+   * scrollToHighlight と兼用にしていた時期があり、狭い画面用の
+   * インラインコード（非表示・サイズ 0）が先に拾われて
+   * 線が全ページで消えていた。役割が違うので別のフラグにしている。
+   */
+  connectionTarget?: boolean;
   /** 高さの決め方は置かれる場所によって違うので、外から渡す */
   className?: string;
 }) => {
@@ -64,7 +72,7 @@ export const CodeBlock = ({
     <div
       ref={scrollRef}
       // 線の行き先になるのは右ペインだけ（本文中や拡大表示は対象外）
-      data-code-pane={scrollToHighlight ? "" : undefined}
+      data-code-pane={connectionTarget ? "" : undefined}
       className={cn(
         "code-scroll relative overflow-auto rounded-lg border bg-[var(--code-bg)]",
         className
