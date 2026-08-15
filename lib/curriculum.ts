@@ -40,6 +40,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "objects-and-references",
+				title: "オブジェクトと参照",
+				summary: "「見た目が同じでも別のもの」が、この先ずっと効いてくる",
+				ready: true,
+			},
+			{
 				slug: "functions",
 				title: "関数を値として扱う",
 				summary: "「関数を渡す」が分かると onClick が読めるようになる",
