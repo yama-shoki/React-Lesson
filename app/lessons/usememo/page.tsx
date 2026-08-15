@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { NoMemo } from "./demos/no-memo";
+import { StableObject } from "./demos/stable-object";
 import { WithMemo } from "./demos/with-memo";
 
 const SLUG = "usememo";
@@ -22,9 +23,10 @@ const SOURCES = [
 	{ path: "lessons/usememo/demos/no-memo.tsx", label: "no-memo.tsx" },
 	{ path: "lessons/usememo/demos/with-memo.tsx", label: "with-memo.tsx" },
 	{ path: "lessons/usememo/demos/heavy.ts", label: "heavy.ts" },
+	{ path: "lessons/usememo/demos/stable-object.tsx", label: "stable-object.tsx" },
 ] as const;
 
-const [NO_MEMO, WITH_MEMO, HEAVY] = SOURCES.map((source) => source.path);
+const [NO_MEMO, WITH_MEMO, HEAVY, STABLE] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
 	const snippets = await loadSnippets(SOURCES);
@@ -168,27 +170,61 @@ const found = items.filter((item) => item.done);   // 数百件程度なら不�
 				</Callout>
 			</LessonSection>
 
-			<LessonSection id="another-use" {...at(WITH_MEMO, "const total = useMemo")}>
-				<h3>もうひとつの使い道</h3>
+			<LessonSection id="another-use" {...at(STABLE, "const stable = useMemo")}>
+				<h2>もうひとつの使い道：同じものを渡し続ける</h2>
 
 				<p>
-					実は <code>useMemo</code> は、速さ以外の目的でも使われます。
-					<strong>同じものを渡し続けるため</strong>です。
+					ここまでは「重い計算を省く」話でした。
+					ですが実務では、
+					<strong>もうひとつの使い道のほうがよく出てきます</strong>。
+					計算が重いからではなく、
+					<strong>前と同じものを渡し続けるため</strong>に使う、という使い方です。
 				</p>
 
+				<p>
+					<code>memo</code> の章で、
+					<strong>包んだのに効かない</strong>例を見ました。
+					原因は「毎回新しいオブジェクトを渡していること」でした。
+					あのとき外に出して直しましたが、
+					<strong>state から組み立てるものは外に出せません</strong>。
+				</p>
+
+				<p>その場合に使うのが、これです。</p>
+
 				<StaticCode
-					code={`// 毎回新しいオブジェクト → memo が効かない / effect が毎回動く
+					code={`// ✕ 毎回新しいオブジェクト → memo が効かない / effect が毎回動く
 const options = { unit: "回" };
 
-// 同じものを使い回す
+// ○ 同じものを使い回す
 const options = useMemo(() => ({ unit: "回" }), []);`}
 				/>
 
+				<DemoCard
+					title="同じ子に、2 通りの渡し方をする"
+					sourcePath={STABLE}
+					description="count を押す。name は変わっていない"
+				>
+					<StableObject />
+				</DemoCard>
+
 				<p>
-					<code>memo</code> の章と、無限ループの章でやった問題への対処です。
-					<strong>計算が重いからではなく、毎回同じオブジェクトを渡し続けるために使う</strong>
-					という使い方も覚えておいてください。
+					どちらの子も <code>memo</code> で包んであり、
+					<code>name</code> は一度も変わっていません。
+					それでも<strong>上の箱だけが光ります</strong>。
+					渡しているものが毎回別物だからです。
 				</p>
+
+				<Callout variant="point" title="ここまでが 1 本につながります">
+					<p>
+						<code>memo</code> は<strong>「同じものかどうか」</strong>で判定する。
+						<code>useMemo</code> は<strong>その「同じもの」を作り続ける</strong>。
+						2 つでひと組の道具です。
+					</p>
+					<p>
+						渡すのが<strong>関数</strong>のときは、次の章の
+						<code>useCallback</code> が同じ役割をします。
+					</p>
+				</Callout>
 			</LessonSection>
 
 			<LessonSection id="quiz" {...at(WITH_MEMO, "const total = useMemo")}>

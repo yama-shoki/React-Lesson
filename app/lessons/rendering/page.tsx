@@ -255,6 +255,41 @@ function Parent() {
 						props が同じでも、子の関数は実行されます。
 					</p>
 				</Callout>
+
+				<h3>ただし、止まることもある</h3>
+
+				<p>
+					ここまで「親が描き直されれば子も描き直される」と書いてきました。
+					これは既定の動きです。ですが React には、
+					<strong>途中で打ち切る道</strong>が 2 つ用意されています。
+				</p>
+
+				<ol>
+					<li>
+						<strong>指示書そのものが前回と同じとき</strong> …{" "}
+						中を見るまでもないので、<strong>その枝ごと打ち切られます</strong>
+					</li>
+					<li>
+						<strong>指示書は新しいが、渡している値が同じとき</strong> …{" "}
+						これは<strong>見比べないと分かりません</strong>。
+						だから既定では止まらず、頼んで初めて見比べてくれます
+					</li>
+				</ol>
+
+				<p>
+					上で見た「子も描き直される」は、2 の状況です。
+					指示書は毎回新しく作られているので、
+					React は見比べる指示がないかぎり、そのまま実行します。
+				</p>
+
+				<Callout variant="note" title="この 2 つが Part 8 の下敷きになります">
+					<p>
+						1 を使うのが<strong>「children で切り離す」</strong>、
+						2 を頼むのが<strong><code>memo</code></strong> です。
+						どちらも新しい仕組みではなく、
+						<strong>ここで見た止まり方を、狙って起こしているだけ</strong>です。
+					</p>
+				</Callout>
 			</LessonSection>
 
 			<LessonSection id="placement" {...at(UP, "const [keyword, setKeyword]")}>

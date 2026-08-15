@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { MemoBroken } from "./demos/memo-broken";
+import { MemoFixed } from "./demos/memo-fixed";
 import { MemoDemo } from "./demos/memo-demo";
 
 const SLUG = "memo";
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 const SOURCES = [
 	{ path: "lessons/memo/demos/memo-demo.tsx", label: "memo-demo.tsx" },
 	{ path: "lessons/memo/demos/memo-broken.tsx", label: "memo-broken.tsx" },
+	{ path: "lessons/memo/demos/memo-fixed.tsx", label: "memo-fixed.tsx" },
 ] as const;
 
-const [DEMO, BROKEN] = SOURCES.map((source) => source.path);
+const [DEMO, BROKEN, FIXED] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
 	const snippets = await loadSnippets(SOURCES);
@@ -153,7 +155,64 @@ const Memoized = memo(function Memoized({ name }) { ... });`}
 					<p>
 						とくに<strong>関数を渡す場合</strong>が圧倒的に多く、
 						「memo したのに効かない」の原因はほぼこれです。
-						その対処は <code>useCallback</code> の章で扱います。
+						直し方は次の節から見ていきます。
+					</p>
+				</Callout>
+			</LessonSection>
+
+			<LessonSection id="fixed" {...at(FIXED, "const user = {")}>
+				<h2>いちばん簡単な直し方</h2>
+
+				<p>
+					原因は「毎回作り直していること」でした。
+					なら、<strong>作り直さなければいい</strong>。
+					この <code>user</code> は誰にも依存していないので、
+					<strong>関数の外に出すだけ</strong>で済みます。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// ✕ 描き直されるたびに、新しいオブジェクト
+function MemoBroken() {
+  const user = { name: "さとう" };
+  ...
+}
+
+// ○ 一度だけ作られて、ずっと同じもの
+const user = { name: "さとう" };
+
+function MemoFixed() {
+  ...
+}`}
+				/>
+
+				<DemoCard
+					title="外に出して直した例"
+					tone="good"
+					sourcePath={FIXED}
+					showRenderCount
+					description="何度押しても、下の箱は光らない"
+				>
+					<MemoFixed />
+				</DemoCard>
+
+				<p>
+					<strong>光らなくなりました。</strong>
+					渡しているものが毎回同じなので、<code>memo</code> の見比べが効いています。
+				</p>
+
+				<Callout variant="warn" title="外に出せないときは">
+					<p>
+						いまの <code>user</code> は固定値だったので外に出せました。
+						ですが実際には、
+						<strong>state から組み立てるオブジェクト</strong>のほうが多いはずです。
+						それは外に出せません。
+					</p>
+					<p>
+						その場合は <code>useMemo</code>、
+						関数なら <code>useCallback</code> を使います。
+						どちらも<strong>「前と同じものを渡し続ける」ための道具</strong>で、
+						このあとの 2 章でそれぞれ扱います。
 					</p>
 				</Callout>
 			</LessonSection>

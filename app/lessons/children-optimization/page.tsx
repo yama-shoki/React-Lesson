@@ -170,40 +170,24 @@ function Counter({ children }) {
 					<code>children</code> は<strong>前回とまったく同じもの</strong>です。
 				</p>
 
-				<Callout variant="warn" title="Part 7 で習ったことと矛盾していませんか">
+				<Callout variant="point" title="これが 1 つめの止まり方です">
 					<p>
-						Part 7 では
-						<strong>「props が同じでも、親が描き直されれば子も実行される」</strong>
-						と書きました。ここではその逆のことが起きています。
-						引っかかって当然です。
+						Part 7 で、止まり方には 2 種類あると書きました。
+						<strong>指示書そのものが前回と同じなら、その枝ごと打ち切られる</strong>。
+						いま起きているのは、そちらです。
 					</p>
 					<p>
-						じつは React には、
-						<strong>止まり方が 2 種類</strong>あります。
+						<code>children</code> として渡すと、
+						その指示書は<strong>外側で 1 回だけ作られます</strong>。
+						Counter がどれだけ描き直されても、作り直されるのは Counter 自身の分だけで、
+						受け取った <code>children</code> は前回と同じものです。
 					</p>
-					<ol>
-						<li>
-							<strong>指示書そのものが前回と同じとき</strong> …{" "}
-							中を見るまでもないので、
-							<strong>その枝ごと処理を打ち切ります</strong>。
-							いま起きているのはこちら
-						</li>
-						<li>
-							<strong>指示書は新しいが、props が同じとき</strong> …{" "}
-							これは<strong>見比べないと分かりません</strong>。
-							だから既定では止まらず、
-							<code>memo</code> で「見比べてくれ」と頼む
-						</li>
-					</ol>
 					<p>
-						Part 7 で言っていたのは 2 のほうです。
-						<code>children</code> として渡すと
-						<strong>そもそも指示書が作り直されない</strong>ので、
-						1 の打ち切りが効きます。
-						<strong>道具を使わずに済むのは、このためです。</strong>
+						だから<strong>道具を使わずに済みます</strong>。
+						次の章の <code>memo</code> は、2 つめの止まり方
+						（指示書は新しいが、値が同じ）を頼むための道具です。
 					</p>
 				</Callout>
-
 			</LessonSection>
 
 			<LessonSection id="usage" {...at(SPLIT, "function Counter({ children }")}>
