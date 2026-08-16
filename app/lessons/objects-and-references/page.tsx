@@ -167,6 +167,20 @@ member.address.city  // "東京"`}
           中身が同じでも、別々に作った以上は別の箱です。
           だから <code>===</code> は false を返します。
         </p>
+
+        <Callout variant="note" title="この「箱を指している」を参照と呼びます">
+          <p>
+            名札が箱を指している、というこの関係を
+            <strong>参照</strong>と呼びます。
+            記事や同僚の口からは、
+            <strong>「参照が同じ」「参照が変わる」</strong>という言い方で出てきます。
+          </p>
+          <p>
+            この教材では分かりやすさを優先して「箱」「名札」で通しますが、
+            <strong>言っていることは同じ</strong>です。
+            外で「参照」を見かけたら、この絵を思い出してください。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="alias" {...at(REFERENCE, "export const box3 = box1")}>
@@ -249,6 +263,23 @@ copy.name = "すずき";`}
             書くたびに新しい箱ができているから、React は「変わった」と判断する
           </li>
         </ul>
+
+        <p>ぴんと来ないと思うので、形だけ見ておきます。</p>
+
+        <StaticCode
+          lang="ts"
+          code={`// 1 つめ … 配列に足したのに、画面が変わらない
+items.push("みかん");
+setItems(items);        // 同じ箱を渡している
+
+// 2 つめ … 中身は毎回同じなのに、処理が止まらない
+const options = { unit: "回" };   // 書くたびに新しい箱`}
+        />
+
+        <p>
+          どちらも Part 4 以降で、実際に動かしながらやります。
+          <strong>いまは「同じ箱かどうかで決まる」だけ持っていってください。</strong>
+        </p>
 
         <p>
           どちらも<strong>同じ 1 つの性質</strong>から出ています。

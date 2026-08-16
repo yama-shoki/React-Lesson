@@ -5,6 +5,7 @@ import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { stepLabels, steps, useFormStore, type Step } from "./form-store";
@@ -145,6 +146,13 @@ export function MultiStepForm() {
   const goBack = useFormStore((state) => state.goBack);
   const send = useFormStore((state) => state.send);
   const restart = useFormStore((state) => state.restart);
+
+  /*
+    ストアはコンポーネントの外にあるので、画面を離れても中身が残る。
+    実際のアプリではそれが利点だが、この章は何度でも試せるほうがよいので、
+    デモから離れるときに初期化しておく。
+  */
+  useEffect(() => restart, [restart]);
 
   return (
     <div className="flex flex-col gap-4">

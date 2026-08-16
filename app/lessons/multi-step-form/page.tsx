@@ -254,6 +254,21 @@ submitAccount(values);`}
           </li>
         </ul>
 
+        <Callout variant="warn" title="ストアは画面を離れても残る">
+          <p>
+            ストアはコンポーネントの外にあるので、
+            <strong>別のページへ移って戻ってきても、中身はそのまま</strong>です。
+            <code>useState</code> や <code>useReducer</code> なら、
+            画面から消えた時点で初期化されていました。
+          </p>
+          <p>
+            入力の続きができるという意味では利点ですが、
+            <strong>意図しない持ち越し</strong>にもなります。
+            このデモは何度でも試せるように、
+            離れるときに初期化するようにしてあります。
+          </p>
+        </Callout>
+
         <Callout variant="note" title="わざと失敗させるには">
           <p>
             名前に<strong>「エラー」</strong>という文字を含めると、

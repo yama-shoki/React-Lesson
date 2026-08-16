@@ -1,3 +1,4 @@
+import type { Pokemon } from "@/app/lessons/pokemon-search/demos/types";
 import { pokemonIndex } from "@/lib/pokemon-index";
 import { NextResponse } from "next/server";
 
@@ -14,17 +15,6 @@ import { NextResponse } from "next/server";
 const POKE_API = "https://pokeapi.co/api/v2";
 
 /** 画面に返す形。向こうの巨大な JSON から、要るものだけ抜き出す */
-export type Pokemon = {
-  id: number;
-  name: string;
-  imageUrl: string | null;
-  types: string[];
-  /** cm */
-  height: number;
-  /** kg */
-  weight: number;
-};
-
 /** タイプ名の日本語。ここも向こうは英語しか返さない */
 const typeNames: Record<string, string> = {
   normal: "ノーマル",
