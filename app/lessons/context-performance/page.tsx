@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LargeContextDemo } from "./demos/large-context";
 import { SplitContextDemo } from "./demos/split-context";
 
@@ -384,6 +385,19 @@ const SetCountContext = createContext(() => {}); // 更新関数`}
 					</li>
 					<li>ただし、やりすぎない。実際に遅くなってから分ける</li>
 				</ul>
+
+				<Callout variant="note" title="この手数を減らす道具があります">
+					<p>
+						分けて、包んで、囲む。
+						<strong>正しいのですが、手数が多い</strong>のも確かです。
+						画面が育つほど Provider が増えていきます。
+					</p>
+					<p>
+						実務では、ここで外部のストアを使うことが多くなります。
+						次の章の <Link href="/lessons/zustand">Zustand</Link> で、
+						<strong>同じことがセレクタ 1 行で書ける</strong>のを見ます。
+					</p>
+				</Callout>
 			</LessonSection>
 
 			<LessonFooter slug={SLUG} />

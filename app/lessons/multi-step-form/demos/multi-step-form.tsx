@@ -5,16 +5,9 @@ import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  formReducer,
-  initialState,
-  stepLabels,
-  steps,
-  type Step,
-} from "./form-reducer";
+import { stepLabels, steps, useFormStore, type Step } from "./form-store";
 
 const accountSchema = z.object({
   email: z.email("メールアドレスの形式が正しくありません"),
@@ -140,31 +133,19 @@ function StepProfile({
 export function MultiStepForm() {
   useTrackDemoRender();
 
-  const [state, dispatch] = useReducer(formReducer, initialState);
+  // 必要なものだけ取り出す
+  const step = useFormStore((state) => state.step);
+  const account = useFormStore((state) => state.account);
+  const profile = useFormStore((state) => state.profile);
+  const status = useFormStore((state) => state.status);
+  const message = useFormStore((state) => state.message);
 
-  const send = async () => {
-    dispatch({ type: "send_started" });
+  const submitAccount = useFormStore((state) => state.submitAccount);
+  const submitProfile = useFormStore((state) => state.submitProfile);
+  const goBack = useFormStore((state) => state.goBack);
+  const send = useFormStore((state) => state.send);
+  const restart = useFormStore((state) => state.restart);
 
-    try {
-      const response = await fetch("/api/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: state.profile?.name ?? "" }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => null);
-        throw new Error(data?.message ?? "送信に失敗しました");
-      }
-
-      dispatch({ type: "send_succeeded" });
-    } catch (error) {
-      dispatch({
-        type: "send_failed",
-        message: error instanceof Error ? error.message : "送信に失敗しました",
-      });
-    }
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -174,7 +155,7 @@ export function MultiStepForm() {
           <li
             key={step}
             className={`rounded-md border px-3 py-1 ${
-              step === state.step
+              step === step
                 ? "border-foreground/40 font-semibold"
                 : "text-muted-foreground"
             }`}
@@ -184,38 +165,38 @@ export function MultiStepForm() {
         ))}
       </ol>
 
-      {state.step === "account" && (
+      {step === "account" && (
         <StepAccount
-          onNext={(values) => dispatch({ type: "account_submitted", values })}
+          onNext={(values) => submitAccount(values)}
         />
       )}
 
-      {state.step === "profile" && (
+      {step === "profile" && (
         <StepProfile
-          onNext={(values) => dispatch({ type: "profile_submitted", values })}
-          onBack={() => dispatch({ type: "went_back" })}
+          onNext={(values) => submitProfile(values)}
+          onBack={() => goBack()}
         />
       )}
 
-      {state.step === "confirm" && (
+      {step === "confirm" && (
         <RenderBox title="3. 確認" tone="highlight">
           <div className="flex flex-col gap-3">
             <dl className="grid grid-cols-[6rem_1fr] gap-1 text-sm">
               <dt className="text-muted-foreground">メール</dt>
-              <dd>{state.account?.email}</dd>
+              <dd>{account?.email}</dd>
               <dt className="text-muted-foreground">名前</dt>
-              <dd>{state.profile?.name}</dd>
+              <dd>{profile?.name}</dd>
               <dt className="text-muted-foreground">年齢</dt>
-              <dd>{state.profile?.age}</dd>
+              <dd>{profile?.age}</dd>
             </dl>
 
-            {state.status === "error" && (
+            {status === "error" && (
               <p role="alert" className="text-sm text-destructive">
-                {state.message}
+                {message}
               </p>
             )}
 
-            {state.status === "done" ? (
+            {status === "done" ? (
               <p className="text-sm text-emerald-700 dark:text-emerald-400">
                 送信しました
               </p>
@@ -225,8 +206,8 @@ export function MultiStepForm() {
                   size="sm"
                   type="button"
                   variant="outline"
-                  onClick={() => dispatch({ type: "went_back" })}
-                  disabled={state.status === "sending"}
+                  onClick={() => goBack()}
+                  disabled={status === "sending"}
                 >
                   戻る
                 </Button>
@@ -234,9 +215,9 @@ export function MultiStepForm() {
                   size="sm"
                   type="button"
                   onClick={send}
-                  disabled={state.status === "sending"}
+                  disabled={status === "sending"}
                 >
-                  {state.status === "sending" ? "送信中…" : "送信する"}
+                  {status === "sending" ? "送信中…" : "送信する"}
                 </Button>
               </div>
             )}
@@ -247,7 +228,7 @@ export function MultiStepForm() {
       <Button
         size="sm"
         variant="ghost"
-        onClick={() => dispatch({ type: "restarted" })}
+        onClick={() => restart()}
       >
         最初からやり直す
       </Button>

@@ -8,6 +8,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 const SLUG = "choosing-libraries";
 
@@ -282,18 +283,23 @@ const [debounced] = useDebounce(keyword, 500);
 					ライブラリを知ってから使い道を探したものは、1 つもありません。
 				</p>
 
-				<Callout variant="note" title="ここに入れなかったもの">
+				<Callout variant="note" title="状態管理ライブラリの場合">
 					<p>
-						状態管理ライブラリ（Zustand、Jotai など）は扱いませんでした。
+						<Link href="/lessons/zustand">Zustand</Link>{" "}
+						は Part 9 で扱いました。
+						判断の順番は、この章で書いたことと同じです。
 					</p>
 					<p>
-						<strong>Part 9 の 4 つで、たいていは足ります。</strong>
-						サーバーのデータは SWR、共有したい設定は URL かブラウザ保存、
-						残りは <code>useState</code> と Context。
+						<strong>まず <code>useState</code>。</strong>
+						サーバーのデータは SWR、共有したい設定は URL かブラウザ保存。
+						ほとんど変わらない値は Context。
+						<strong>よく変わる値を離れた部品で共有するのが苦しくなってから、
+						ストアに移します。</strong>
 					</p>
 					<p>
-						それでも足りないと<strong>実際に困ってから</strong>調べれば、
-						そのときには何が欲しいかが自分で言えるはずです。
+						Jotai や Redux も同じ枠に入る道具です。
+						どれを選ぶかより、
+						<strong>そもそも要るのかを先に確かめる</strong>ほうが効きます。
 					</p>
 				</Callout>
 			</LessonSection>

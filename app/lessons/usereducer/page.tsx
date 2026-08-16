@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Scattered } from "./demos/scattered";
 import { WithReducer } from "./demos/with-reducer";
 
@@ -340,6 +341,40 @@ dispatch({ type: "reset" });`}
 					<p>
 						「状態は Context A、dispatch は Context B」と分けて配るのは、
 						大きなアプリでよく見る形です。
+					</p>
+				</Callout>
+			</LessonSection>
+
+			<LessonSection id="in-practice" {...at(REDUCER, "function formReducer")}>
+				<h2>実務では、どう書かれているか</h2>
+
+				<p>
+					正直に書いておきます。
+					<strong><code>useReducer</code> をそのまま使う場面は、
+					実務ではあまり多くありません。</strong>
+				</p>
+
+				<p>
+					状態を複数の画面で共有したくなった時点で、
+					<Link href="/lessons/zustand">Zustand</Link>{" "}
+					のような外部のストアを使うことが多いためです。
+				</p>
+
+				<Callout variant="point" title="それでもこの章をやる理由">
+					<p>
+						ストアで書くときも、やっていることは
+						<strong>この章とまったく同じ</strong>だからです。
+					</p>
+					<p>
+						<code>setStep</code> のような setter を並べるのではなく、
+						<strong>「何が起きたか」で更新を書く。</strong>
+						状態をひとまとめにして、ありえない組み合わせを作れなくする。
+						これは Zustand でも Redux でも変わりません。
+					</p>
+					<p>
+						<strong>道具ではなく、考え方のほうを覚えてください。</strong>
+						Part 9 でストアが出てきたとき、
+						「ああ、あれと同じか」と分かれば十分です。
 					</p>
 				</Callout>
 			</LessonSection>

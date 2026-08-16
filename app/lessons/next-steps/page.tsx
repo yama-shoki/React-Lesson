@@ -213,10 +213,11 @@ export default async function Page() {
               </tr>
               <tr className="border-b">
                 <td className="p-3 font-medium text-foreground">
-                  状態管理ライブラリ
+                  Jotai / Redux など
                 </td>
                 <td className="p-3">
-                  Part 9 の 4 つでは足りないと、実際に困ったとき
+                  Zustand は Part 9 で扱いました。
+                  ほかのものは、それで足りないと実際に困ったとき
                 </td>
               </tr>
               <tr className="border-b">
