@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import { Batching } from "./demos/batching";
 import { Snapshot } from "./demos/snapshot";
 import { Updater } from "./demos/updater";
 
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/state-snapshot/demos/snapshot.tsx", label: "snapshot.tsx" },
   { path: "lessons/state-snapshot/demos/updater.tsx", label: "updater.tsx" },
+  { path: "lessons/state-snapshot/demos/batching.tsx", label: "batching.tsx" },
 ] as const;
 
-const [SNAPSHOT, UPDATER] = SOURCES.map((source) => source.path);
+const [SNAPSHOT, UPDATER, BATCHING] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -91,6 +93,83 @@ setCount(count + 1); // setCount(0 + 1) → やっぱり 1 にして`}
             React は 3 回ぶんの依頼をまとめて処理し、
             <strong>描き直しは 1 回で済ませています</strong>。
             呼んだ回数と描き直された回数は、一致しません。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="batching" {...at(BATCHING, "const updateAll")}>
+        <h2>まとめて処理される（バッチング）</h2>
+
+        <p>
+          いまのは同じ state を 3 回でした。
+          では、<strong>別々の state</strong> を 3 つ更新したらどうなるでしょうか。
+          3 回描き直されそうに思えます。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`const updateAll = () => {
+  setName(...);
+  setAge(...);
+  setAdmin(...);
+};`}
+        />
+
+        <DemoCard
+          title="別々の state を 3 つ更新する"
+          sourcePath={BATCHING}
+          showRenderCount
+          description="押すたびに render はいくつ増える？"
+        >
+          <Batching />
+        </DemoCard>
+
+        <p>
+          <strong>1 しか増えません。</strong>
+          3 つとも別の state なのに、描き直しは 1 回にまとめられました。
+          これを<strong>バッチング</strong>と呼びます。
+        </p>
+
+        <p>
+          もしまとめられなかったら、
+          <strong>途中の状態が一瞬だけ画面に出てしまいます</strong>。
+          名前だけ変わって年齢は古いまま、という中途半端な画面です。
+          まとめることで、そういう状態を見せずに済んでいます。
+        </p>
+
+        <h3>待つ処理をはさんでも、まとめられる</h3>
+
+        <p>
+          もう 1 つのボタンは、
+          <code>await</code> で 0.3 秒待ってから同じ 3 つを更新します。
+          こちらも <strong>render は 1 しか増えません</strong>。
+        </p>
+
+        <Callout variant="note" title="昔はそうではなかった">
+          <p>
+            React 17 までは、<code>setTimeout</code> や通信の返事の中での更新は
+            <strong>まとめられませんでした</strong>。
+            3 回書けば 3 回描き直されていました。
+          </p>
+          <p>
+            React 18 からは、どこで呼んでもまとめられます。
+            古い記事に「イベントの中でしかまとめられない」と書いてあったら、
+            それは 17 以前の話です。
+          </p>
+        </Callout>
+
+        <Callout variant="point" title="ここまでの 2 つは別の話">
+          <p>
+            <strong>写真</strong>（この実行中、値はずっと同じ）と、
+            <strong>バッチング</strong>（描き直しは 1 回にまとめられる）は、
+            似ていますが別の話です。
+          </p>
+          <p>
+            前者は<strong>結果が 1 しか増えない</strong>理由で、
+            後者は<strong>画面が 1 回しか光らない</strong>理由です。
+            関数を渡す形にすれば前者は解決しますが、
+            バッチングのほうは<strong>解決すべき問題ではありません</strong>。
+            React がわざとやっている親切です。
           </p>
         </Callout>
       </LessonSection>
