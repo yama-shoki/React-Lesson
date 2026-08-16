@@ -11,6 +11,7 @@ import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { ClickBasic } from "./demos/click-basic";
 import { EventObject } from "./demos/event-object";
+import { Bubbling, SubmitForm } from "./demos/submit-bubble";
 
 const SLUG = "events";
 
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/events/demos/click-basic.tsx", label: "click-basic.tsx" },
   { path: "lessons/events/demos/event-object.tsx", label: "event-object.tsx" },
+  { path: "lessons/events/demos/submit-bubble.tsx", label: "submit-bubble.tsx" },
 ] as const;
 
-const [CLICK, EVENT] = SOURCES.map((source) => source.path);
+const [CLICK, EVENT, SUBMIT] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -188,6 +190,94 @@ export default async function Page() {
   // ここで送信の処理を書く
 };`}
         />
+
+        <DemoCard
+          title="送信を受け止める"
+          sourcePath={SUBMIT}
+          description="入力して Enter を押してみる"
+        >
+          <SubmitForm />
+        </DemoCard>
+
+        <p>
+          <strong>入力欄で Enter を押しても送信されます。</strong>
+          ボタンだけに <code>onClick</code> を付けていると、
+          Enter で送信したときに何も起きません。
+          <strong>送信を受け取るのはボタンではなく <code>form</code></strong>
+          だと覚えてください。
+        </p>
+
+        <Callout variant="warn" title="button の type に気をつける">
+          <p>
+            <code>form</code> の中のボタンは、
+            <code>type</code> を書かないと<strong>送信ボタンになります</strong>。
+            送信させたくないボタン（「戻る」など）には、
+            <code>type=&quot;button&quot;</code> を書きます。
+          </p>
+          <p>
+            これを忘れると、押した瞬間にページが再読み込みされて
+            「なぜか画面が真っ白に戻る」という現象になります。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="bubbling" {...at(SUBMIT, "event.stopPropagation()")}>
+        <h2>クリックは、親にも伝わる</h2>
+
+        <p>
+          押した場所だけで話が終わるとはかぎりません。
+          <strong>イベントは、内側から外側へ順に伝わっていきます</strong>。
+        </p>
+
+        <p>
+          よくあるのが、こういう形です。
+          <strong>行全体が押せて、その中に削除ボタンがある。</strong>
+        </p>
+
+        <DemoCard
+          title="行の中のボタンを押す"
+          sourcePath={SUBMIT}
+          description="「消す」を押して、記録を見る"
+        >
+          <Bubbling />
+        </DemoCard>
+
+        <p>
+          「消す」を押しただけなのに、
+          <strong>行のほうも押されたことになっています</strong>。
+          消したいだけなのに、行を開く処理まで走ってしまう、
+          という不具合になります。
+        </p>
+
+        <p>
+          止めるには、<code>stopPropagation</code> を呼びます。
+          上のトグルを「する」に変えて、もう一度押してみてください。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`<button
+  onClick={(event) => {
+    event.stopPropagation(); // 親に伝えない
+    remove(id);
+  }}
+>`}
+        />
+
+        <Callout variant="note" title="2 つは別のもの">
+          <p>
+            <code>preventDefault</code> は
+            <strong>ブラウザの決まった動きを止める</strong>
+            （送信、リンクの移動など）。
+          </p>
+          <p>
+            <code>stopPropagation</code> は
+            <strong>外側へ伝わるのを止める</strong>。
+          </p>
+          <p>
+            名前が似ていますが、止めているものが違います。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="quiz" {...at(CLICK)}>

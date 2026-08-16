@@ -73,6 +73,33 @@ export default async function Page() {
           </p>
         </Callout>
 
+        <Callout variant="note" title="行頭の export について">
+          <p>
+            右のコードは、ほとんどの行が <code>export</code> で始まっています。
+            これも<strong>いまは読み飛ばして構いません</strong>。
+          </p>
+          <p>
+            JavaScript では、<strong>1 つのファイルの中身は、
+            そのファイルの中だけのもの</strong>です。
+            外から使いたいものに <code>export</code> を付けると、
+            別のファイルから <code>import</code> して使えるようになります。
+          </p>
+          <StaticCode
+            lang="ts"
+            code={`// 出す側
+export const user = { name: "さとう" };
+
+// 使う側
+import { user } from "./user";`}
+          />
+          <p>
+            この教材では、
+            <strong>デモの結果を画面に出すために</strong> 付けています。
+            React の話ではなく、
+            <strong>ファイルを分けるときの決まり</strong>だと思ってください。
+          </p>
+        </Callout>
+
         <h2>変数は、値につけた名前</h2>
 
         <p>

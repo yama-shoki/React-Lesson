@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { MapBasic } from "./demos/map-basic-view";
+import { MapFriends } from "./demos/map-friends-view";
 import { MapObject } from "./demos/map-object-view";
 import { MapFlowFigure } from "./figures/map-flow";
 
@@ -22,9 +23,10 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/array-map/demos/map-basic.ts", label: "map-basic.ts" },
   { path: "lessons/array-map/demos/map-object.ts", label: "map-object.ts" },
+  { path: "lessons/array-map/demos/map-friends.ts", label: "map-friends.ts" },
 ] as const;
 
-const [BASIC, OBJECT] = SOURCES.map((source) => source.path);
+const [BASIC, OBJECT, FRIENDS] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -165,27 +167,52 @@ export default async function Page() {
         </Callout>
       </LessonSection>
 
-      <LessonSection id="friends" {...at(BASIC, "export const numbers")}>
-        <h3>ついでに覚えておくと便利なもの</h3>
+      <LessonSection id="friends" {...at(FRIENDS, "export const big")}>
+        <h2>map の兄弟たち</h2>
 
         <p>
           <code>map</code> と同じ形で使える仲間がいます。
-          いま完璧に覚える必要はありませんが、名前だけ知っておくと読むときに困りません。
+          <strong>この 3 つは、React でも map と同じくらい出てきます。</strong>
+          いま覚えなくても構いませんが、
+          <strong>何が返るか</strong>だけ見ておいてください。
         </p>
 
-        <StaticCode
-          lang="ts"
-          code={`const scores = [1, 2, 3, 4, 5];
+        <DemoCard
+          title="同じ配列に、4 つを当ててみる"
+          sourcePath={FRIENDS}
+          description="返ってきたものの形に注目"
+        >
+          <MapFriends />
+        </DemoCard>
 
-// 条件に合うものだけ残す
-scores.filter((n) => n > 2); // [3, 4, 5]
+        <p>違いは<strong>「何が返るか」</strong>です。</p>
 
-// 条件に合う最初の 1 つを探す
-scores.find((n) => n > 2); // 3
+        <ul>
+          <li>
+            <code>map</code> … <strong>同じ数の配列</strong>。作り変える
+          </li>
+          <li>
+            <code>filter</code> … <strong>減った配列</strong>。選び出す
+          </li>
+          <li>
+            <code>find</code> … <strong>配列ではなく 1 つの値</strong>。探す
+          </li>
+          <li>
+            <code>reduce</code> … <strong>1 つにまとめた値</strong>。畳む
+          </li>
+        </ul>
 
-// ひとつの値にまとめる
-scores.reduce((sum, n) => sum + n, 0); // 15`}
-        />
+        <Callout variant="point" title="どこで使うことになるか">
+          <p>
+            <code>filter</code> は「完了したものを除く」「検索で絞る」で、
+            <code>find</code> は「id からその 1 件を取り出す」で、
+            <code>reduce</code> は「合計を出す」で使います。
+          </p>
+          <p>
+            どれも<strong>Part 4 の「state は最小限にする」</strong>で
+            効いてきます。持たずに計算する、というときの計算がこれです。
+          </p>
+        </Callout>
 
         <p>
           どれも<strong>関数を受け取る</strong>という点で共通しています。
