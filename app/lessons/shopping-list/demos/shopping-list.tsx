@@ -8,7 +8,13 @@ import { useQueryState } from "nuqs";
 import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { FilterBar } from "./filter-bar";
-import { filterItems, initialItems, type Category, type Item } from "./types";
+import {
+  filterItems,
+  initialItems,
+  toCategory,
+  type Category,
+  type Item,
+} from "./types";
 
 export function ShoppingList() {
   useTrackDemoRender();
@@ -23,7 +29,8 @@ export function ShoppingList() {
   const [keyword, setKeyword] = useQueryState("q", { defaultValue: "" });
   const [category, setCategory] = useQueryState<Category | null>("cat", {
     defaultValue: null,
-    parse: (value) => (value === "" ? null : (value as Category)),
+    // 知らない値が URL に入っていたら、絞り込みなしとして扱う
+    parse: toCategory,
     serialize: (value) => value ?? "",
   });
 

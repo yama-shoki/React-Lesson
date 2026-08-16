@@ -3,6 +3,16 @@ export type Category = "野菜" | "肉・魚" | "日用品" | "その他";
 
 export const categories: Category[] = ["野菜", "肉・魚", "日用品", "その他"];
 
+/**
+ * URL から来た文字列を Category に直す。
+ *
+ * URL は誰でも書き換えられるので、知らない値が入ってくる。
+ * as で押し込むと型の上では通ってしまい、
+ * 「絞り込んだのに 1 件も出ない」という形で静かに壊れる。
+ */
+export const toCategory = (value: string): Category | null =>
+  categories.includes(value as Category) ? (value as Category) : null;
+
 export type Item = {
   id: number;
   name: string;
