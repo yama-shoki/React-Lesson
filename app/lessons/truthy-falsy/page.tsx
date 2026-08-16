@@ -11,6 +11,7 @@ import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { FalsyList } from "./demos/falsy-view";
 import { Operators } from "./demos/operators-view";
+import { OptionalChainView } from "./demos/optional-chain-view";
 import { ZeroView } from "./demos/zero-view";
 
 const SLUG = "truthy-falsy";
@@ -23,9 +24,15 @@ const SOURCES = [
   { path: "lessons/truthy-falsy/demos/falsy.ts", label: "falsy.ts" },
   { path: "lessons/truthy-falsy/demos/operators.ts", label: "operators.ts" },
   { path: "lessons/truthy-falsy/demos/zero-view.tsx", label: "zero-view.tsx" },
+  {
+    path: "lessons/truthy-falsy/demos/optional-chain.ts",
+    label: "optional-chain.ts",
+  },
 ] as const;
 
-const [FALSY, OPERATORS, ZERO] = SOURCES.map((source) => source.path);
+const [FALSY, OPERATORS, ZERO, OPTIONAL] = SOURCES.map(
+  (source) => source.path,
+);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -262,6 +269,86 @@ count ?? 10; // 0   ← null / undefined でないのでそのまま`}
           <strong><code>??</code> を使うのが正解</strong>です。
           <code>||</code> は 0 や空文字まで「なかったこと」にしてしまいます。
         </p>
+      </LessonSection>
+
+      <LessonSection id="optional" {...at(OPTIONAL, "address?.city")}>
+        <h2>そもそも「無いものの中」を見に行かない</h2>
+
+        <p>
+          <code>??</code> は<strong>値が無かったとき</strong>の話でした。
+          もう 1 つ、<strong>そこへ辿り着く途中が無い</strong>という場合があります。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`const user = { name: "すずき" };  // address が無い
+
+user.address.city`}
+        />
+
+        <p>
+          これは <code>undefined</code> の中を見に行こうとして、
+          <strong>その場で落ちます</strong>。
+        </p>
+
+        <DemoCard
+          title="無い項目の中を取り出してみる"
+          tone="bad"
+          sourcePath={OPTIONAL}
+          description="ボタンを押すと、その箱の中だけが壊れます"
+        >
+          <OptionalChainView />
+        </DemoCard>
+
+        <p>
+          <strong>Cannot read properties of undefined</strong> という
+          エラーが出ます。
+          <strong>初学者がいちばん多く出会うエラー</strong>で、
+          原因はたいてい「途中が無かった」です。
+        </p>
+
+        <h3>途中が無ければ、そこで止める</h3>
+
+        <StaticCode
+          lang="ts"
+          code={`user.address?.city         // undefined（落ちない）
+user.address?.city ?? "未登録"  // "未登録"`}
+        />
+
+        <p>
+          <code>?.</code> を挟むと、
+          <strong>手前が <code>null</code> か <code>undefined</code> なら、
+          そこで止まって <code>undefined</code> を返します</strong>。
+          その先を見に行かないので落ちません。
+        </p>
+
+        <p>
+          <code>??</code> と組み合わせるのが定番です。
+          <strong>「無ければ止める」と「無かったときの値」</strong>を
+          つなげて書けます。
+        </p>
+
+        <Callout variant="note" title="関数にも使える">
+          <p>
+            <code>onSelect?.()</code> と書くと、
+            <strong>あれば呼ぶ、無ければ何もしない</strong>になります。
+            「渡されていないかもしれない関数」を扱うときに、
+            Part 2 の props でよく出てきます。
+          </p>
+        </Callout>
+
+        <Callout variant="warn" title="付けすぎない">
+          <p>
+            落ちるのが怖いからと全部に <code>?.</code> を付けると、
+            <strong>本当は必ずあるはずの値まで「無いかもしれない」
+            扱いになります</strong>。
+          </p>
+          <p>
+            付けるのは<strong>本当に無いことがある場所だけ</strong>です。
+            TypeScript が「無いかもしれない」と言ってきた場所、
+            と考えておけばだいたい合っています。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="quiz" {...at(OPERATORS)}>

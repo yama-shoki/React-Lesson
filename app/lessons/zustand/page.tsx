@@ -200,6 +200,147 @@ const count = useSelectorStore((state) => state.count);`}
         </p>
       </LessonSection>
 
+      <LessonSection id="more" {...at(STORE, "increase:")}>
+        <h2>あと 3 つだけ、知っておくと足りる</h2>
+
+        <h3>1. いまの値を読みたいとき（get）</h3>
+
+        <p>
+          <code>set</code> と一緒に <code>get</code> も受け取れます。
+          <strong>更新ではなく、いまの値を読みたいだけ</strong>のときに使います。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`create((set, get) => ({
+  items: [],
+  // いまの件数を読んでから、判断したい
+  addIfRoom: (item) => {
+    if (get().items.length >= 10) return;
+    set((state) => ({ items: [...state.items, item] }));
+  },
+}));`}
+        />
+
+        <p>
+          <code>set((state) =&gt; ...)</code> でも今の値は読めます。
+          <strong><code>get()</code> が要るのは、
+          更新の外で値を見たいとき</strong>です。
+          上の例のように「条件に合わなければ何もしない」と書ける。
+        </p>
+
+        <h3>2. 通信もストアに置ける</h3>
+
+        <StaticCode
+          lang="ts"
+          code={`create((set, get) => ({
+  status: "editing",
+
+  send: async () => {
+    set({ status: "sending" });
+    try {
+      await fetch("/api/...", { body: JSON.stringify(get().form) });
+      set({ status: "done" });
+    } catch {
+      set({ status: "error" });
+    }
+  },
+}));`}
+        />
+
+        <p>
+          ストアの関数は<strong>ただの関数</strong>なので、
+          <code>async</code> にして構いません。
+          画面側は <code>send()</code> を呼ぶだけになり、
+          <strong>成功・失敗の判断はストアが持ちます</strong>。
+        </p>
+
+        <Callout variant="note" title="サーバーのデータは別の話">
+          <p>
+            ここで言う通信は<strong>「送る」</strong>ほうです。
+            <strong>取ってくる</strong>ほうは、
+            <Link href="/lessons/server-state">SWR</Link>{" "}
+            の担当のままです。
+            取ってきたデータをストアに写すと、
+            Part 9 でやった<strong>二重管理</strong>になります。
+          </p>
+        </Callout>
+
+        <h3>3. 閉じても残したいとき（persist）</h3>
+
+        <StaticCode
+          lang="ts"
+          code={`import { persist } from "zustand/middleware";
+
+export const useStore = create(
+  persist(
+    (set) => ({ theme: "light", setTheme: (t) => set({ theme: t }) }),
+    { name: "app-theme" },   // localStorage のキー
+  ),
+);`}
+        />
+
+        <p>
+          <code>persist</code> で包むと、
+          <strong>中身がブラウザに保存されます</strong>。
+          <Link href="/lessons/browser-storage">ブラウザに保存する</Link>{" "}
+          でやったことを、ストア全体に対してやるものです。
+        </p>
+
+        <Callout variant="warn" title="保存すると、ちらつきが出る">
+          <p>
+            サーバーで組み立てた HTML には、保存された値がまだ入っていません。
+            ブラウザで読み込んだあとに切り替わるので、
+            <strong>一瞬だけ初期値が見えます</strong>。
+          </p>
+          <p>
+            Part 9 の localStorage の章でやった話と同じです。
+            <strong>保存すると必ずこれが付いてきます。</strong>
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="pitfall" {...at(STORE, "export const useCounterStore")}>
+        <h2>ストアは、画面を離れても消えない</h2>
+
+        <p>
+          ストアはコンポーネントの外にあります。
+          つまり<strong>その画面から離れても、中身はそのまま残ります</strong>。
+        </p>
+
+        <p>
+          <code>useState</code> なら、画面から消えた時点で初期化されていました。
+          ストアは初期化されません。
+        </p>
+
+        <ul>
+          <li>
+            <strong>利点</strong> …{" "}
+            入力の続きができる。別の画面から戻っても状態が保たれる
+          </li>
+          <li>
+            <strong>困る点</strong> …{" "}
+            前回の入力が残ったままフォームが開く、
+            ログアウトしたのに前の人のデータが見えている
+          </li>
+        </ul>
+
+        <p>
+          <strong>「消したいときは、自分で消す」</strong>と覚えてください。
+          初期状態に戻す関数をストアに用意しておくのが定番です。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`const initial = { step: "account", form: null };
+
+create((set) => ({
+  ...initial,
+  reset: () => set(initial),
+}));`}
+        />
+      </LessonSection>
+
       <LessonSection id="when" {...at(STORE, "count: 0")}>
         <h2>Context とどう使い分けるか</h2>
 
