@@ -14,15 +14,21 @@ const withoutAddress: User = { name: "すずき" };
 export const city1 = withAddress.address?.city; // "東京"
 
 /*
-  address が無い人に同じことをすると、その場で落ちる。
+  ?. を外すとどうなるか。
 
-    withoutAddress.address.city
-    → Cannot read properties of undefined (reading 'city')
-
-  undefined の中を見に行こうとしたため。
-  下の行のコメントを外すと、実際にエラーになる。
+  型を付けていれば、TypeScript が書いた時点で止めてくれる
+  （下の行のコメントを外すと、赤線が出る）。
 */
 // export const city2 = withoutAddress.address.city;
+
+/*
+  では型が無ければどうなるか。実行して、その場で落ちる。
+
+    Cannot read properties of undefined (reading 'city')
+
+  undefined の中を見に行こうとしたため。
+  型を付けない JavaScript では、動かすまで気づけない。
+*/
 
 // ?. を挟むと「途中が無ければ、そこで undefined を返す」になる
 export const city3 = withoutAddress.address?.city; // undefined

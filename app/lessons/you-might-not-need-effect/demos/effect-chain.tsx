@@ -1,10 +1,14 @@
 "use client";
 
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
-import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
+/*
+  この lint は「effect の中で setState するな」と言う。まったく正しい。
+  この章はその禁じ手をあえて踏んで、何が起きるかを見るためのもの。
+  下の EffectChain だけが対象で、JustCompute は effect を使っていない。
+*/
 /* eslint-disable react-hooks/set-state-in-effect */
 
 const prices: Record<string, number> = { りんご: 150, みかん: 100 };
@@ -47,14 +51,14 @@ export function EffectChain() {
         </Button>
       </div>
 
-      <RenderBox title="1 回押すと、何回描き直されるか">
+      <div className="rounded-lg border p-4">
         <div className="flex flex-col gap-1 font-mono text-sm">
           <span>品目: {items.length} 個</span>
           <span>小計: {subtotal} 円</span>
           <span>税: {tax} 円</span>
           <span>合計: {total} 円</span>
         </div>
-      </RenderBox>
+      </div>
     </div>
   );
 }
@@ -84,14 +88,14 @@ export function JustCompute() {
         </Button>
       </div>
 
-      <RenderBox title="1 回押すと、何回描き直されるか" tone="highlight">
+      <div className="rounded-lg border p-4">
         <div className="flex flex-col gap-1 font-mono text-sm">
           <span>品目: {items.length} 個</span>
           <span>小計: {subtotal} 円</span>
           <span>税: {tax} 円</span>
           <span>合計: {total} 円</span>
         </div>
-      </RenderBox>
+      </div>
     </div>
   );
 }

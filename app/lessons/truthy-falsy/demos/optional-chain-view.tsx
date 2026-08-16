@@ -1,7 +1,6 @@
 "use client";
 
 import { DemoErrorBoundary } from "@/components/lesson/demo-error-boundary";
-import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { city3, city4 } from "./optional-chain";
@@ -21,7 +20,8 @@ export function OptionalChainView() {
 
   return (
     <div className="flex flex-col gap-3">
-      <RenderBox title="?. を付けない（address が無い人）">
+      <div className="rounded-lg border p-4">
+        <p className="mb-2 text-sm font-medium">?. を付けない（address が無い人）</p>
         {crashed ? (
           <DemoErrorBoundary>
             <CrashOnPurpose />
@@ -29,14 +29,16 @@ export function OptionalChainView() {
         ) : (
           <span className="text-muted-foreground">まだ実行していません</span>
         )}
-      </RenderBox>
+      </div>
 
-      <RenderBox title="?. を付けた" tone="highlight">
+      {/* 中身が変わらないので、光る箱にはしない（Part 0 の読者に再レンダリングの話はまだ早い） */}
+      <div className="rounded-lg border p-4">
+        <p className="mb-2 text-sm font-medium">?. を付けた</p>
         <div className="flex flex-col gap-1 font-mono text-sm">
           <span>address?.city は {String(city3)}</span>
           <span>address?.city ?? &quot;未登録&quot; は {city4}</span>
         </div>
-      </RenderBox>
+      </div>
 
       <div className="flex flex-wrap gap-2">
         <Button size="sm" variant="outline" onClick={() => setCrashed(true)}>

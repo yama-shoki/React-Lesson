@@ -277,7 +277,7 @@ useEffect(() => { setTotal(...) }, [subtotal, tax]); // 税 → 合計`}
         </Callout>
       </LessonSection>
 
-      <LessonSection id="notify" {...at(CHAIN, "const subtotal = items.reduce")}>
+      <LessonSection id="notify" {...at(CALCULATE)}>
         <h2>6. 親に知らせるために使っている</h2>
 
         <StaticCode
