@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Notepad } from "./demos/notepad";
 import { OneBigContext } from "./demos/one-big-context";
 
@@ -24,10 +25,11 @@ const SOURCES = [
     path: "lessons/notepad/demos/one-big-context.tsx",
     label: "one-big-context.tsx",
   },
+  { path: "lessons/notepad/demos/store.ts", label: "store.ts" },
   { path: "lessons/notepad/demos/notepad.tsx", label: "notepad.tsx" },
 ] as const;
 
-const [TYPES, BIG, NOTEPAD] = SOURCES.map((source) => source.path);
+const [TYPES, BIG, STORE, NOTEPAD] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -166,58 +168,148 @@ type Palette = "plain" | "warm" | "cool";`}
         </ul>
       </LessonSection>
 
-      <LessonSection id="split" {...at(NOTEPAD, "const PaletteContext")}>
-        <h2>関心ごとに分ける</h2>
+      <LessonSection id="split" {...at(STORE, "export const useNotepadStore")}>
+        <h2>実務では、ここでストアを使う</h2>
 
         <p>
-          分ける基準は<strong>「一緒に変わるかどうか」</strong>でした。
-          この画面では 3 つに分かれます。
+          Context のままでも直せます。
+          <Link href="/lessons/context-performance">前の Part</Link>{" "}
+          でやったとおり、
+          <strong>関心ごとに Context を分け、<code>useMemo</code> で包み、
+          <code>memo</code> で囲む</strong>。
+        </p>
+
+        <p>
+          ただ、部品が 4 つでこの手数です。
+          画面が育つほど Provider が増えて、入れ子が深くなっていきます。
+          <strong>実務でこの規模になったら、たいていストアを使います。</strong>
         </p>
 
         <StaticCode
           lang="ts"
-          code={`// 配色 … メモとは無関係に変わる
-const PaletteContext = createContext(...);
+          code={`export const useNotepadStore = create((set) => ({
+  titles: [...],
+  bodies: { ... },
+  selectedId: 1,
+  palette: "plain",
 
-// メモの中身 … 打つたびに変わる
-const MemosContext = createContext(...);
-
-// 操作 … 値を持たないので、そもそも変わらない
-const ActionsContext = createContext(...);`}
+  select: (id) => set({ selectedId: id }),
+  setPalette: (palette) => set({ palette }),
+  updateBody: (body) => set((state) => ({ ... })),
+}));`}
         />
 
-        <h3>3 つめが効いてくる</h3>
-
         <p>
-          <strong>操作だけを別にする</strong>のがこの章の山場です。
-          「選ぶ」「本文を書き換える」という関数は、
-          <strong>メモの中身が変わっても、中身は同じ</strong>でいられます。
+          <strong>Provider は 1 つも出てきません。</strong>
+          置き場所は 1 か所のままです。
+          <Link href="/lessons/zustand">Zustand の章</Link>{" "}
+          でやったとおり、絞るのは<strong>受け取る側</strong>だからです。
         </p>
+
+        <h3>受け取る側で絞る</h3>
 
         <StaticCode
           lang="ts"
-          code={`// 値のほうは、変わるたびに新しくなる
-const memosValue = useMemo(() => ({ memos, selectedId }), [memos, selectedId]);
+          code={`// ヘッダー … 配色しか読まない
+const palette = useNotepadStore((state) => state.palette);
 
-// 操作のほうは、作り直さない
-const actionsValue = useMemo(
-  () => ({ select: setSelectedId, updateBody }),
-  [updateBody],
+// 本文 … 選ばれている 1 件の本文だけ
+const body = useNotepadStore(
+  (state) => state.memos.find((m) => m.id === state.selectedId)?.body ?? "",
 );`}
         />
 
         <p>
-          <code>useMemo</code> で包んでいるのは、Part 9 でやった
-          <strong>原因 2 への対処</strong>です。
-          包まなければ、分けた意味が半分になります。
+          セレクタが返した値が<strong>前と同じかどうか</strong>で決まります。
+          配色を読んでいない部品は、
+          配色が変わっても<strong>そもそも呼ばれません</strong>。
         </p>
+
+        <h3>ストアの形は、読む側に合わせて決める</h3>
+
+        <p>
+          ここで 1 つ、設計の判断が要ります。
+          メモを<strong>そのまま 1 つの配列で持つ</strong>と、こうなります。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// ✕ 本文を打つと、配列ごと作り直される
+memos: [{ id: 1, title: "買い物", body: "牛乳とパン" }, ...]
+
+updateBody: (body) => set((state) => ({
+  memos: state.memos.map((m) => m.id === id ? { ...m, body } : m),
+})),`}
+        />
+
+        <p>
+          <code>map</code> は<strong>新しい配列を作ります</strong>。
+          題名は 1 文字も変わっていないのに、
+          <code>memos</code> は別のものになります。
+          <strong>題名しか読んでいない一覧まで描き直されます。</strong>
+        </p>
+
+        <p>
+          セレクタで頑張って絞ることもできますが、
+          <strong>ストアの形を変えたほうが素直</strong>です。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// ○ 変わらないものと、変わるものを分けて持つ
+titles: [{ id: 1, title: "買い物" }, ...],   // 動かない
+bodies: { 1: "牛乳とパン", 2: "..." },        // 打つたびに変わる
+
+updateBody: (body) => set((state) => ({
+  bodies: { ...state.bodies, [state.selectedId]: body },
+})),`}
+        />
+
+        <p>
+          一覧は <code>titles</code> だけを読みます。
+          本文をいくら打っても <code>titles</code> は書き換わらないので、
+          <strong>一覧はそもそも呼ばれません</strong>。
+        </p>
+
+        <Callout variant="point" title="どこを分けるかが変わっただけ">
+          <p>
+            Context のときは<strong>置き場所</strong>を分けました。
+            ストアでは<strong>データの形</strong>を分けています。
+          </p>
+          <p>
+            どちらも狙いは同じで、
+            <strong>「一緒に変わらないものを、一緒にしない」</strong>です。
+            Part 9 で Context を分ける基準として書いたことが、
+            そのまま効いています。
+          </p>
+        </Callout>
+
+        <Callout variant="note" title="どうしても組み立てて返したいとき">
+          <p>
+            セレクタの中で配列やオブジェクトを新しく作ると、
+            中身が同じでも毎回「別のもの」になります
+            （<Link href="/lessons/objects-and-references">Part 0</Link>{" "}
+            のとおりです）。
+          </p>
+          <p>
+            それでも組み立てたいときは、Zustand の{" "}
+            <code>useShallow</code> を使うと 1 段だけ中身を見比べてくれます。
+            ただし<strong>セレクタ自体を関数の外に置く</strong>必要があります。
+            中に書くと毎回新しい関数になり、
+            <strong>見比べる相手ごと入れ替わって無限ループします</strong>。
+          </p>
+          <p>
+            <strong>まずはストアの形で解けないかを考えるほうが、
+            結果として簡単です。</strong>
+          </p>
+        </Callout>
       </LessonSection>
 
-      <LessonSection id="fixed" {...at(NOTEPAD, "const actionsValue")}>
-        <h2>分けた版</h2>
+      <LessonSection id="fixed" {...at(NOTEPAD, "const palette = useNotepadStore")}>
+        <h2>書き換えた版</h2>
 
         <DemoCard
-          title="関心ごとに 3 つに分けた版"
+          title="ストアとセレクタで書いた版"
           tone="good"
           sourcePath={NOTEPAD}
           description="同じように、本文に 1 文字打ってみる"
@@ -226,75 +318,88 @@ const actionsValue = useMemo(
         </DemoCard>
 
         <p>
-          <strong>ヘッダーと配色ボタンが、光らなくなりました。</strong>
-          この 2 つは配色の Context しか購読していないので、
-          メモの中身が変わっても届きません。
+          <strong>光るのは本文の箱だけになりました。</strong>
+          ヘッダーも配色ボタンも、そして<strong>一覧も動きません</strong>。
         </p>
 
         <p>
-          一覧は光ります。メモの配列そのものが変わっているからです
-          （題名は変わらないので、見た目は同じままです）。
-          ここまで止めたいなら、
-          題名だけを別の Context に分けることになりますが、
-          <strong>そこまでやる必要はまずありません</strong>。
+          最初に「本文に打ったとき、ヘッダーと配色ボタンには関係がないはず」
+          と書きました。実際にはそれ以上で、
+          <strong>一覧まで止まっています</strong>。
+          題名を持っている <code>titles</code> が
+          書き換わっていないからです。
         </p>
 
         <p>
           今度は<strong>配色を切り替えて</strong>みてください。
           <strong>ヘッダー・本文・配色ボタンが光り、一覧は光りません</strong>。
-          一覧は配色を使っていないからです。
-          <strong>使っている部品だけが動く</strong>状態になりました。
+          一覧は配色を読んでいないからです。
+          <strong>読んでいる部品だけが動く</strong>状態になりました。
         </p>
 
-        <Callout variant="point" title="道具を 3 つ使っている">
+        <p>
+          Context 版と見比べてください。あちらは
+          <strong>Context を 3 つに分け、<code>useMemo</code> で包み、
+          <code>memo</code> で囲んで</strong>ようやくここまで来ました。
+          しかも一覧は止められませんでした。
+        </p>
+
+        <Callout variant="point" title="判定しているものは、最後まで同じ">
           <p>
-            <strong>Context を分ける</strong>（購読の単位を細かくする）、
-            <strong><code>useMemo</code> で value を包む</strong>
-            （毎回作り直さない）、
-            <strong><code>memo</code> で部品を包む</strong>
-            （props が同じなら止める）。
+            <code>memo</code> も、<code>useMemo</code> も、
+            Zustand のセレクタも、やっていることは 1 つです。
+            <strong>前と同じものかどうかを見て、同じなら何もしない。</strong>
           </p>
           <p>
-            3 つとも「同じものかどうか」の判定を
-            <strong>味方につけるための道具</strong>です。
             Part 0 でやった「見た目が同じでも別のもの」が、
-            ここまで効いてきます。
+            ここまでずっと効いています。
+            道具が変わっても、<strong>判定の中身は変わりません</strong>。
           </p>
         </Callout>
       </LessonSection>
 
-      <LessonSection id="caution" {...at(NOTEPAD, "const ActionsContext")}>
-        <h2>ただし、最初からこう書かない</h2>
+      <LessonSection id="caution" {...at(STORE, "titles: initialMemos")}>
+        <h2>ただし、最初からストアに置かない</h2>
 
         <p>
           ここまで読むと、
-          Context を最初から細かく分けたくなるかもしれません。
+          最初から全部ストアに置きたくなるかもしれません。
           <strong>やめてください。</strong>
         </p>
 
         <ul>
-          <li>Provider が増えて、入れ子が深くなる</li>
-          <li>どの値がどの Context にあるのか、追いにくくなる</li>
           <li>
-            <code>useMemo</code> と <code>useCallback</code> が増えて、
-            読む量が倍になる
+            <strong>どこからでも書き換えられる値</strong>が増えていく
+          </li>
+          <li>
+            値が変わった理由を追うのに、
+            <strong>アプリ全体を探すことになる</strong>
+          </li>
+          <li>
+            画面を閉じても値が残るので、
+            <strong>消し忘れが起きる</strong>
           </li>
         </ul>
 
         <p>
-          <code>memo</code> の章で見た順番と同じです。
-          <strong>まずそのまま書く。遅いと分かってから、分ける。</strong>
+          <Link href="/lessons/where-to-put-state">状態の置き場所を選ぶ</Link>{" "}
+          で書いたことは変わりません。
+          <strong>まず <code>useState</code>。
+          共有が必要になってから、持ち上げる。</strong>
+          それでも足りないときに、はじめてストアです。
         </p>
 
-        <Callout variant="note" title="今回はなぜ分けたのか">
+        <Callout variant="note" title="今回はなぜストアにしたのか">
           <p>
             この画面は部品が 4 つしかないので、
-            <strong>実際には分けなくても困りません</strong>。
-            分けたのは、描き直しの範囲が目で見えるようにするためです。
+            <strong>実際には <code>useState</code> を持ち上げるだけで足ります</strong>。
+            ストアにしたのは、
+            描き直しの範囲が目で見えるようにするためです。
           </p>
           <p>
-            部品が数十個になり、打つたびに全部が描き直される、
-            という状況になってはじめて必要になります。
+            部品が数十個になり、
+            深い場所から同じ値を読み書きしたくなってはじめて、
+            持ち上げるのが苦しくなります。そこが移りどきです。
           </p>
         </Callout>
       </LessonSection>
@@ -325,45 +430,45 @@ const actionsValue = useMemo(
         />
 
         <Quiz
-          question="「操作だけの Context」を分けると、何が嬉しい？"
+          question="題名と本文を別々に持つと、何が変わる？"
           options={[
             {
-              label: "更新するだけの部品が、値が変わっても描き直されなくなる",
+              label: "本文を打っても題名のほうは書き換わらないので、一覧が描き直されなくなる",
               correct: true,
               explanation:
-                "配色ボタンのように「押すだけで表示はしない」部品は珍しくありません。値のほうを購読しなければ、値がいくら変わっても影響を受けません。",
+                "1 つの配列にまとめていると、本文を直すだけで配列全体が新しくなります。読む側が題名しか要らないなら、持ち方のほうを分けるのがいちばん簡単です。",
             },
             {
-              label: "更新が速くなる",
+              label: "保存する量が減って軽くなる",
               explanation:
-                "更新そのものの速さは変わりません。変わるのは、1 回の更新で巻き込まれる部品の数です。",
+                "持っているデータの量は変わりません。変わるのは、何が変わったときに何が動くかです。",
             },
             {
-              label: "useMemo を書かなくてよくなる",
+              label: "セレクタを書かなくてよくなる",
               explanation:
-                "むしろ必要です。操作をまとめたオブジェクトも、包まなければ毎回新しくなります。",
+                "セレクタは必要です。形を整えるのは、セレクタを楽にするためです。",
             },
           ]}
         />
 
         <Quiz
-          question="この画面くらいの規模なら、本当は分ける必要がある？"
+          question="この画面くらいの規模なら、本当はストアに置く必要がある？"
           options={[
             {
-              label: "ない。まずそのまま書いて、遅いと分かってから分ける",
+              label: "ない。まず useState を持ち上げるだけで足りる",
               correct: true,
               explanation:
-                "部品が 4 つでは、全部描き直されても体感は変わりません。分けるほど Provider が増えて読みにくくなるので、memo の章と同じ順番で判断します。",
+                "部品が 4 つでは、全部描き直されても体感は変わりません。ストアに置くほど「どこからでも書き換えられる値」が増えるので、必要になってから移します。",
             },
             {
-              label: "ある。Context を使うなら必ず分ける",
+              label: "ある。共有するなら必ずストアに置く",
               explanation:
-                "「必ず」はありません。分けるほど構造が複雑になるので、必要になってからで間に合います。",
+                "「必ず」はありません。親に持ち上げて props で渡すだけで済むなら、そのほうが追いやすいコードになります。",
             },
             {
-              label: "ある。分けないと動かないから",
+              label: "ある。ストアにしないと共有できないから",
               explanation:
-                "分けなくても動きます。分けていない版も、ちゃんと動いていました。",
+                "共有そのものは props でも Context でもできます。ストアは、それが苦しくなったときの選択肢です。",
             },
           ]}
         />
@@ -379,21 +484,22 @@ const actionsValue = useMemo(
           </li>
           <li>
             Context は<strong>項目単位では購読できない</strong>。
-            分けるしかない
+            置き場所ごと分けるしかない
           </li>
           <li>
-            分ける基準は<strong>「一緒に変わるかどうか」</strong>
+            ストアなら<strong>置き場所は 1 つのまま</strong>、
+            受け取る側のセレクタで絞る
           </li>
           <li>
-            <strong>操作だけの Context</strong> は、値が変わっても変化しない。
-            更新専用の部品を守れる
+            更新用の関数だけ取り出した部品は、
+            <strong>一度も描き直されない</strong>
           </li>
           <li>
-            分けたら <code>useMemo</code> もセット。
-            <strong>片方だけでは効かない</strong>
+            セレクタで止まるので、
+            <strong><code>memo</code> も <code>useMemo</code> も要らない</strong>
           </li>
           <li>
-            そして、<strong>必要になるまで分けない</strong>
+            そして、<strong>共有が必要になるまでストアに置かない</strong>
           </li>
         </ul>
 
@@ -401,8 +507,8 @@ const actionsValue = useMemo(
           <p>
             Part 0（同じものかどうかの判定）、Part 2（部品に分ける）、
             Part 7（描き直しは上から下へ）、
-            Part 8（memo・useMemo・useCallback）、
-            Part 9（Context・Context と再レンダリング）。
+            Part 8（memo・useMemo）、
+            Part 9（Context・Context と再レンダリング・Zustand）。
           </p>
         </Callout>
       </LessonSection>

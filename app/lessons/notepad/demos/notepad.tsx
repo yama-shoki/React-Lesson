@@ -3,131 +3,69 @@
 import { RenderBox } from "@/components/lesson/render-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  createContext,
-  memo,
-  use,
-  useCallback,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
-import {
-  initialMemos,
-  paletteLabels,
-  paletteStyles,
-  type Memo,
-  type Palette,
-} from "./types";
+import { useNotepadStore } from "./store";
+import { paletteLabels, paletteStyles, type Palette } from "./types";
 
-/* 関心ごとに 3 つに分ける。一緒に変わらないものは、同じ箱に入れない */
+/* memo で包んでいない。セレクタで絞れば、それだけで止まる */
 
-const PaletteContext = createContext<{
-  palette: Palette;
-  setPalette: (palette: Palette) => void;
-}>({ palette: "plain", setPalette: () => {} });
+function Header() {
+  const palette = useNotepadStore((state) => state.palette);
 
-const MemosContext = createContext<{ memos: Memo[]; selectedId: number }>({
-  memos: [],
-  selectedId: 1,
-});
-
-/** 操作だけの Context。中身の値を持たないので、何が変わっても変化しない */
-const ActionsContext = createContext<{
-  select: (id: number) => void;
-  updateBody: (body: string) => void;
-}>({ select: () => {}, updateBody: () => {} });
-
-function PaletteProvider({ children }: { children: ReactNode }) {
-  const [palette, setPalette] = useState<Palette>("plain");
-  const value = useMemo(() => ({ palette, setPalette }), [palette]);
-  return <PaletteContext value={value}>{children}</PaletteContext>;
-}
-
-function MemosProvider({ children }: { children: ReactNode }) {
-  const [memos, setMemos] = useState(initialMemos);
-  const [selectedId, setSelectedId] = useState(1);
-
-  const memosValue = useMemo(() => ({ memos, selectedId }), [memos, selectedId]);
-
-  const updateBody = useCallback(
-    (body: string) =>
-      setMemos((current) =>
-        current.map((memoItem) =>
-          memoItem.id === selectedId ? { ...memoItem, body } : memoItem,
-        ),
-      ),
-    [selectedId],
-  );
-
-  // 操作は、値が変わっても作り直さない
-  const actionsValue = useMemo(
-    () => ({ select: setSelectedId, updateBody }),
-    [updateBody],
-  );
-
-  return (
-    <MemosContext value={memosValue}>
-      <ActionsContext value={actionsValue}>{children}</ActionsContext>
-    </MemosContext>
-  );
-}
-
-const Header = memo(function Header() {
-  const { palette } = use(PaletteContext);
   return (
     <RenderBox title="ヘッダー（配色だけ使う）">
       いまの配色: {paletteLabels[palette]}
     </RenderBox>
   );
-});
+}
 
-const MemoList = memo(function MemoList() {
-  const { memos, selectedId } = use(MemosContext);
-  const { select } = use(ActionsContext);
+function MemoList() {
+  // titles は本文を打っても書き換わらない。だからここは動かない
+  const titles = useNotepadStore((state) => state.titles);
+  const selectedId = useNotepadStore((state) => state.selectedId);
+  const select = useNotepadStore((state) => state.select);
 
   return (
-    <RenderBox title="一覧（本文は使わない）">
+    <RenderBox title="一覧（本文は読まない）">
       <ul className="flex flex-col gap-2">
-        {memos.map((memoItem) => (
-          <li key={memoItem.id}>
+        {titles.map((item) => (
+          <li key={item.id}>
             <button
               type="button"
-              onClick={() => select(memoItem.id)}
+              onClick={() => select(item.id)}
               className={`focus-ring w-full rounded-md border px-3 py-2 text-left ${
-                memoItem.id === selectedId ? "border-foreground/40" : ""
+                item.id === selectedId ? "border-foreground/40" : ""
               }`}
             >
-              {memoItem.title}
+              {item.title}
             </button>
           </li>
         ))}
       </ul>
     </RenderBox>
   );
-});
+}
 
-const Editor = memo(function Editor() {
-  const { memos, selectedId } = use(MemosContext);
-  const { updateBody } = use(ActionsContext);
-  const { palette } = use(PaletteContext);
-  const current = memos.find((memoItem) => memoItem.id === selectedId);
+function Editor() {
+  // 取り出すのは 1 本の文字列。配列やオブジェクトを組み立てていない
+  const body = useNotepadStore((state) => state.bodies[state.selectedId] ?? "");
+  const palette = useNotepadStore((state) => state.palette);
+  const updateBody = useNotepadStore((state) => state.updateBody);
 
   return (
     <RenderBox title="本文（ここに打つ）" tone="highlight">
       <Input
-        value={current?.body ?? ""}
+        value={body}
         onChange={(event) => updateBody(event.target.value)}
         aria-label="本文"
         className={paletteStyles[palette]}
       />
     </RenderBox>
   );
-});
+}
 
-/** 操作しか使わないので、本文をいくら打っても描き直されない */
-const PaletteButtons = memo(function PaletteButtons() {
-  const { palette, setPalette } = use(PaletteContext);
+function PaletteButtons() {
+  const palette = useNotepadStore((state) => state.palette);
+  const setPalette = useNotepadStore((state) => state.setPalette);
 
   return (
     <RenderBox title="配色の切り替え">
@@ -145,19 +83,15 @@ const PaletteButtons = memo(function PaletteButtons() {
       </div>
     </RenderBox>
   );
-});
+}
 
 export function Notepad() {
   return (
-    <PaletteProvider>
-      <MemosProvider>
-        <div className="flex flex-col gap-3">
-          <Header />
-          <MemoList />
-          <Editor />
-          <PaletteButtons />
-        </div>
-      </MemosProvider>
-    </PaletteProvider>
+    <div className="flex flex-col gap-3">
+      <Header />
+      <MemoList />
+      <Editor />
+      <PaletteButtons />
+    </div>
   );
 }
