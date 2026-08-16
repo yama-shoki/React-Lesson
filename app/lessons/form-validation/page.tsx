@@ -318,6 +318,28 @@ const showError = touched && error !== null;`}
             },
           ]}
         />
+
+        <Quiz
+          question="入力欄で Enter を押しても送信されるようにするには？"
+          options={[
+            {
+              label: "form の onSubmit で受け取る",
+              correct: true,
+              explanation:
+                "送信を受け取るのはボタンではなく form です。ボタンの onClick だけだと、Enter で送信したときに何も起きません。",
+            },
+            {
+              label: "ボタンの onClick で受け取る",
+              explanation:
+                "押したときは動きますが、Enter では動きません。取りこぼしが出ます。",
+            },
+            {
+              label: "input の onKeyDown で Enter を見る",
+              explanation:
+                "自分で書かなくても、form が最初からやってくれます。わざわざ手で書くと、日本語入力の変換確定なども拾ってしまいます。",
+            },
+          ]}
+        />
       </LessonSection>
 
       <LessonSection id="summary" {...at(VALIDATION)}>

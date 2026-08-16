@@ -267,6 +267,28 @@ useQueryState("tab", { defaultValue: "profile", history: "push" });`}
 						},
 					]}
 				/>
+
+				<Quiz
+					question="検索窓の文字を URL に入れるとき、履歴はどう扱う？"
+					options={[
+						{
+							label: "積まない（置き換える）。1 文字ごとに履歴が増えると、戻るボタンが使えなくなる",
+							correct: true,
+							explanation:
+								"打つたびに履歴を積むと、10 文字打っただけで 10 回戻らないと前の画面に帰れません。検索窓のような連続する入力は、置き換えるほうが自然です。",
+						},
+						{
+							label: "積む。戻るボタンで 1 文字ずつ戻れると便利だから",
+							explanation:
+								"1 文字ずつ戻りたい場面はまずありません。それより、検索する前の画面に戻れないほうが困ります。",
+						},
+						{
+							label: "どちらでもよい。URL に入れた時点で同じ",
+							explanation:
+								"表示される URL は同じですが、戻るボタンの挙動がまったく変わります。",
+						},
+					]}
+				/>
 			</LessonSection>
 
 			<LessonSection id="summary" {...at(URL_STATE, "useQueryState(")}>

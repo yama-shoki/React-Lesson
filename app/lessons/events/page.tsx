@@ -326,6 +326,28 @@ export default async function Page() {
             },
           ]}
         />
+
+        <Quiz
+          question="form の中の「戻る」ボタンを押すと、なぜかページが再読み込みされる。原因は？"
+          options={[
+            {
+              label: "type を書いていないので、送信ボタンとして扱われている",
+              correct: true,
+              explanation:
+                "form の中の button は、type を書かないと submit になります。送信させたくないボタンには type=\"button\" を書きます。",
+            },
+            {
+              label: "onClick の中で preventDefault を呼んでいないから",
+              explanation:
+                "呼べば止まりますが、そもそも送信させる必要がありません。type を直すほうが素直です。",
+            },
+            {
+              label: "戻るボタンはブラウザの履歴を操作するから",
+              explanation:
+                "ここでの「戻る」はただのボタンです。ブラウザの戻る機能とは関係ありません。",
+            },
+          ]}
+        />
       </LessonSection>
 
       <LessonSection id="summary" {...at(CLICK)}>

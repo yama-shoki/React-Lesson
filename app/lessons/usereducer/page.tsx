@@ -412,6 +412,28 @@ dispatch({ type: "reset" });`}
 						},
 					]}
 				/>
+
+				<Quiz
+					question="dispatch を子コンポーネントに渡すとき、useCallback で包む必要はある？"
+					options={[
+						{
+							label: "ない。dispatch は毎回同じものが返ってくると決まっている",
+							correct: true,
+							explanation:
+								"React が保証しています。だから memo した子に渡しても、依存配列に入れても安全です。ここが useState の setter と同じで、useReducer を選ぶ理由の 1 つになります。",
+						},
+						{
+							label: "ある。関数なので毎回新しく作られる",
+							explanation:
+								"自分で書いた関数はそうですが、dispatch は React が用意したものです。作り直されません。",
+						},
+						{
+							label: "state が変わったときだけ包む必要がある",
+							explanation:
+								"state が変わっても dispatch は変わりません。だから条件によらず、包む必要はありません。",
+						},
+					]}
+				/>
 			</LessonSection>
 
 			<LessonSection id="summary" {...at(REDUCER, "function formReducer")}>

@@ -330,6 +330,28 @@ const [status, setStatus] = useState<Status>("idle");`}
 					]}
 				/>
 
+				<Quiz
+					question="開いているかどうかの state に付ける名前として、いちばんよいのは？"
+					options={[
+						{
+							label: "isOpen",
+							correct: true,
+							explanation:
+								"真偽値には is / has を付けます。読んだ瞬間に「はい・いいえ」で答えられる名前だと分かります。",
+						},
+						{
+							label: "open",
+							explanation:
+								"「開く」という動作にも読めてしまいます。関数なのか値なのか、名前から判断できません。",
+						},
+						{
+							label: "openFlag",
+							explanation:
+								"flag は「何かの印」としか言っておらず、情報が増えていません。is を付ければ足ります。",
+						},
+					]}
+				/>
+
 				
 			</LessonSection>
 
