@@ -282,6 +282,37 @@ export default async function Page() {
         </ul>
       </LessonSection>
 
+      <LessonSection id="part-end" {...at(FIXED, "key={member.id}")}>
+        <h2>ここで Part 3 は終わりです</h2>
+
+        <p>
+          Part 3 では 3 つのことをやりました。
+          <strong>押したら動く</strong>（イベント）、
+          <strong>条件で出し分ける</strong>、
+          <strong>並べる</strong>（リストと key）。
+        </p>
+
+        <p>
+          この 3 つで、<strong>画面の見た目はだいたい作れます</strong>。
+          ですが、まだ決定的に足りないものがあります。
+        </p>
+
+        <Callout variant="point" title="値を覚えておく手段がない">
+          <p>
+            ここまでのデモでは、<code>useState</code> という見慣れない
+            ものが何度か出てきました。説明せずに使ってきたものです。
+          </p>
+          <p>
+            押したことを覚えておく。入力された文字を覚えておく。
+            <strong>それができないと、画面は一度描いたきり動きません。</strong>
+          </p>
+          <p>
+            次の Part が、その話です。
+            <strong>React の中心</strong>にあたる部分になります。
+          </p>
+        </Callout>
+      </LessonSection>
+
       <LessonFooter slug={SLUG} />
     </LessonShell>
   );

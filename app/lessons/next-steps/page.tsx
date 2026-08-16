@@ -3,10 +3,12 @@ import { LessonFooter } from "@/components/lesson/lesson-footer";
 import { LessonHeader } from "@/components/lesson/lesson-header";
 import { LessonSection } from "@/components/lesson/lesson-section";
 import { LessonShell } from "@/components/lesson/lesson-shell";
+import { Quiz } from "@/components/lesson/quiz";
 import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 const SLUG = "next-steps";
 
@@ -87,9 +89,32 @@ export default async function Page() {
 
         <p>
           いきなり大きなものを作らないでください。
-          <strong>Part 11 で作った 2 つを、自分の題材で作り直す</strong>のが
+          <strong>Part 11 で作ったものを、自分の題材で作り直す</strong>のが
           いちばん早いです。
         </p>
+
+        <ul>
+          <li>
+            <Link href="/lessons/todo-app">TODO リスト</Link> …{" "}
+            作る・変える・消すの基本形
+          </li>
+          <li>
+            <Link href="/lessons/shopping-list">買い物リスト</Link> …{" "}
+            値ごとの置き場所
+          </li>
+          <li>
+            <Link href="/lessons/pokemon-search">API を使う画面</Link> …{" "}
+            取ってくる側
+          </li>
+          <li>
+            <Link href="/lessons/multi-step-form">申込フォーム</Link> …{" "}
+            送る側と、複雑な state
+          </li>
+          <li>
+            <Link href="/lessons/notepad">メモ帳</Link> …{" "}
+            離れた部品での共有
+          </li>
+        </ul>
 
         <ul>
           <li>
@@ -102,6 +127,23 @@ export default async function Page() {
             好きなサービスの公開 API を 1 つ選んで、検索できる画面を作る
           </li>
         </ul>
+
+        <Callout variant="point" title="作り終えたら、この 6 つを確かめる">
+          <ol>
+            <li>型を先に決めたか（<code>string</code> で済ませていないか）</li>
+            <li>
+              計算で求まるものを <code>useState</code> に入れていないか
+            </li>
+            <li>
+              配列やオブジェクトを、書き換えずに新しく作っているか
+            </li>
+            <li>リストの <code>key</code> は id か（index になっていないか）</li>
+            <li>
+              通信するなら、<strong>読み込み中・失敗</strong>の表示があるか
+            </li>
+            <li>後片付けの要るものに、後片付けを書いたか</li>
+          </ol>
+        </Callout>
 
         <Callout variant="point" title="詰まったら、まずこの順で疑う">
           <ol>
@@ -169,12 +211,38 @@ export default async function Page() {
                   一部の失敗で画面全体が落ちて困ったとき（Part 8 で触れました）
                 </td>
               </tr>
-              <tr>
+              <tr className="border-b">
                 <td className="p-3 font-medium text-foreground">
                   状態管理ライブラリ
                 </td>
                 <td className="p-3">
                   Part 9 の 4 つでは足りないと、実際に困ったとき
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-3 font-medium text-foreground">
+                  サーバーへの書き込み
+                </td>
+                <td className="p-3">
+                  Next.js の Server Actions。フォームの送信を
+                  サーバー側の関数に直接つなぐ書き方
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-3 font-medium text-foreground">
+                  アクセシビリティ
+                </td>
+                <td className="p-3">
+                  キーボードだけで操作できるか、読み上げに乗るか。
+                  この教材のデモにも入れてありますが、説明はしていません
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-foreground">
+                  スタイリングの設計
+                </td>
+                <td className="p-3">
+                  画面が増えて、見た目の指定が散らかってきたとき
                 </td>
               </tr>
             </tbody>
@@ -198,8 +266,11 @@ export default async function Page() {
 
         <ul>
           <li>
-            <strong>公式ドキュメント（react.dev）を最初に見る</strong>。
-            日本語版もあります。この教材の説明も、ほとんどここが元です
+            <strong>公式ドキュメントを最初に見る</strong>。
+            <a href="https://ja.react.dev/" target="_blank" rel="noreferrer">
+              ja.react.dev
+            </a>{" "}
+            に日本語版があります。この教材の説明も、ほとんどここが元です
           </li>
           <li>
             <strong>エラーメッセージをそのまま検索する</strong>。
@@ -229,6 +300,76 @@ export default async function Page() {
             <strong>何が起きているかを言葉にできれば、半分解けています。</strong>
           </p>
         </Callout>
+      </LessonSection>
+
+      <LessonSection id="quiz" {...at(TODO, "const toggle = (id: number)")}>
+        <h2>最後に、5 つの芯を確かめる</h2>
+
+        <Quiz
+          question="画面が更新されないとき、まず疑うのはどれ？"
+          options={[
+            {
+              label: "元の配列やオブジェクトを、書き換えてしまっていないか",
+              correct: true,
+              explanation:
+                "React は「同じものかどうか」で判断します。中身を書き換えても同じものなので、変わっていないと見なされます。いちばん多い原因です。",
+            },
+            {
+              label: "再レンダリングが遅くて、追いついていないのではないか",
+              explanation:
+                "描き直しは一瞬で終わります。待っても変わらないなら、そもそも描き直しが起きていません。",
+            },
+            {
+              label: "useEffect を書き忘れているのではないか",
+              explanation:
+                "表示の更新に useEffect は要りません。むしろ Part 6 で見たとおり、要らない場面で使うほうが問題になります。",
+            },
+          ]}
+        />
+
+        <Quiz
+          question="サーバーから取ってきたデータを useState にコピーしていいのはどんなとき？"
+          options={[
+            {
+              label: "基本しない。編集用の下書きとして持つときだけ",
+              correct: true,
+              explanation:
+                "コピーすると、元が変わっても追随しません。「サーバーのものはサーバーのもの」で、手元に持つのは自分で編集する下書きだけです。",
+            },
+            {
+              label: "毎回コピーする。そのほうが速いから",
+              explanation:
+                "速さは変わりません。増えるのは、元とコピーがずれる可能性だけです。",
+            },
+            {
+              label: "配列のときだけコピーする",
+              explanation:
+                "形は関係ありません。持ち主が誰かで決まります。",
+            },
+          ]}
+        />
+
+        <Quiz
+          question="新しい道具（ライブラリ）を入れるかどうかは、どう決める？"
+          options={[
+            {
+              label: "実際に困ってから入れる。困る前に入れない",
+              correct: true,
+              explanation:
+                "道具には値段があります。読む人が覚えることが増え、抜けられなくなることもあります。困っていないなら、その値段を払う理由がありません。",
+            },
+            {
+              label: "有名なものは先に入れておく",
+              explanation:
+                "有名さは、自分の画面に必要かどうかとは別の話です。",
+            },
+            {
+              label: "自分で書けないものだけ入れる",
+              explanation:
+                "書けるかどうかより、書いたものを保ち続けられるかで決めます。書けても任せたほうがよいものはあります。",
+            },
+          ]}
+        />
       </LessonSection>
 
       <LessonSection id="closing" {...at(TODO, "const add = ()")}>

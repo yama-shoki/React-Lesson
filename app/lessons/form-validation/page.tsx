@@ -341,6 +341,25 @@ const showError = touched && error !== null;`}
             項目が増えたら react-hook-form や zod。ただし考え方は同じ
           </li>
         </ul>
+
+        <Callout variant="note" title="ここで Part 5 は終わりです">
+          <p>
+            ここまでで、<strong>画面の中だけで完結する話</strong>は
+            ひととおり終わりました。
+            表示して、押して、入力して、確かめる。
+            これだけで作れるものは、意外と多いはずです。
+          </p>
+          <p>
+            次の Part から、<strong>React の外側</strong>が出てきます。
+            ブラウザのタブ名、タイマー、通信。
+            React が管理していないものと、どう足並みをそろえるか、という話です。
+          </p>
+          <p>
+            そこで出てくるのが <code>useEffect</code> です。
+            ただし<strong>いちばん誤用されている道具</strong>でもあるので、
+            「使う」と同じくらい「使わない」に紙幅を割きます。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonFooter slug={SLUG} />

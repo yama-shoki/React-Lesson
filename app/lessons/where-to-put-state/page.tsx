@@ -9,6 +9,7 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { Compare } from "./demos/compare";
 
@@ -173,22 +174,29 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 					上から順に問いかけて、最初に当てはまったところに置きます。
 				</p>
 
-				<Callout variant="point" title="4 つの問い">
+				<Callout variant="point" title="5 つの問い">
 					<ol>
 						<li>
+							<strong>そもそも持つ必要があるか？</strong>
+							ほかの値から計算できるなら →{" "}
+							<Link href="/lessons/minimal-state">どこにも置かない</Link>
+						</li>
+						<li>
 							<strong>それは本物のデータか？</strong>
-							（ユーザー情報、商品、投稿）→ <strong>サーバー</strong>
+							（ユーザー情報、商品、投稿）→{" "}
+							<Link href="/lessons/server-state">サーバー</Link>
 						</li>
 						<li>
 							<strong>URL を送って、相手に同じ画面を見せたいか？</strong>
-							→ <strong>URL</strong>
+							→ <Link href="/lessons/url-state">URL</Link>
 						</li>
 						<li>
 							<strong>次に来たときも覚えていてほしいか？</strong>
-							→ <strong>ブラウザの保存領域</strong>
+							→{" "}
+							<Link href="/lessons/browser-storage">ブラウザの保存領域</Link>
 						</li>
 						<li>
-							どれでもない → <strong>useState</strong>
+							どれでもない → <Link href="/lessons/usestate">useState</Link>
 						</li>
 					</ol>
 				</Callout>
@@ -209,6 +217,17 @@ const [value, setValue] = useLocalStorageState("key", { defaultValue: "" });`}
 					使っている場所には手を触れません。
 					これが「形を揃えてある」ことの実利です。
 				</p>
+
+				<Callout variant="note" title="実際にやってみる章があります">
+					<p>
+						Part 11 の{" "}
+						<Link href="/lessons/shopping-list">買い物リストを作る</Link>{" "}
+						では、1 つの画面の中で
+						この選び分けを実際にやっています。
+						全部 <code>useState</code> で書いた版から、
+						値ごとに置き場所を決め直すところまで通しで見られます。
+					</p>
+				</Callout>
 			</LessonSection>
 
 			<LessonSection id="context-place" {...at(COMPARE, "const [inUrl, setInUrl]")}>

@@ -499,6 +499,20 @@ const remaining = todos.filter((todo) => !todo.done).length;`}
             <strong>「元のものを書き換えていないか」</strong>を疑う
           </li>
         </ul>
+
+        <Callout variant="note" title="この章で使った Part">
+          <p>
+            Part 0（型・スプレッド構文・map と filter）、
+            Part 2（部品に分ける・値は下へ知らせは上へ）、
+            Part 3（イベント・条件・リストと key）、
+            Part 4（useState・最小限の state・リフトアップ・
+            オブジェクトと配列の更新）、Part 5（制御コンポーネント）。
+          </p>
+          <p>
+            新しい道具は 1 つも使っていません。
+            <strong>ここまでの積み上げだけで、動くものが 1 つできました。</strong>
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonFooter slug={SLUG} />

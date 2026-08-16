@@ -453,6 +453,19 @@ return () => controller.abort();`}
             <strong>取ってくる係と見せる係を分ける</strong>
           </li>
         </ul>
+
+				<Callout variant="note" title="この章で使った Part">
+					<p>
+						Part 0（async / await・型）、Part 4（union で状態をまとめる）、
+						Part 6（useEffect・クリーンアップ・競合状態）、
+						Part 9（サーバーのデータ）、Part 10（入力を間引く）。
+					</p>
+					<p>
+						ここで手で書いたものが、Part 9 の SWR が
+						<strong>肩代わりしていた中身</strong>です。
+						先に書いてみたので、何を任せているのかが分かります。
+					</p>
+				</Callout>
       </LessonSection>
 
       <LessonFooter slug={SLUG} />
