@@ -467,6 +467,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "shopping-list",
+				title: "買い物リストを作る",
+				summary: "同じ画面の中で、値ごとに置き場所を選び分ける",
+				ready: true,
+			},
+			{
 				slug: "pokemon-search",
 				title: "API を使う画面を作る",
 				summary: "本物の API を日本語で検索する。通信の 3 つの厄介ごとを潰す",
