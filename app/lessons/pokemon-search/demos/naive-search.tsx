@@ -3,6 +3,8 @@
 import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { PokemonCard } from "./pokemon-card";
+import type { Pokemon } from "./types";
 
 /*
   素直に書いた検索。動きはします。
@@ -13,13 +15,11 @@ import { useEffect, useState } from "react";
 */
 /* eslint-disable react-hooks/set-state-in-effect */
 
-type Result = { id: number; name: string };
-
 export function NaiveSearch() {
   useTrackDemoRender();
 
   const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState<Result[]>([]);
+  const [results, setResults] = useState<Pokemon[]>([]);
   const [requestCount, setRequestCount] = useState(0);
 
   useEffect(() => {
@@ -49,11 +49,10 @@ export function NaiveSearch() {
         問い合わせた回数: <strong>{requestCount}</strong>
       </p>
 
-      <ul className="flex flex-wrap gap-2 text-sm">
-        {results.map((result) => (
-          <li key={result.id} className="rounded-md border px-3 py-1.5">
-            {result.name}
-          </li>
+      {/* 見た目の部品は ✅ 版と同じものを使う。違うのは取ってくる方だけ */}
+      <ul className="grid gap-2 sm:grid-cols-2">
+        {results.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </ul>
     </div>

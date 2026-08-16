@@ -14,9 +14,10 @@ export function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
         <img
           src={pokemon.imageUrl}
           alt={pokemon.name}
-          width={64}
-          height={64}
-          className="size-16 shrink-0"
+          width={80}
+          height={80}
+          className="size-20 shrink-0"
+          loading="lazy"
         />
       )}
 

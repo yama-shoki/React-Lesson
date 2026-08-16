@@ -268,11 +268,21 @@ const send = async () => {
 
 				<StaticCode
 					lang="ts"
-					code={`// 先に画面を更新してしまい、あとから本物と合わせる
-await mutate(sendMessage(text), {
-  optimisticData: [...messages, { id: "仮", text }],
-  rollbackOnError: true,
-});`}
+					code={`const { data, mutate } = useSWR("/api/messages", fetcher);
+
+// 先に画面を更新してしまい、あとから本物と合わせる
+await mutate(
+  // 送る処理。返り値はキャッシュに使わない
+  fetch("/api/messages", { method: "POST", ... }),
+  {
+    // 送信中のあいだ、こう見せておく
+    optimisticData: [...data, { id: "仮", text }],
+    // POST の返り値で一覧を上書きしない
+    populateCache: false,
+    // 代わりに、終わったら取り直す
+    revalidate: true,
+  },
+);`}
 				/>
 
 				<p>
@@ -282,6 +292,22 @@ await mutate(sendMessage(text), {
 					「たぶん成功するだろう」と見込んで進めるからです。
 				</p>
 
+				<Callout variant="note" title="mutate に引数を渡す形">
+					<p>
+						さきほどは <code>mutate()</code> と引数なしで呼びました。
+						あれは<strong>「取り直して」</strong>だけを頼む形です。
+					</p>
+					<p>
+						引数を渡すと<strong>「この処理をやるあいだ、こう見せておいて」</strong>
+						まで頼めます。同じ関数の、別の使い方です。
+					</p>
+					<p>
+						<code>populateCache: false</code> を付けているのは、
+						<strong>POST の返り値で一覧を上書きさせない</strong>ためです。
+						これを忘れると、返ってきた 1 件で一覧が置き換わります。
+					</p>
+				</Callout>
+
 				<ul>
 					<li>
 						<strong>成功したとき</strong> …{" "}
@@ -290,8 +316,8 @@ await mutate(sendMessage(text), {
 					</li>
 					<li>
 						<strong>失敗したとき</strong> …{" "}
-						<code>rollbackOnError</code> が元に戻す。
-						<strong>戻したことを利用者に伝える</strong>のは自分の仕事
+						仮の表示は<strong>自動で元に戻ります</strong>（既定の動きです）。
+						ただし<strong>戻したことを利用者に伝える</strong>のは自分の仕事
 					</li>
 				</ul>
 
@@ -306,6 +332,25 @@ await mutate(sendMessage(text), {
 						<strong>やり直せないもの</strong>。
 						決済が終わっていないのに「完了しました」と出す画面は、
 						速いかどうか以前の問題になります。
+					</p>
+				</Callout>
+
+				<Callout variant="point" title="「自分で足すな」と矛盾しないのはなぜか">
+					<p>
+						この章では「送ったデータを自分で一覧に足すな」と書きました。
+						楽観的更新は、一見それをやっているように見えます。
+					</p>
+					<p>
+						違うのは、<strong>足したものを残さない</strong>ことです。
+						<code>optimisticData</code> は
+						<strong>通信が終わるまでの仮の見た目</strong>で、
+						終わったら必ず取り直して本物に置き換わります。
+						<strong>手元の推測を正解として持ち続けるわけではありません。</strong>
+					</p>
+					<p>
+						やってはいけないのは、
+						<code>setMessages([...messages, newMessage])</code> のように
+						<strong>推測をそのまま state に残す</strong>ことです。
 					</p>
 				</Callout>
 

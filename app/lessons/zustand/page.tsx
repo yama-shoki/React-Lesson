@@ -201,7 +201,7 @@ const count = useSelectorStore((state) => state.count);`}
       </LessonSection>
 
       <LessonSection id="more" {...at(STORE, "increase:")}>
-        <h2>あと 3 つだけ、知っておくと足りる</h2>
+        <h2>あと 3 つ、知っておくと足りる</h2>
 
         <h3>1. いまの値を読みたいとき（get）</h3>
 
@@ -262,7 +262,7 @@ const count = useSelectorStore((state) => state.count);`}
             <Link href="/lessons/server-state">SWR</Link>{" "}
             の担当のままです。
             取ってきたデータをストアに写すと、
-            Part 9 でやった<strong>二重管理</strong>になります。
+            Part 4 でやった<strong>二重管理</strong>になります。
           </p>
         </Callout>
 
@@ -272,9 +272,12 @@ const count = useSelectorStore((state) => state.count);`}
           lang="ts"
           code={`import { persist } from "zustand/middleware";
 
-export const useStore = create(
+type Store = { theme: string; setTheme: (theme: string) => void };
+
+//                    ここが空の () なのが要点 ↓
+export const useStore = create<Store>()(
   persist(
-    (set) => ({ theme: "light", setTheme: (t) => set({ theme: t }) }),
+    (set) => ({ theme: "light", setTheme: (theme) => set({ theme }) }),
     { name: "app-theme" },   // localStorage のキー
   ),
 );`}
@@ -284,24 +287,48 @@ export const useStore = create(
           <code>persist</code> で包むと、
           <strong>中身がブラウザに保存されます</strong>。
           <Link href="/lessons/browser-storage">ブラウザに保存する</Link>{" "}
-          でやったことを、ストア全体に対してやるものです。
+          で扱う話を、ストア全体に対してやるものです。
         </p>
 
-        <Callout variant="warn" title="保存すると、ちらつきが出る">
+        <Callout variant="warn" title="型を書くときは create&lt;Store&gt;() と空の括弧が要る">
           <p>
-            サーバーで組み立てた HTML には、保存された値がまだ入っていません。
-            ブラウザで読み込んだあとに切り替わるので、
-            <strong>一瞬だけ初期値が見えます</strong>。
+            ここまでは <code>create&lt;CounterStore&gt;((set) =&gt; ...)</code>{" "}
+            と書いてきました。ですが
+            <strong><code>persist</code> のようなミドルウェアと型を併用するときは、
+            <code>create&lt;Store&gt;()(...)</code> と
+            <strong>一度空の括弧を挟みます</strong></strong>。
           </p>
           <p>
-            Part 9 の localStorage の章でやった話と同じです。
-            <strong>保存すると必ずこれが付いてきます。</strong>
+            忘れると型エラーになります。理由は TypeScript 側の都合で、
+            <strong>覚えるしかない書き方</strong>です。
+            「ミドルウェアを使うときは <code>()</code> が増える」とだけ。
+          </p>
+        </Callout>
+
+        <Callout variant="warn" title="保存すると、サーバーとの食い違いが出る">
+          <p>
+            サーバーで組み立てた HTML には、保存された値が入っていません。
+            ところが <code>persist</code> は
+            <strong>ストアを作った時点で保存値を読み込む</strong>ので、
+            ブラウザ側は最初から保存値を持っています。
+          </p>
+          <p>
+            この 2 つが食い違うと、React が
+            <strong>hydration のエラー</strong>を出します。
+            <code>skipHydration</code> という逃げ道が用意されていますが、
+            <strong>保存するなら、この問題が付いてくる</strong>ことは
+            知っておいてください。
+          </p>
+          <p>
+            <Link href="/lessons/browser-storage">ブラウザに保存する</Link>{" "}
+            で使うライブラリは、ここを内側で面倒を見てくれています。
+            <strong>同じ「保存する」でも、扱いは同じではありません。</strong>
           </p>
         </Callout>
       </LessonSection>
 
       <LessonSection id="pitfall" {...at(STORE, "export const useCounterStore")}>
-        <h2>ストアは、画面を離れても消えない</h2>
+        <h2>そしてもう 1 つ、ストアは画面を離れても消えない</h2>
 
         <p>
           ストアはコンポーネントの外にあります。
@@ -479,6 +506,28 @@ create((set) => ({
               label: "どちらでもよい。同じもの",
               explanation:
                 "1 つのストアの中身はアプリに 1 組、Context は Provider を置いた範囲ごとに別々です。同じ画面を 2 つ並べて別々の状態にしたいときに差が出ます。",
+            },
+          ]}
+        />
+
+        <Quiz
+          question="ログアウトしたのに、前の人の入力が残って見えた。原因は？"
+          options={[
+            {
+              label: "ストアはコンポーネントの外にあるので、画面を離れても消えないから",
+              correct: true,
+              explanation:
+                "useState なら画面から消えた時点で初期化されますが、ストアは残ります。消したいときは、初期状態に戻す関数を自分で用意して呼びます。",
+            },
+            {
+              label: "セレクタの書き方が間違っているから",
+              explanation:
+                "セレクタは「何を読むか」を決めるだけで、値が残るかどうかとは関係ありません。",
+            },
+            {
+              label: "persist を付けていないから",
+              explanation:
+                "逆です。persist を付けると、ブラウザを閉じても残るようになります。いまの問題は、付けていなくても起きます。",
             },
           ]}
         />

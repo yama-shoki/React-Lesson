@@ -402,6 +402,28 @@ function Child({ onSelect }) {
             },
           ]}
         />
+
+        <Quiz
+          question="useEffect の依存配列に、自分がその effect で更新している値が入っている。何を疑う？"
+          options={[
+            {
+              label: "計算で出せるものを、わざわざ state にして受け渡している",
+              correct: true,
+              explanation:
+                "effect が次の effect を呼ぶ連鎖になっている合図です。1 回の操作で何度も描き直され、途中の状態まで画面に出ます。その場で計算すれば 1 回で終わります。",
+            },
+            {
+              label: "依存配列に書きすぎている。減らせばよい",
+              explanation:
+                "減らすと今度は古い値のまま止まります。直すのは依存配列ではなく、state の持ち方のほうです。",
+            },
+            {
+              label: "問題ない。よくある書き方",
+              explanation:
+                "よく書かれてしまう形ではありますが、問題はあります。1 つずつ見ると自然に見えるぶん、いちばん見つけにくい形です。",
+            },
+          ]}
+        />
       </LessonSection>
 
       <LessonSection id="summary" {...at(CALCULATE)}>

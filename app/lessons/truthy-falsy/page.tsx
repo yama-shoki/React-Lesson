@@ -419,6 +419,28 @@ user.address?.city ?? "未登録"  // "未登録"`}
             },
           ]}
         />
+
+        <Quiz
+          question="user.address が無いとき、user.address.city はどうなる？"
+          options={[
+            {
+              label: "エラーになって、そこで処理が止まる",
+              correct: true,
+              explanation:
+                "undefined の中を見に行こうとして落ちます。Cannot read properties of undefined というエラーで、いちばんよく出会うものです。?. を挟めば、手前が無い時点で undefined を返して止まります。",
+            },
+            {
+              label: "undefined になる",
+              explanation:
+                "undefined になるのは ?. を付けたときです。付けていなければ、その手前で落ちます。",
+            },
+            {
+              label: "空文字になる",
+              explanation:
+                "無いものが空文字に変わることはありません。無いときの値を決めたいなら ?? を使います。",
+            },
+          ]}
+        />
       </LessonSection>
 
       <LessonSection id="summary" {...at(FALSY)}>
