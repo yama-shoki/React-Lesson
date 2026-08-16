@@ -269,6 +269,58 @@ increaseCount, openModal`}
 					打ち間違いはちゃんと止めてくれます。
 				</p>
 
+				<h3>自分で作った部品からも、型を取り出せる</h3>
+
+				<p>
+					<code>ComponentProps</code> に渡せるのは、
+					<code>&quot;input&quot;</code> のようなタグ名だけではありません。
+					<strong>自分で作った部品や、ライブラリの部品</strong>も渡せます。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// Button が受け取れるもの全部
+type ButtonProps = ComponentProps<typeof Button>;
+
+// それに、自分の項目を足す
+type Props = ButtonProps & { loading?: boolean };
+
+function SubmitButton({ loading, children, ...rest }: Props) {
+  return (
+    <Button disabled={loading} {...rest}>
+      {loading ? "送信中…" : children}
+    </Button>
+  );
+}`}
+				/>
+
+				<p>
+					<code>typeof Button</code> は
+					<strong>「Button という部品そのものの型」</strong>という意味です。
+					そこから <code>ComponentProps</code> で
+					<strong>受け取れる props を取り出しています</strong>。
+				</p>
+
+				<p>
+					こうしておくと、<code>size</code> も <code>variant</code> も{" "}
+					<code>onClick</code> も、<strong>1 つも書かずにそのまま通ります</strong>。
+					Button 側に項目が増えても、こちらは直さなくて済みます。
+				</p>
+
+				<Callout variant="point" title="既製の部品を包むときの定番">
+					<p>
+						shadcn/ui のような<strong>既製の部品を、自分用に包む</strong>とき、
+						この形をいちばんよく使います。
+						「元の部品にできることは全部できて、
+						そのうえで自分の項目が足されている」という部品が作れます。
+					</p>
+					<p>
+						項目を 1 つずつ書き写すと、
+						<strong>元が変わったときに追随できません</strong>。
+						書き写さずに<strong>取り出す</strong>のが要点です。
+					</p>
+				</Callout>
+
 				<Callout variant="note" title="要素そのものも渡せる">
 					<StaticCode
 						code={`hint={<>通知に使います（<strong>公開されません</strong>）</>}`}

@@ -252,6 +252,77 @@ const send = async () => {
 				</Callout>
 			</LessonSection>
 
+			<LessonSection id="optimistic" {...at(SEND, "setStatus(\"done\")")}>
+				<h2>待たせたくないとき（楽観的更新）</h2>
+
+				<p>
+					「送る → 待つ → 取り直す」は正しいのですが、
+					<strong>そのあいだ画面が止まって見えます</strong>。
+					0.8 秒でも、連続で操作すると気になります。
+				</p>
+
+				<p>
+					チャットの送信や「いいね」のように、
+					<strong>ほぼ失敗しない操作</strong>では、別のやり方をします。
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`// 先に画面を更新してしまい、あとから本物と合わせる
+await mutate(sendMessage(text), {
+  optimisticData: [...messages, { id: "仮", text }],
+  rollbackOnError: true,
+});`}
+				/>
+
+				<p>
+					<strong>成功したことにして、先に画面を書き換えます。</strong>
+					通信はそのうしろで走ります。
+					これを<strong>楽観的更新</strong>と呼びます。
+					「たぶん成功するだろう」と見込んで進めるからです。
+				</p>
+
+				<ul>
+					<li>
+						<strong>成功したとき</strong> …{" "}
+						取り直した本物で、そっと置き換わる。
+						利用者から見れば、最初から成功していたのと同じ
+					</li>
+					<li>
+						<strong>失敗したとき</strong> …{" "}
+						<code>rollbackOnError</code> が元に戻す。
+						<strong>戻したことを利用者に伝える</strong>のは自分の仕事
+					</li>
+				</ul>
+
+				<Callout variant="warn" title="どこでも使ってよいわけではない">
+					<p>
+						向いているのは、
+						<strong>失敗がまれで、失敗しても取り返しがつく</strong>操作です。
+						いいね、チェックの付け外し、並べ替え。
+					</p>
+					<p>
+						向いていないのは<strong>お金が動くもの</strong>や、
+						<strong>やり直せないもの</strong>。
+						決済が終わっていないのに「完了しました」と出す画面は、
+						速いかどうか以前の問題になります。
+					</p>
+				</Callout>
+
+				<Callout variant="note" title="まずは待たせるほうから">
+					<p>
+						この章のデモは、素直に待つ形で書いてあります。
+						<strong>そちらが基本</strong>です。
+						楽観的更新は「仮の状態」と「本物」の 2 つを扱うぶん、
+						考えることが増えます。
+					</p>
+					<p>
+						<strong>待たせて困ってから</strong>で間に合います。
+						Part 10「ライブラリの選び方」と同じ順番です。
+					</p>
+				</Callout>
+			</LessonSection>
+
 			<LessonSection id="quiz" {...at(SEND, 'method: "POST"')}>
 				<h2>理解できたか確かめる</h2>
 

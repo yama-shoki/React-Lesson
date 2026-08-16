@@ -206,7 +206,7 @@ copy.name = "すずき";`}
         <DemoCard
           title="写してから、片方を書き換える"
           sourcePath={REFERENCE}
-          description="2 つのボタンで結果を見比べる"
+          description="左のボタンが ✕、右のボタンが ○ の書き方"
         >
           <AliasView />
         </DemoCard>

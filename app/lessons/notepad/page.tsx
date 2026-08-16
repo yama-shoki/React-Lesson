@@ -361,44 +361,22 @@ updateBody: (body) => set((state) => ({
         <h2>ただし、最初からストアに置かない</h2>
 
         <p>
-          ここまで読むと、
-          最初から全部ストアに置きたくなるかもしれません。
-          <strong>やめてください。</strong>
+          <Link href="/lessons/zustand">Zustand の章</Link>{" "}
+          で書いたとおりです。
+          <strong>まず <code>useState</code>。共有が必要になってから持ち上げる。
+          それでも苦しくなってから、ストア。</strong>
         </p>
 
-        <ul>
-          <li>
-            <strong>どこからでも書き換えられる値</strong>が増えていく
-          </li>
-          <li>
-            値が変わった理由を追うのに、
-            <strong>アプリ全体を探すことになる</strong>
-          </li>
-          <li>
-            画面を閉じても値が残るので、
-            <strong>消し忘れが起きる</strong>
-          </li>
-        </ul>
-
-        <p>
-          <Link href="/lessons/where-to-put-state">状態の置き場所を選ぶ</Link>{" "}
-          で書いたことは変わりません。
-          <strong>まず <code>useState</code>。
-          共有が必要になってから、持ち上げる。</strong>
-          それでも足りないときに、はじめてストアです。
-        </p>
-
-        <Callout variant="note" title="今回はなぜストアにしたのか">
+        <Callout variant="note" title="この画面も、本当は要らない">
           <p>
-            この画面は部品が 4 つしかないので、
-            <strong>実際には <code>useState</code> を持ち上げるだけで足ります</strong>。
+            部品が 4 つでは、全部描き直されても体感は変わりません。
             ストアにしたのは、
-            描き直しの範囲が目で見えるようにするためです。
+            <strong>描き直しの範囲が目で見えるようにするため</strong>です。
           </p>
           <p>
-            部品が数十個になり、
-            深い場所から同じ値を読み書きしたくなってはじめて、
-            持ち上げるのが苦しくなります。そこが移りどきです。
+            移りどきは、
+            <strong>深い場所から同じ値を読み書きしたくなって、
+            props で配るのが苦しくなったとき</strong>です。
           </p>
         </Callout>
       </LessonSection>
