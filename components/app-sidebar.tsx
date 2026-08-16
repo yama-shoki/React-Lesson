@@ -21,7 +21,7 @@ import { useEffect, useRef } from "react";
 
 export function AppSidebar() {
   /**
-   * 59 章あるので、開いた直後は現在地が画面外にあることが多い。
+   * 章数が多いので、開いた直後は現在地が画面外にあることが多い。
    * リロードや URL 直開きのたびに探させないよう、1 回だけ寄せる。
    */
   const currentRef = useRef<HTMLButtonElement>(null);

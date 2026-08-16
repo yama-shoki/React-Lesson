@@ -49,7 +49,7 @@ export default async function Page() {
         </p>
         <p>
           <strong>実務では、ここで外部のストアを使うことが多い</strong>です。
-          いちばんよく使われている <strong>Zustand</strong> を見ます。
+          よく使われている <strong>Zustand</strong> を見ます。
         </p>
       </LessonHeader>
 
@@ -60,7 +60,7 @@ export default async function Page() {
           lang="ts"
           code={`import { create } from "zustand";
 
-export const useCounterStore = create((set) => ({
+export const useCounterStore = create<CounterStore>((set) => ({
   count: 0,
   name: "さとう",
 
@@ -188,9 +188,15 @@ const count = useSelectorStore((state) => state.count);`}
 
         <p>
           関数はストアが作り直さないので、
-          <strong>これを取り出した部品は一度も描き直されません</strong>。
+          <strong>この部品はストアの変化では描き直されません</strong>。
           前の章の「操作だけの Context」と同じことが、
           セレクタ 1 行でできています。
+        </p>
+        <p>
+          ただし Part 7 でやったとおり、
+          <strong>親が描き直されれば子も描き直されます</strong>。
+          ストアからの変化が届かなくなるだけで、
+          上から来る描き直しは別の話です。
         </p>
       </LessonSection>
 
@@ -243,9 +249,14 @@ const count = useSelectorStore((state) => state.count);`}
         </div>
 
         <p>
-          <strong>ストアはアプリに 1 つしかありません。</strong>
-          だから「同じ画面を 2 つ並べて、別々の状態を持たせたい」
-          という使い方には向きません。そこは Context の領分です。
+          <strong>1 つのストアが持つ中身は、アプリの中で 1 組だけ</strong>です
+          （<code>create()</code> を 2 回呼べばストアは 2 つ作れますが、
+          それぞれの中身は 1 組ずつです）。
+        </p>
+        <p>
+          だから「同じ画面を 2 つ並べて、それぞれ別の状態を持たせたい」
+          という使い方には向きません。
+          Provider を置いた範囲ごとに別々になる Context のほうが向いています。
         </p>
 
         <Callout variant="warn" title="それでも、まず useState から">
@@ -326,7 +337,7 @@ const count = useSelectorStore((state) => state.count);`}
             {
               label: "どちらでもよい。同じもの",
               explanation:
-                "ストアはアプリに 1 つ、Context は置いた範囲ごとに別々です。同じ画面を 2 つ並べたいときに差が出ます。",
+                "1 つのストアの中身はアプリに 1 組、Context は Provider を置いた範囲ごとに別々です。同じ画面を 2 つ並べて別々の状態にしたいときに差が出ます。",
             },
           ]}
         />

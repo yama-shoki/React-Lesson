@@ -15,7 +15,7 @@ export const LessonHeader = ({
   const lesson = findLesson(slug);
   if (!lesson) return null;
 
-  // 59 章あるので「あとどれくらいか」が分からないと読者が疲れる。
+  // 章数が多いので「あとどれくらいか」が分からないと読者が疲れる。
   // 準備中の章は数に入れない
   const ready = allLessons.filter((item) => item.ready);
   const position = ready.findIndex((item) => item.slug === slug) + 1;

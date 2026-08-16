@@ -49,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full">
         {/*
           キーボードだけで読む人のための逃げ道。
-          サイドバーには 59 章ぶんのリンクが並ぶので、これが無いと
+          サイドバーには全章ぶんのリンクが並ぶので、これが無いと
           本文に着くまで毎回 Tab を 60 回以上押すことになる。
           ふだんは見えず、Tab で来たときだけ画面の左上に出る。
         */}

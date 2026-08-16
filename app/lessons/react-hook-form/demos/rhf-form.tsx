@@ -45,16 +45,32 @@ export function RhfForm() {
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
       <div className="flex flex-col gap-1">
         {/* value も onChange も書かない。register が繋いでくれる */}
-        <Input placeholder="名前" {...register("name")} aria-label="名前" />
+        <Input
+          placeholder="名前"
+          aria-label="名前"
+          aria-invalid={errors.name !== undefined}
+          aria-describedby={errors.name ? "name-error" : undefined}
+          {...register("name")}
+        />
         {errors.name && (
-          <p className="text-sm text-destructive">{errors.name.message}</p>
+          <p id="name-error" role="alert" className="text-sm text-destructive">
+            {errors.name.message}
+          </p>
         )}
       </div>
 
       <div className="flex flex-col gap-1">
-        <Input placeholder="メールアドレス" {...register("email")} aria-label="メールアドレス" />
+        <Input
+          placeholder="メールアドレス"
+          aria-label="メールアドレス"
+          aria-invalid={errors.email !== undefined}
+          aria-describedby={errors.email ? "email-error" : undefined}
+          {...register("email")}
+        />
         {errors.email && (
-          <p className="text-sm text-destructive">{errors.email.message}</p>
+          <p id="email-error" role="alert" className="text-sm text-destructive">
+            {errors.email.message}
+          </p>
         )}
       </div>
 
@@ -63,11 +79,15 @@ export function RhfForm() {
           type="number"
           placeholder="年齢"
           aria-label="年齢"
+          aria-invalid={errors.age !== undefined}
+          aria-describedby={errors.age ? "age-error" : undefined}
           // 入力欄の値は文字列なので、数値に変換してから検査に渡す
           {...register("age", { valueAsNumber: true })}
         />
         {errors.age && (
-          <p className="text-sm text-destructive">{errors.age.message}</p>
+          <p id="age-error" role="alert" className="text-sm text-destructive">
+            {errors.age.message}
+          </p>
         )}
       </div>
 

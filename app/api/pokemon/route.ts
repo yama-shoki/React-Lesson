@@ -47,6 +47,29 @@ const typeNames: Record<string, string> = {
   fairy: "フェアリー",
 };
 
+type PokemonDetail = {
+  sprites?: { other?: { "official-artwork"?: { front_default?: string | null } } };
+  types: { type: { name: string } }[];
+  height: number;
+  weight: number;
+};
+
+/**
+ * 外の API が返したものを、こちらの形として扱ってよいか確かめる。
+ *
+ * response.json() の戻りは any なので、そのまま使うと
+ * 型がついているように見えて、実際には何も守られていない。
+ */
+const isPokemonDetail = (value: unknown): value is PokemonDetail => {
+  if (typeof value !== "object" || value === null) return false;
+  const detail = value as Record<string, unknown>;
+  return (
+    Array.isArray(detail.types) &&
+    typeof detail.height === "number" &&
+    typeof detail.weight === "number"
+  );
+};
+
 export async function GET(request: Request) {
   const keyword = new URL(request.url).searchParams.get("q")?.trim() ?? "";
 
@@ -59,8 +82,13 @@ export async function GET(request: Request) {
 
   if (hits.length === 0) return NextResponse.json({ results: [] });
 
-  // 候補の詳細だけを取りに行く。6 件までなのでまとめて待てる
-  const results = await Promise.all(
+  /*
+    候補の詳細だけを取りに行く。6 件までなのでまとめて待てる。
+
+    allSettled を使うのは、1 件でも失敗したときに全部を落とさないため。
+    Promise.all だと 1 件の失敗で 6 件ぶんの結果が消える。
+  */
+  const settled = await Promise.allSettled(
     hits.map(async (entry) => {
       const response = await fetch(`${POKE_API}/pokemon/${entry.en}`, {
         // 同じ問い合わせを何度も外へ飛ばさないよう、1 時間ためておく
@@ -69,20 +97,26 @@ export async function GET(request: Request) {
 
       if (!response.ok) throw new Error(`PokeAPI が ${response.status} を返しました`);
 
-      const data = await response.json();
+      const data: unknown = await response.json();
+      if (!isPokemonDetail(data)) {
+        throw new Error("PokeAPI の返した形が想定と違います");
+      }
 
       return {
         id: entry.id,
         name: entry.ja,
         imageUrl: data.sprites?.other?.["official-artwork"]?.front_default ?? null,
-        types: data.types.map(
-          (t: { type: { name: string } }) => typeNames[t.type.name] ?? t.type.name,
-        ),
+        types: data.types.map((t) => typeNames[t.type.name] ?? t.type.name),
         height: data.height * 10,
         weight: data.weight / 10,
       } satisfies Pokemon;
     }),
   );
+
+  // 取れたものだけ返す
+  const results = settled
+    .filter((item) => item.status === "fulfilled")
+    .map((item) => item.value);
 
   return NextResponse.json({ results });
 }

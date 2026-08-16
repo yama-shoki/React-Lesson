@@ -146,21 +146,20 @@ export function MultiStepForm() {
   const send = useFormStore((state) => state.send);
   const restart = useFormStore((state) => state.restart);
 
-
   return (
     <div className="flex flex-col gap-4">
       {/* いまどこにいるか */}
       <ol className="flex flex-wrap gap-2 text-sm">
-        {steps.map((step: Step) => (
+        {steps.map((name: Step) => (
           <li
-            key={step}
+            key={name}
             className={`rounded-md border px-3 py-1 ${
-              step === step
+              name === step
                 ? "border-foreground/40 font-semibold"
                 : "text-muted-foreground"
             }`}
           >
-            {stepLabels[step]}
+            {stepLabels[name]}
           </li>
         ))}
       </ol>

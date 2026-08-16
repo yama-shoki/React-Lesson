@@ -464,7 +464,7 @@ export const curriculum: Part[] = [
 		label: "Part 11",
 		title: "まとめて作る",
 		summary:
-			"ここまでに出てきたものだけで、動く画面を 2 つ作る。新しい道具は使わない。",
+			"ここまでに出てきたものだけで、動く画面をいくつか作る。新しい道具は使わない。",
 		lessons: [
 			{
 				slug: "todo-app",

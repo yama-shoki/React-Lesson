@@ -173,7 +173,7 @@ type Palette = "plain" | "warm" | "cool";`}
 
         <p>
           Context のままでも直せます。
-          <Link href="/lessons/context-performance">前の Part</Link>{" "}
+          <Link href="/lessons/context-performance">Part 9「Context と再レンダリング」</Link>{" "}
           でやったとおり、
           <strong>関心ごとに Context を分け、<code>useMemo</code> で包み、
           <code>memo</code> で囲む</strong>。
@@ -215,7 +215,7 @@ const palette = useNotepadStore((state) => state.palette);
 
 // 本文 … 選ばれている 1 件の本文だけ
 const body = useNotepadStore(
-  (state) => state.memos.find((m) => m.id === state.selectedId)?.body ?? "",
+  (state) => state.bodies[state.selectedId] ?? "",
 );`}
         />
 
@@ -289,18 +289,17 @@ updateBody: (body) => set((state) => ({
             セレクタの中で配列やオブジェクトを新しく作ると、
             中身が同じでも毎回「別のもの」になります
             （<Link href="/lessons/objects-and-references">Part 0</Link>{" "}
-            のとおりです）。
+            のとおりです）。そのままでは描き直しが止まりません。
           </p>
           <p>
-            それでも組み立てたいときは、Zustand の{" "}
-            <code>useShallow</code> を使うと 1 段だけ中身を見比べてくれます。
-            ただし<strong>セレクタ自体を関数の外に置く</strong>必要があります。
-            中に書くと毎回新しい関数になり、
-            <strong>見比べる相手ごと入れ替わって無限ループします</strong>。
+            それでも組み立てたいときのために、Zustand には{" "}
+            <code>useShallow</code> という道具があります。
+            <strong>1 段だけ中身を見比べて</strong>くれます。
           </p>
           <p>
-            <strong>まずはストアの形で解けないかを考えるほうが、
+            ただ、<strong>まずはストアの形で解けないかを考えるほうが、
             結果として簡単です。</strong>
+            この画面も、題名と本文を分けるだけで済みました。
           </p>
         </Callout>
       </LessonSection>
@@ -338,10 +337,10 @@ updateBody: (body) => set((state) => ({
         </p>
 
         <p>
-          Context 版と見比べてください。あちらは
-          <strong>Context を 3 つに分け、<code>useMemo</code> で包み、
-          <code>memo</code> で囲んで</strong>ようやくここまで来ました。
-          しかも一覧は止められませんでした。
+          上の ❌ 版と見比べてください。
+          あちらは <code>memo</code> で 4 つとも包んでいたのに、全部光りました。
+          こちらは <code>memo</code> を 1 つも使わずに、
+          <strong>光る範囲がここまで狭まっています</strong>。
         </p>
 
         <Callout variant="point" title="判定しているものは、最後まで同じ">
@@ -491,8 +490,8 @@ updateBody: (body) => set((state) => ({
             受け取る側のセレクタで絞る
           </li>
           <li>
-            更新用の関数だけ取り出した部品は、
-            <strong>一度も描き直されない</strong>
+            <strong>一緒に変わらないものは、一緒に持たない</strong>。
+            題名と本文を分ければ、一覧は本文に反応しなくなる
           </li>
           <li>
             セレクタで止まるので、
