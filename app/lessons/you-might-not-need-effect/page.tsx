@@ -9,7 +9,9 @@ import { StaticCode } from "@/components/lesson/static-code";
 import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { EffectDerived } from "./demos/effect-derived";
+import { EffectChain, JustCompute } from "./demos/effect-chain";
 import { JustCalculate } from "./demos/just-calculate";
 
 const SLUG = "you-might-not-need-effect";
@@ -21,9 +23,13 @@ export const metadata: Metadata = {
 const SOURCES = [
   { path: "lessons/you-might-not-need-effect/demos/effect-derived.tsx", label: "effect-derived.tsx" },
   { path: "lessons/you-might-not-need-effect/demos/just-calculate.tsx", label: "just-calculate.tsx" },
+  {
+    path: "lessons/you-might-not-need-effect/demos/effect-chain.tsx",
+    label: "effect-chain.tsx",
+  },
 ] as const;
 
-const [EFFECT, CALCULATE] = SOURCES.map((source) => source.path);
+const [EFFECT, CALCULATE, CHAIN] = SOURCES.map((source) => source.path);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -42,7 +48,7 @@ export default async function Page() {
           裏を返すと、<strong>外側が出てこないなら要らない</strong>ということです。
         </p>
         <p>
-          ここでは、実際によく書かれてしまう形を 4 つ取り上げて、
+          ここでは、実際によく書かれてしまう形を 6 つ取り上げて、
           それぞれ<strong>どう書けばよかったのか</strong>を見ます。
         </p>
       </LessonHeader>
@@ -206,6 +212,119 @@ useEffect(() => {
           リストと key の章でも触れました。
           <strong>初期化したいなら、作り直させるのがいちばん確実</strong>です。
         </p>
+      </LessonSection>
+
+      <LessonSection id="chain" {...at(CHAIN, "// 2 つめ")}>
+        <h2>5. effect が、次の effect を呼んでいる</h2>
+
+        <p>
+          いちばん見つけにくい形です。
+          1 つ 1 つは自然に見えるのに、つなぐと苦しくなります。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`useEffect(() => { setSubtotal(...) }, [items]);      // 品目 → 小計
+useEffect(() => { setTax(...) }, [subtotal]);        // 小計 → 税
+useEffect(() => { setTotal(...) }, [subtotal, tax]); // 税 → 合計`}
+        />
+
+        <DemoCard
+          title="effect を数珠つなぎにした版"
+          tone="bad"
+          sourcePath={CHAIN}
+          showRenderCount
+          description="1 回押して、render の数字を見る"
+        >
+          <EffectChain />
+        </DemoCard>
+
+        <p>
+          <strong>1 回押しただけで、何度も描き直されます。</strong>
+          小計が決まってから税、税が決まってから合計、と
+          <strong>順番に待っている</strong>ためです。
+          画面には一瞬、税がまだ古い状態も映ります。
+        </p>
+
+        <DemoCard
+          title="その場で計算した版"
+          tone="good"
+          sourcePath={CHAIN}
+          showRenderCount
+          description="同じように 1 回押す"
+        >
+          <JustCompute />
+        </DemoCard>
+
+        <p>
+          <strong>1 回で終わります。</strong>
+          持っているのは品目だけで、
+          小計も税も合計も<strong>そのつど計算しているだけ</strong>です。
+        </p>
+
+        <Callout variant="point" title="1 と同じ話が、連鎖して見えているだけ">
+          <p>
+            これは <strong>1 番「計算できる値を effect で作っている」</strong>が
+            3 つ並んだものです。
+            1 つずつ見ると気づきにくいのに、
+            <strong>つながると途中の状態まで画面に出てしまいます</strong>。
+          </p>
+          <p>
+            <code>useEffect</code> の依存配列に
+            <strong>自分が更新した state が入っている</strong>のを見つけたら、
+            この形を疑ってください。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="notify" {...at(CHAIN, "const subtotal = items.reduce")}>
+        <h2>6. 親に知らせるために使っている</h2>
+
+        <StaticCode
+          lang="ts"
+          code={`// ✕ 選択が変わったら、親に伝えたい
+function Child({ onSelect }) {
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    onSelect(selected);
+  }, [selected]);
+}`}
+        />
+
+        <p>
+          動きはしますが、遠回りです。
+          <strong>選ばれた瞬間には、もう分かっている</strong>のに、
+          わざわざ描き直しを 1 回はさんでから伝えています。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// ○ その場で両方やる
+function Child({ onSelect }) {
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect = (value) => {
+    setSelected(value);
+    onSelect(value);      // 同じイベントの中で伝える
+  };
+}`}
+        />
+
+        <p>
+          <strong>3 番と同じ考え方</strong>です。
+          「値が変わったから」ではなく、
+          <strong>「押されたから」</strong>で書けないかを先に考えます。
+        </p>
+
+        <Callout variant="note" title="そもそも子が持たなくてよいことも多い">
+          <p>
+            親も知りたい値なら、
+            <Link href="/lessons/lifting-state">state のリフトアップ</Link>{" "}
+            で親に持たせてしまうほうが素直です。
+            そうすれば「伝える」こと自体が要らなくなります。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="needed" {...at(CALCULATE, "const count = items.length")}>
