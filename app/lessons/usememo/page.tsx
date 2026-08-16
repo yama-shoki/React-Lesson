@@ -11,6 +11,7 @@ import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { NoMemo } from "./demos/no-memo";
 import { StableObject } from "./demos/stable-object";
+import { Transition } from "./demos/transition";
 import { WithMemo } from "./demos/with-memo";
 
 const SLUG = "usememo";
@@ -24,9 +25,12 @@ const SOURCES = [
 	{ path: "lessons/usememo/demos/with-memo.tsx", label: "with-memo.tsx" },
 	{ path: "lessons/usememo/demos/heavy.ts", label: "heavy.ts" },
 	{ path: "lessons/usememo/demos/stable-object.tsx", label: "stable-object.tsx" },
+	{ path: "lessons/usememo/demos/transition.tsx", label: "transition.tsx" },
 ] as const;
 
-const [NO_MEMO, WITH_MEMO, HEAVY, STABLE] = SOURCES.map((source) => source.path);
+const [NO_MEMO, WITH_MEMO, HEAVY, STABLE, TRANSITION] = SOURCES.map(
+	(source) => source.path,
+);
 
 export default async function Page() {
 	const snippets = await loadSnippets(SOURCES);
@@ -122,8 +126,95 @@ const total = useMemo(() => heavyCalculation(count), [count]);`}
 				<p>
 					入力がなめらかになりました。
 					<strong>「count を増やす」を押したときだけ</strong>、一瞬待たされます。
-					そこは計算し直す必要があるので、正しい動きです。
+					計算し直す必要があるので、ここは減らしようがありません。
 				</p>
+			</LessonSection>
+
+			<LessonSection id="transition" {...at(TRANSITION, "startTransition")}>
+				<h2>それでも待たされるときは</h2>
+
+				<p>
+					<code>useMemo</code> で減らせるのは
+					<strong>「しなくてよい計算」</strong>だけです。
+					本当に必要な計算そのものは、速くなりません。
+				</p>
+
+				<p>
+					では、その 1 回の重さはどうにもならないのか。
+					<strong>計算を速くすることはできませんが、
+					画面を止めないことはできます。</strong>
+				</p>
+
+				<StaticCode
+					lang="ts"
+					code={`const [isPending, startTransition] = useTransition();
+
+const increase = () => {
+  // 押した手応えは、すぐ返す
+  setCount((current) => current + 1);
+
+  // 重いほうは「急がなくていい」と伝える
+  startTransition(() => {
+    setTarget((current) => current + 1);
+  });
+};`}
+				/>
+
+				<DemoCard
+					title="急ぐものと、急がないものを分ける"
+					sourcePath={TRANSITION}
+					showRenderCount
+					description="連打してみる。数字はどう動くか"
+				>
+					<Transition />
+				</DemoCard>
+
+				<p>
+					連打すると、<strong>数字だけが軽やかに増えていきます</strong>。
+					重い計算のほうは薄くなって「計算中…」と出たまま、
+					<strong>手を止めたところで追いつきます</strong>。
+				</p>
+
+				<p>
+					<code>startTransition</code> で包んだ更新は、
+					<strong>後回しにしてよい</strong>と React に伝わります。
+					急ぎの更新（押した手応え）が先に処理され、
+					重いほうは<strong>途中で捨ててやり直せます</strong>。
+					だから連打しても引っかかりません。
+				</p>
+
+				<Callout variant="point" title="3 つは、減らすところが違う">
+					<ul>
+						<li>
+							<code>memo</code> …{" "}
+							<strong>描き直しの範囲</strong>を減らす
+						</li>
+						<li>
+							<code>useMemo</code> …{" "}
+							<strong>計算の回数</strong>を減らす
+						</li>
+						<li>
+							<code>useTransition</code> … 減らさない。
+							<strong>順番を変える</strong>
+						</li>
+					</ul>
+					<p>
+						最後の 1 つだけ性質が違います。
+						そして<strong>次の章の React Compiler が自動化してくれるのは、
+						前の 2 つだけ</strong>です。
+						順番の判断は、人間にしか決められません。
+					</p>
+				</Callout>
+
+				<Callout variant="note" title="よく似た useDeferredValue">
+					<p>
+						<code>useDeferredValue</code> という、ほぼ同じ役割のものもあります。
+						<strong>更新のきっかけを自分で書けるとき</strong>は{" "}
+						<code>useTransition</code>、
+						<strong>受け取った値が重いだけのとき</strong>は{" "}
+						<code>useDeferredValue</code>、と考えておけば足ります。
+					</p>
+				</Callout>
 			</LessonSection>
 
 			<LessonSection id="not-for" {...at(HEAVY, "for (let i = 0")}>
