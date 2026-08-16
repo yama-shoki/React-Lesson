@@ -479,6 +479,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "multi-step-form",
+				title: "申込フォームを作る",
+				summary: "項目が増えたフォームを、reducer とライブラリで受け止める",
+				ready: true,
+			},
+			{
 				slug: "notepad",
 				title: "メモ帳を作る",
 				summary: "離れた部品で値を共有すると、どこまで描き直されるのか",
