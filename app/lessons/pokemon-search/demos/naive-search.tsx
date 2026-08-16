@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
@@ -15,6 +16,8 @@ import { useEffect, useState } from "react";
 type Result = { id: number; name: string };
 
 export function NaiveSearch() {
+  useTrackDemoRender();
+
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [requestCount, setRequestCount] = useState(0);

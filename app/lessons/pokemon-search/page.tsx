@@ -73,6 +73,7 @@ export default async function Page() {
           title="打つたびに問い合わせる"
           tone="bad"
           sourcePath={NAIVE}
+          showRenderCount
           description="「ピカチュウ」とゆっくり打って、回数を見る"
         >
           <NaiveSearch />
@@ -253,6 +254,7 @@ return () => controller.abort();`}
           title="日本語でポケモンを探す"
           tone="good"
           sourcePath={SEARCH}
+          showRenderCount
           description="「ピ」「リザ」「ミュウ」などで探せます"
         >
           <PokemonSearch />
@@ -274,6 +276,22 @@ return () => controller.abort();`}
             古いほうは取り消されているからです
           </li>
         </ul>
+
+        <Callout variant="point" title="2 つの数字を見比べる">
+          <p>
+            最初の版と同じ言葉を、同じ速さで打ってみてください。
+            <strong>問い合わせた回数</strong>が、
+            はっきり少なくなっているはずです。
+            「ピカチュウ」と打てば、最初の版は 5 回前後、
+            こちらは<strong>1 回</strong>です。
+          </p>
+          <p>
+            カード右上の <strong>render</strong> の数字は、
+            どちらもそれなりに増えます。
+            <strong>描き直しは減らしていない</strong>からです。
+            減らしたのは通信のほうだけで、そこが debounce の役割です。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="card" {...at(CARD, "export function PokemonCard")}>

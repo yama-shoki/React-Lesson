@@ -10,6 +10,7 @@ import { focus, loadSnippets } from "@/lib/code";
 import { findLesson } from "@/lib/curriculum";
 import type { Metadata } from "next";
 import { BrokenTodo } from "./demos/broken-todo";
+import { IndexKeyTodo } from "./demos/index-key-todo";
 import { TodoApp } from "./demos/todo-app";
 
 const SLUG = "todo-app";
@@ -23,9 +24,12 @@ const SOURCES = [
   { path: "lessons/todo-app/demos/todo-app.tsx", label: "todo-app.tsx" },
   { path: "lessons/todo-app/demos/todo-item.tsx", label: "todo-item.tsx" },
   { path: "lessons/todo-app/demos/broken-todo.tsx", label: "broken-todo.tsx" },
+  { path: "lessons/todo-app/demos/index-key-todo.tsx", label: "index-key-todo.tsx" },
 ] as const;
 
-const [TYPES, APP, ITEM, BROKEN] = SOURCES.map((source) => source.path);
+const [TYPES, APP, ITEM, BROKEN, INDEX_KEY] = SOURCES.map(
+  (source) => source.path,
+);
 
 export default async function Page() {
   const snippets = await loadSnippets(SOURCES);
@@ -268,6 +272,46 @@ const remaining = todos.filter((todo) => !todo.done).length;`}
           <strong>並び替えや削除で行がずれる</strong>のを防ぎます。
           編集中の入力欄を持っているので、ここは実害に直結します。
         </p>
+
+        <p>
+          「実害」と言われてもぴんと来ないと思うので、
+          <code>index</code> にしたものを置いておきます。
+        </p>
+
+        <DemoCard
+          title="key に index を使った版"
+          tone="bad"
+          sourcePath={INDEX_KEY}
+          description="一番上を書き換えてから、その行を消す"
+        >
+          <IndexKeyTodo />
+        </DemoCard>
+
+        <p>
+          消したはずの<strong>書きかけの文字が、次の行に残ります</strong>。
+          消えたのは「牛乳を買う」の行なのに、
+          打っていた文字だけが「本を返す」の行に移っています。
+        </p>
+
+        <p>
+          React から見ると、0 番の行は消えていません。
+          <strong>0 番の中身が「本を返す」に変わっただけ</strong>です。
+          だから同じ部品を使い回し、
+          その部品が持っていた編集中の文字もそのまま残ります。
+        </p>
+
+        <Callout variant="point" title="なぜ id なら起きないのか">
+          <p>
+            <code>key</code> が <code>todo.id</code> なら、
+            消えた行の key はどこにも無くなります。
+            React は<strong>その行の部品ごと捨てます</strong>。
+            残った行は key が変わらないので、中身も入れ替わりません。
+          </p>
+          <p>
+            上のデモで打った文字は React の管理外（入力欄が自分で持っている値）
+            ですが、<code>useState</code> で持っていても同じことが起きます。
+          </p>
+        </Callout>
       </LessonSection>
 
       <LessonSection id="broken" {...at(BROKEN, "todos.push(")}>

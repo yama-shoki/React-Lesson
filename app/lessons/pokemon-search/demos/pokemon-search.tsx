@@ -1,5 +1,6 @@
 "use client";
 
+import { useTrackDemoRender } from "@/components/lesson/demo-card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
@@ -19,6 +20,8 @@ import type { Pokemon } from "./types";
 type Status = "idle" | "loading" | "done" | "error";
 
 export function PokemonSearch() {
+  useTrackDemoRender();
+
   const [keyword, setKeyword] = useState("");
 
   // 打ち終わってから 400ms で、こちらが追いつく
@@ -27,6 +30,9 @@ export function PokemonSearch() {
   const [status, setStatus] = useState<Status>("idle");
   const [results, setResults] = useState<Pokemon[]>([]);
   const [message, setMessage] = useState("");
+
+  // ❌ の版と見比べるための回数。実装の本筋ではない
+  const [requestCount, setRequestCount] = useState(0);
 
   useEffect(() => {
     if (!query) {
@@ -40,6 +46,7 @@ export function PokemonSearch() {
 
     const search = async () => {
       setStatus("loading");
+      setRequestCount((count) => count + 1);
 
       try {
         const response = await fetch(
@@ -77,6 +84,10 @@ export function PokemonSearch() {
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
       />
+
+      <p className="text-sm text-muted-foreground">
+        問い合わせた回数: <strong>{requestCount}</strong>
+      </p>
 
       {status === "loading" && (
         <p className="text-sm text-muted-foreground">探しています…</p>
