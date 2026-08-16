@@ -479,6 +479,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "notepad",
+				title: "メモ帳を作る",
+				summary: "離れた部品で値を共有すると、どこまで描き直されるのか",
+				ready: true,
+			},
+			{
 				slug: "next-steps",
 				title: "次にやること",
 				summary: "覚えることは 5 つだけ。次に何を作るか、詰まったらどうするか",
