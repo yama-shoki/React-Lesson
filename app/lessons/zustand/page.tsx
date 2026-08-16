@@ -1,0 +1,366 @@
+import { Callout } from "@/components/lesson/callout";
+import { DemoCard } from "@/components/lesson/demo-card";
+import { LessonFooter } from "@/components/lesson/lesson-footer";
+import { LessonHeader } from "@/components/lesson/lesson-header";
+import { LessonSection } from "@/components/lesson/lesson-section";
+import { LessonShell } from "@/components/lesson/lesson-shell";
+import { Quiz } from "@/components/lesson/quiz";
+import { StaticCode } from "@/components/lesson/static-code";
+import { focus, loadSnippets } from "@/lib/code";
+import { findLesson } from "@/lib/curriculum";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Selector } from "./demos/selector";
+import { WholeStore } from "./demos/whole-store";
+
+const SLUG = "zustand";
+
+export const metadata: Metadata = {
+  title: findLesson(SLUG)?.title,
+};
+
+const SOURCES = [
+  { path: "lessons/zustand/demos/store.ts", label: "store.ts" },
+  { path: "lessons/zustand/demos/whole-store.tsx", label: "whole-store.tsx" },
+  { path: "lessons/zustand/demos/selector.tsx", label: "selector.tsx" },
+] as const;
+
+const [STORE, WHOLE, SELECTOR] = SOURCES.map((source) => source.path);
+
+export default async function Page() {
+  const snippets = await loadSnippets(SOURCES);
+
+  const at = (id: string, from?: string, to?: string) =>
+    focus(snippets, id, from, to);
+
+  return (
+    <LessonShell snippets={snippets}>
+      <LessonHeader slug={SLUG}>
+        <p>
+          前の章で、Context には
+          <strong>2 つの弱点</strong>があると分かりました。
+          項目単位で購読できないこと、
+          <code>value</code> を毎回作り直してしまうこと。
+        </p>
+        <p>
+          対処はしましたが、
+          <strong>Context を分け、<code>useMemo</code> で包み、
+          <code>memo</code> で囲む</strong>という手数が要りました。
+        </p>
+        <p>
+          <strong>実務では、ここで外部のストアを使うことが多い</strong>です。
+          いちばんよく使われている <strong>Zustand</strong> を見ます。
+        </p>
+      </LessonHeader>
+
+      <LessonSection id="store" {...at(STORE, "export const useCounterStore")}>
+        <h2>ストアは、コンポーネントの外に置く</h2>
+
+        <StaticCode
+          lang="ts"
+          code={`import { create } from "zustand";
+
+export const useCounterStore = create((set) => ({
+  count: 0,
+  name: "さとう",
+
+  increase: () => set((state) => ({ count: state.count + 1 })),
+}));`}
+        />
+
+        <p>
+          いちばん大きな違いは、<strong>Provider が要らない</strong>ことです。
+          ファイルの外側に作って、使いたいところで呼ぶだけです。
+        </p>
+
+        <p>
+          値と<strong>更新のしかたを同じ場所に置く</strong>のも特徴です。
+          <code>increase</code> は「1 増やす」という
+          <strong>出来事の名前</strong>になっています。
+          <Link href="/lessons/usereducer">useReducer</Link>{" "}
+          でやった「何が起きたかを伝える」と、考え方はそのままです。
+        </p>
+
+        <Callout variant="note" title="set の中身は useState と同じ">
+          <p>
+            <code>set((state) =&gt; ({"{ count: state.count + 1 }"}))</code>{" "}
+            は、関数を渡す形の更新そのものです。
+            <strong>元を書き換えず、新しい値を返す</strong>という決まりも同じです。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="whole" {...at(WHOLE, "const store = useCounterStore()")}>
+        <h2>そのまま呼ぶと、Context と同じことが起きる</h2>
+
+        <p>
+          まず、<strong>引数なしで呼んでみます</strong>。
+          ストア全体が返ってきます。
+        </p>
+
+        <StaticCode lang="ts" code={`const store = useCounterStore();`} />
+
+        <DemoCard
+          title="ストア全体を受け取る"
+          tone="bad"
+          sourcePath={WHOLE}
+          description="count を押して、下の 2 つを見る"
+        >
+          <WholeStore />
+        </DemoCard>
+
+        <p>
+          <strong>両方とも光ります。</strong>
+          前の章で見た「巨大な Context」とまったく同じです。
+          <strong>ライブラリを入れただけでは、何も解決しません。</strong>
+        </p>
+
+        <Callout variant="note" title="このページにストアが 2 つある理由">
+          <p>
+            右のコードには、中身の同じストアが 2 つ並んでいます。
+            <strong>ふだんは 1 つで足ります。</strong>
+            この章では、上のデモと下のデモを
+            別々に動かして見比べたいので分けてあります。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="selector" {...at(SELECTOR, "(state) => state.count")}>
+        <h2>欲しいものだけを取り出す</h2>
+
+        <p>
+          Zustand の本体はここです。
+          <strong>関数を渡して、必要な部分だけを取り出します</strong>。
+        </p>
+
+        <StaticCode
+          lang="ts"
+          code={`// ✕ 全部もらう。何が変わっても描き直される
+const store = useSelectorStore();
+
+// ○ count だけもらう。count が変わったときだけ描き直される
+const count = useSelectorStore((state) => state.count);`}
+        />
+
+        <p>
+          この関数を<strong>セレクタ</strong>と呼びます。
+          Zustand は、セレクタが返した値が
+          <strong>前と同じかどうか</strong>を見て、
+          違うときだけその部品を描き直します。
+        </p>
+
+        <DemoCard
+          title="セレクタで絞る"
+          tone="good"
+          sourcePath={SELECTOR}
+          description="同じように count を押してみる"
+        >
+          <Selector />
+        </DemoCard>
+
+        <p>
+          <strong>count の箱だけが光ります。</strong>
+          <code>name</code> の箱は動きません。
+          そして<strong>押すだけの部品も動きません</strong>。
+          値を 1 つも読んでいないからです。
+        </p>
+
+        <Callout variant="point" title="Context でやったことが、1 行に収まった">
+          <p>
+            前の章では、これを実現するために
+            <strong>Context を 3 つに分け、<code>useMemo</code> で包み、
+            <code>memo</code> で囲みました</strong>。
+          </p>
+          <p>
+            Zustand では
+            <strong>セレクタを書くだけ</strong>です。
+            置き場所を分ける必要も、Provider を重ねる必要もありません。
+            <strong>実務でよく使われる理由は、ほぼこれ 1 点</strong>です。
+          </p>
+        </Callout>
+
+        <h3>更新だけ取り出す</h3>
+
+        <StaticCode
+          lang="ts"
+          code={`const increase = useSelectorStore((state) => state.increase);`}
+        />
+
+        <p>
+          関数はストアが作り直さないので、
+          <strong>これを取り出した部品は一度も描き直されません</strong>。
+          前の章の「操作だけの Context」と同じことが、
+          セレクタ 1 行でできています。
+        </p>
+      </LessonSection>
+
+      <LessonSection id="when" {...at(STORE, "count: 0")}>
+        <h2>Context とどう使い分けるか</h2>
+
+        <p>
+          Zustand があれば Context が要らなくなる、
+          <strong>わけではありません</strong>。
+        </p>
+
+        <div className="not-prose my-6 overflow-x-auto">
+          <table className="w-full min-w-[34rem] border-collapse text-sm">
+            <thead>
+              <tr className="border-b">
+                <th className="p-3 text-left font-semibold">向いているもの</th>
+                <th className="p-3 text-left font-semibold">道具</th>
+              </tr>
+            </thead>
+            <tbody className="text-muted-foreground">
+              <tr className="border-b">
+                <td className="p-3">
+                  ほとんど変わらない値（テーマ、ログイン中の人、言語）
+                </td>
+                <td className="p-3 font-medium text-foreground">Context</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-3">
+                  同じ形の画面を、別々の中身で何個も出す
+                </td>
+                <td className="p-3 font-medium text-foreground">Context</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-3">
+                  よく変わる値を、離れた部品どうしで共有する
+                </td>
+                <td className="p-3 font-medium text-foreground">Zustand</td>
+              </tr>
+              <tr>
+                <td className="p-3">
+                  サーバーから取ってきたデータ
+                </td>
+                <td className="p-3 font-medium text-foreground">
+                  どちらでもない（
+                  <Link href="/lessons/server-state">SWR</Link> の担当）
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>ストアはアプリに 1 つしかありません。</strong>
+          だから「同じ画面を 2 つ並べて、別々の状態を持たせたい」
+          という使い方には向きません。そこは Context の領分です。
+        </p>
+
+        <Callout variant="warn" title="それでも、まず useState から">
+          <p>
+            <Link href="/lessons/where-to-put-state">状態の置き場所を選ぶ</Link>{" "}
+            で書いたことは変わりません。
+            <strong>共有する必要が出てから、ストアに移します。</strong>
+          </p>
+          <p>
+            最初からストアに置くと、
+            <strong>どこからでも書き換えられる値</strong>が増えていきます。
+            そうなると、値が変わった理由を追うのが難しくなります。
+          </p>
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="quiz" {...at(SELECTOR, "const count = useSelectorStore")}>
+        <h2>理解できたか確かめる</h2>
+
+        <Quiz
+          question="Zustand を入れれば、無駄な描き直しは自動でなくなる？"
+          options={[
+            {
+              label: "ならない。セレクタで絞って初めて効く",
+              correct: true,
+              explanation:
+                "引数なしで呼ぶとストア全体を購読するので、Context にまとめたときと同じことが起きます。効かせているのはライブラリではなく、セレクタです。",
+            },
+            {
+              label: "なる。ライブラリが賢く判断してくれる",
+              explanation:
+                "何を使っているかは、こちらが渡した関数からしか分かりません。全部もらえば、全部の変化に反応します。",
+            },
+            {
+              label: "なる。Provider が無いので描き直しが起きない",
+              explanation:
+                "Provider の有無と描き直しは別の話です。値を購読していれば、変わったときに描き直されます。",
+            },
+          ]}
+        />
+
+        <Quiz
+          question="「押すだけで表示はしない」ボタンが、何をしても描き直されないのはなぜ？"
+          options={[
+            {
+              label: "更新用の関数だけを取り出していて、値を 1 つも読んでいないから",
+              correct: true,
+              explanation:
+                "関数はストアが作り直さないので、セレクタの返す値がずっと同じままです。だから購読していても変化が起きません。",
+            },
+            {
+              label: "ボタンは描き直しの対象外だから",
+              explanation:
+                "ボタンも普通のコンポーネントです。対象外という仕組みはありません。",
+            },
+            {
+              label: "memo で包まれているから",
+              explanation:
+                "このデモでは memo を使っていません。セレクタだけで止まっています。",
+            },
+          ]}
+        />
+
+        <Quiz
+          question="ログイン中のユーザー情報は、Zustand と Context のどちらが向いている？"
+          options={[
+            {
+              label: "Context。ほとんど変わらない値だから",
+              correct: true,
+              explanation:
+                "Context の弱点は「よく変わる値だと巻き込む範囲が広い」ことでした。ほとんど変わらない値なら、その弱点が出ません。Provider で配る形のほうが素直です。",
+            },
+            {
+              label: "Zustand。アプリ全体で使う値だから",
+              explanation:
+                "全体で使うかどうかではなく、どれくらいの頻度で変わるかで選びます。",
+            },
+            {
+              label: "どちらでもよい。同じもの",
+              explanation:
+                "ストアはアプリに 1 つ、Context は置いた範囲ごとに別々です。同じ画面を 2 つ並べたいときに差が出ます。",
+            },
+          ]}
+        />
+      </LessonSection>
+
+      <LessonSection id="summary" {...at(STORE, "increase:")}>
+        <h2>この章のまとめ</h2>
+
+        <ul>
+          <li>
+            ストアは<strong>コンポーネントの外</strong>に置く。Provider は要らない
+          </li>
+          <li>
+            値と<strong>更新のしかたを一緒に</strong>置く。
+            名前は「何が起きたか」で付ける
+          </li>
+          <li>
+            <strong>セレクタで絞って初めて</strong>、描き直しが減る。
+            入れただけでは何も変わらない
+          </li>
+          <li>
+            更新用の関数だけ取り出した部品は、<strong>一度も描き直されない</strong>
+          </li>
+          <li>
+            <strong>ほとんど変わらない値は Context</strong>、
+            よく変わる共有値は Zustand
+          </li>
+          <li>
+            そして<strong>共有が必要になるまでは useState</strong>
+          </li>
+        </ul>
+      </LessonSection>
+
+      <LessonFooter slug={SLUG} />
+    </LessonShell>
+  );
+}

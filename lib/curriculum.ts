@@ -397,6 +397,12 @@ export const curriculum: Part[] = [
 				ready: true,
 			},
 			{
+				slug: "zustand",
+				title: "Zustand",
+				summary: "Context の弱点を、セレクタ 1 行で解く。実務での定番",
+				ready: true,
+			},
+			{
 				slug: "url-state",
 				title: "URL に state を置く",
 				summary: "リロードしても消えない状態",
